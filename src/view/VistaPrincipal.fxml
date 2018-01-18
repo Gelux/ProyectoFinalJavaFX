@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.69" layoutX="93.0" layoutY="87.0" prefHeight="140.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <SplitPane id="pestania"  layoutX="93.0" layoutY="87.0" prefHeight="140.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="100.0">
                <children>
@@ -20,9 +20,9 @@
                   <TableView layoutX="128.0" layoutY="88.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                         <TableColumn prefWidth="75.0" text="ID" />
-                      <TableColumn prefWidth="200.0" text="Nombre" />
-                      <TableColumn prefWidth="150.0" text="Fecha de Lanzammiento" />
-                        <TableColumn prefWidth="150.0" text="Fecha de modificación" />
+                      <TableColumn prefWidth="250.0" text="Nombre" />
+                      <TableColumn prefWidth="125.0" text="Fecha Lanzamiento" />
+                        <TableColumn prefWidth="125.0" text="Fecha modificación" />
                         <TableColumn prefWidth="75.0" text="Precio" />
                     </columns>
                   </TableView>
