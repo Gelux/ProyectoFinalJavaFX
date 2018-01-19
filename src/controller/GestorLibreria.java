@@ -51,6 +51,7 @@ public class GestorLibreria extends Application {
         //Cargo y muestro la escena que contiene ese layout principal
         Scene escena = new Scene(layoutPrincipal);
         escenarioPrincipal.setScene(escena);
+        escena.getStylesheets().add(getClass().getResource("../view/VistaPrincipalCSS.css").toExternalForm());
         escenarioPrincipal.show();
     }
     
