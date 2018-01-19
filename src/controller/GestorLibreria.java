@@ -23,8 +23,7 @@ import javafx.stage.Stage;
 public class GestorLibreria extends Application {
     
     private Stage escenarioPrincipal;
-    private BorderPane layoutPrincipal;
-    private AnchorPane vistaPersona;
+    private AnchorPane layoutPrincipal;
     
     @Override
     public void start(Stage escenarioPrincipal) {
@@ -46,7 +45,7 @@ public class GestorLibreria extends Application {
         try {
             layoutPrincipal = loader.load();
         } catch (IOException ex) {
-            Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("No funca");
         }
         
         //Cargo y muestro la escena que contiene ese layout principal
