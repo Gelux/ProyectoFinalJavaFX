@@ -14,10 +14,10 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="100.0">
                <children>
-                  <TableView layoutX="7.0" layoutY="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tablaP" layoutX="7.0" layoutY="6.0" prefHeight="573.0" prefWidth="651.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn editable="false" prefWidth="71.0" text="ID" />
-                      <TableColumn prefWidth="297.0" text="Nombre" />
+                      <TableColumn fx:id="columID" editable="false" prefWidth="71.0" text="ID" />
+                      <TableColumn fx:id="columN" prefWidth="297.0" text="Nombre" />
                         <TableColumn prefWidth="112.0" text="Fecha lanzamiento" />
                         <TableColumn prefWidth="117.0" text="Fecha modificación" />
                         <TableColumn prefWidth="53.0" text="Precio" />
@@ -39,9 +39,9 @@
               <MenuItem mnemonicParsing="false" text="Borrar" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Manual">
+          <Menu mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="Acerca" />
+              <MenuItem mnemonicParsing="false" text="Manual" />
             </items>
           </Menu>
         </menus>
