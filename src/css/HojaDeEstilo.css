@@ -1,0 +1,55 @@
+.table-view {
+    -fx-base: #DFFFFF;
+    -fx-control-inner-background: #F5FFFF;
+    -fx-background-color: #F5FFFF;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-border-width: 2 1 2 1;
+    -fx-background-color: #94CBCB;
+    -fx-border-color: #215454;
+    -fx-border-insets: 0 0 0 0;
+}
+
+.table-view .column-header .label {
+    -fx-padding: 5;
+    -fx-font-size:15;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+    -fx-font-weight: bold;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+#detallesPane{
+    -fx-background-color: #F5FFFF;
+}
+
+#bRefresh{
+    -fx-background-image: url("../img/refresh.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 50 45;
+    -fx-background-color: #BCEAEA;
+}
+
+#bMas{
+    -fx-background-image: url("../img/plus.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 50 45;
+    -fx-background-color: #F5FFFF;
+}
+
+/*#hBox{
+    -fx-background-color: #BCEAEA;
+    -fx-border-insets: 1 1 1 1;
+    -fx-border-color: black;
+    -fx-border-radius: 10%;
+    -fx-background-radius: 20%;
+}*/

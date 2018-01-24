@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -7,24 +8,31 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="950.0" stylesheets="@VistaPrincipalCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/HojaDeEstilo.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.69" layoutX="93.0" layoutY="87.0" mouseTransparent="true" prefHeight="140.0" prefWidth="200.0" stylesheets="@VistaPrincipalCSS.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <SplitPane dividerPositions="0.6723446893787575" layoutX="93.0" layoutY="87.0" mouseTransparent="true" prefHeight="140.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="100.0">
                <children>
                   <TableView fx:id="tablaP" layoutX="7.0" layoutY="6.0" prefHeight="573.0" prefWidth="651.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="columID" editable="false" prefWidth="71.0" text="ID" />
-                      <TableColumn fx:id="columN" prefWidth="297.0" text="Nombre" />
-                        <TableColumn prefWidth="112.0" text="Fecha lanzamiento" />
-                        <TableColumn prefWidth="117.0" text="Fecha modificación" />
-                        <TableColumn prefWidth="53.0" text="Precio" />
+                      <TableColumn editable="false" prefWidth="71.0" text="ID" />
+                      <TableColumn prefWidth="297.0" text="Nombre" />
+                        <TableColumn prefWidth="112.0" text="Fecha de &#10;lanzamiento" />
+                        <TableColumn prefWidth="117.0" text="Fecha de &#10;modificación" />
+                        <TableColumn prefWidth="69.0" text="Precio" />
                     </columns>
                   </TableView>
-               </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="1055.0" />
+                  <HBox fx:id="hBox" alignment="CENTER" layoutX="512.0" layoutY="491.0" prefHeight="61.0" prefWidth="73.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <children>
+                        <Button fx:id="bMas" mnemonicParsing="false" prefHeight="45.0" prefWidth="50.0" textAlignment="JUSTIFY" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="detallesPane" minHeight="0.0" minWidth="0.0" prefHeight="573.0" prefWidth="260.0" />
         </items>
       </SplitPane>
       <MenuBar prefHeight="25.0" prefWidth="581.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
