@@ -25,9 +25,10 @@
                         <TableColumn prefWidth="69.0" text="Precio" />
                     </columns>
                   </TableView>
-                  <HBox fx:id="hBox" alignment="CENTER" layoutX="512.0" layoutY="491.0" prefHeight="61.0" prefWidth="73.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <HBox fx:id="hBox" alignment="CENTER" layoutX="512.0" layoutY="491.0" prefHeight="61.0" prefWidth="195.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <children>
                         <Button fx:id="bMas" mnemonicParsing="false" prefHeight="45.0" prefWidth="50.0" textAlignment="JUSTIFY" />
+                        <Button fx:id="bRefresh" mnemonicParsing="false" prefHeight="45.0" prefWidth="50.0" textAlignment="CENTER" />
                      </children>
                   </HBox>
                </children>

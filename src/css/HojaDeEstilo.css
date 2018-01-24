@@ -1,4 +1,4 @@
-.table-view {
+º.table-view {
     -fx-base: #DFFFFF;
     -fx-control-inner-background: #F5FFFF;
     -fx-background-color: #F5FFFF;
@@ -10,7 +10,7 @@
 
 .table-view .column-header, .table-view .filler {
     -fx-border-width: 2 1 2 1;
-    -fx-background-color: #94CBCB;
+    -fx-background-color: #9EDEF3;
     -fx-border-color: #215454;
     -fx-border-insets: 0 0 0 0;
 }
@@ -36,7 +36,7 @@
     -fx-background-image: url("../img/refresh.png") ;
     -fx-background-repeat: no-repeat;
     -fx-background-size: 50 45;
-    -fx-background-color: #BCEAEA;
+    -fx-background-color: #F5FFFF;
 }
 
 #bMas{
@@ -45,6 +45,8 @@
     -fx-background-size: 50 45;
     -fx-background-color: #F5FFFF;
 }
+
+
 
 /*#hBox{
     -fx-background-color: #BCEAEA;
