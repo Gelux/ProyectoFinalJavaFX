@@ -46,6 +46,22 @@
     -fx-background-color: #F5FFFF;
 }
 
+#bMas:pressed {
+    -fx-background-color: red;
+}
+
+#bRefresh:pressed {
+    -fx-background-color: red;
+}
+
+.button:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: #66e0ff;
+  
+}
 
 
 /*#hBox{
