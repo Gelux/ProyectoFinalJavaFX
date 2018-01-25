@@ -10,18 +10,18 @@
 
 .table-view .column-header, .table-view .filler {
     -fx-border-width: 2 1 2 1;
-    -fx-background-color: #9EDEF3;
-    -fx-border-color: #215454;
+    -fx-background-color: #C6F2F2;
+    -fx-border-color: #A0C4DB;
+    -fx-border-style: solid;
     -fx-border-insets: 0 0 0 0;
 }
 
 .table-view .column-header .label {
     -fx-padding: 5;
     -fx-font-size:15;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-alignment: center;
     -fx-opacity: 1;
-    -fx-font-weight: bold;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
@@ -100,6 +100,8 @@
   -fx-border-color:  black;
   -fx-border-width: 0 0 2 0;
   -fx-font-weight: bold;
+  -fx-background-image: url("../img/fondo2.png");
+  -fx-background-size: 30 29;
 }
 
 #bGraph{
