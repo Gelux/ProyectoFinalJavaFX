@@ -43,7 +43,7 @@ public class VistaListadoController {
         columN.setCellValueFactory(new PropertyValueFactory<>(nombre));
     }
     
-    public void setLibretaDirecciones(GestorLibreria gestorLibreria) {
+    public void setGestorLibreria(GestorLibreria gestorLibreria) {
         
         this.gestorLibreria = gestorLibreria;
     }

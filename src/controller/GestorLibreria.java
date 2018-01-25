@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import view.VistaListadoController;
+import view.VistaPrincipalController;
 
 /**
  *
@@ -23,22 +25,24 @@ import javafx.stage.Stage;
 public class GestorLibreria extends Application {
     
     private Stage escenarioPrincipal;
-    private AnchorPane layoutPrincipal;
+    private BorderPane layoutPrincipal;
+    private AnchorPane vistaListado;
     
     @Override
     public void start(Stage escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
         
-        //Establezco el titulo
+        
         this.escenarioPrincipal.setTitle("Gestor Librería");
         
-        //Inicializa el layout principal
+        
         initLayoutPrincipal();
+        muestraVistaListado();
     }
     
     public void initLayoutPrincipal(){
         
-        //Cargo el layout principal a partir de la vista VistaPrincipal.fxml
+       
         FXMLLoader loader = new FXMLLoader();
         URL location = GestorLibreria.class.getResource("../view/VistaPrincipal.fxml");
         loader.setLocation(location);
@@ -48,11 +52,35 @@ public class GestorLibreria extends Application {
             System.out.println("No funca");
         }
         
-        //Cargo y muestro la escena que contiene ese layout principal
+        
         Scene escena = new Scene(layoutPrincipal);
         escenarioPrincipal.setScene(escena);
+        
+//        VistaPrincipalController controller = loader.getController();
+//        controller.setLibretaDirecciones(this);
+        
         escena.getStylesheets().add(getClass().getResource("../css/HojaDeEstilo.css").toExternalForm());
         escenarioPrincipal.show();
+    }
+    
+    public void muestraVistaListado(){
+        
+        
+        FXMLLoader loader = new FXMLLoader();
+        URL location = GestorLibreria.class.getResource("../view/VistaListado.fxml");
+        loader.setLocation(location);
+        try {
+            vistaListado = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Añado al centro del layoutPrincipal 
+        layoutPrincipal.setCenter(vistaListado);
+        
+        
+//        VistaListadoController controller = loader.getController();
+//        controller.setGestorLibreria(this);
     }
     
     public static void main(String[] args) {

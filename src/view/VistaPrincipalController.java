@@ -1,5 +1,5 @@
-<zaxc v/*
- * To change this license header, choose License Headers in Project Properties.
+
+ /* To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -17,34 +17,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class VistaPrincipalController {
     
-    @FXML
-    private TableView tablaP;
-    
-    @FXML
-    private TableColumn columID;
-    
-    @FXML
-    private TableColumn columN;
-    
-    
+     //Referencia a la clase principal
     private GestorLibreria gestorLibreria;
-    
-    VistaPrincipalController(){
-        
-    }
-    
-    @FXML
-    private void initialize() {
-        
-        
-        String ID = "SUPA";
-        String nombre = "DUPA";
-        columID.setCellValueFactory(new PropertyValueFactory<>(ID));
-        columN.setCellValueFactory(new PropertyValueFactory<>(nombre));
-    }
-    
+
+    //Es llamada por la clase Principal para tener una referencia de vuelta de si misma
     public void setLibretaDirecciones(GestorLibreria gestorLibreria) {
-        
         this.gestorLibreria = gestorLibreria;
     }
 

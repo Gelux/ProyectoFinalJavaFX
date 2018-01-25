@@ -36,38 +36,90 @@
     -fx-background-image: url("../img/refresh.png") ;
     -fx-background-repeat: no-repeat;
     -fx-background-size: 50 45;
-    -fx-background-color: #F5FFFF;
+    -fx-background-color: transparent;
+}
+
+#bRefresh:hover {
+    -fx-background-image: url("../img/refreshHover.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 50 45;
+    -fx-background-color: transparent;
+}
+
+#bRefresh:pressed {
+    -fx-background-image: url("../img/refreshPressed.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 50 45;
 }
 
 #bMas{
     -fx-background-image: url("../img/plus.png") ;
     -fx-background-repeat: no-repeat;
     -fx-background-size: 50 45;
-    -fx-background-color: #F5FFFF;
+    -fx-background-color: transparent;
+}
+
+#bMas:hover {
+    -fx-background-image: url("../img/plusHover.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 50 45;
 }
 
 #bMas:pressed {
+    -fx-background-image: url("../img/plusPressed.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 50 45;
+}
+
+#bDelete{
+    -fx-background-image: url("../img/delete.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 50 45;
+    -fx-background-color: transparent;
+}
+
+
+#bDelete:hover {
+    -fx-background-image: url("../img/deleteHover.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 50 45;
+}
+
+#bDelete:pressed {
+    -fx-background-image: url("../img/deletePressed.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 50 45;
+}
+
+
+
+
+
+.menu-bar{
+  -fx-background-color: white;
+  -fx-border-color:  black;
+  -fx-border-width: 0 0 2 0;
+  -fx-font-weight: bold;
+}
+
+#bGraph{
+    -fx-background-image: url("../img/graph.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 30 25;
+    -fx-background-color: white;
+}
+
+#iSearch{
+    -fx-background-color: white;
+}
+
+/*.menu:hover, .menu-item:hover{
     -fx-background-color: red;
-}
-
-#bRefresh:pressed {
-    -fx-background-color: red;
-}
-
-.button:hover {
-    -fx-background-color: #3a3a3a;
-}
-
-.button:pressed, .button:default:hover:pressed {
-  -fx-background-color: #66e0ff;
-  
-}
-
+}*/
 
 /*#hBox{
-    -fx-background-color: #BCEAEA;
     -fx-border-insets: 1 1 1 1;
     -fx-border-color: black;
-    -fx-border-radius: 10%;
-    -fx-background-radius: 20%;
+    -fx-border-radius: 25;
+    -fx-background-radius: 100;
 }*/
