@@ -2,9 +2,14 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.Pane?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="324.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="323.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <Label alignment="CENTER" prefHeight="29.0" prefWidth="321.0" text="Detalles" textAlignment="JUSTIFY" />
+      <Pane prefHeight="62.0" prefWidth="321.0">
+         <children>
+            <Label alignment="CENTER" layoutX="115.0" layoutY="21.0" prefHeight="21.0" prefWidth="92.0" text="Detalles" />
+         </children>
+      </Pane>
    </content>
 </ScrollPane>
