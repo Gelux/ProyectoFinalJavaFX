@@ -1,3 +1,7 @@
+.background {
+    -fx-background-color: white;
+}
+
 .table-view {
     -fx-base: #DFFFFF;
     -fx-control-inner-background: #F5FFFF;
