@@ -21,7 +21,7 @@ public class VistaPrincipalController {
     private GestorLibreria gestorLibreria;
 
     //Es llamada por la clase Principal para tener una referencia de vuelta de si misma
-    public void setLibretaDirecciones(GestorLibreria gestorLibreria) {
+    public void setGestorLibreria(GestorLibreria gestorLibreria) {
         this.gestorLibreria = gestorLibreria;
     }
 

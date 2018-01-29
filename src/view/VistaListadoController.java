@@ -17,35 +17,27 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class VistaListadoController {
     
-    @FXML
-    private TableView tablaP;
-    
-    @FXML
-    private TableColumn columID;
-    
-    @FXML
-    private TableColumn columN;
-    
     
     private GestorLibreria gestorLibreria;
     
-    VistaListadoController(){
-        
-    }
+//    VistaListadoController(){
+//        
+//    }
     
-    @FXML
-    private void initialize() {
-        
-        
-        String ID = "SUPA";
-        String nombre = "DUPA";
-        columID.setCellValueFactory(new PropertyValueFactory<>(ID));
-        columN.setCellValueFactory(new PropertyValueFactory<>(nombre));
-    }
+//    @FXML
+//    private void initialize() {
+//        
+//        
+//    }
     
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
         
         this.gestorLibreria = gestorLibreria;
+    }
+    
+    @FXML
+    private void nuevo(){
+        gestorLibreria.muestraVistaNuevo();
     }
 
     

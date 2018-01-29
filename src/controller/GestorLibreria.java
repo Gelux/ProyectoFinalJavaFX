@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import view.VistaListadoController;
 import view.VistaPrincipalController;
@@ -26,7 +27,7 @@ public class GestorLibreria extends Application {
     
     private Stage escenarioPrincipal;
     private BorderPane layoutPrincipal;
-    private AnchorPane vistaListado;
+    private AnchorPane vistaListado, nuevoP;
     
     @Override
     public void start(Stage escenarioPrincipal) {
@@ -56,8 +57,8 @@ public class GestorLibreria extends Application {
         Scene escena = new Scene(layoutPrincipal);
         escenarioPrincipal.setScene(escena);
         
-//        VistaPrincipalController controller = loader.getController();
-//        controller.setLibretaDirecciones(this);
+        VistaPrincipalController controller = loader.getController();
+        controller.setGestorLibreria(this);
         
         escena.getStylesheets().add(getClass().getResource("../css/HojaDeEstilo.css").toExternalForm());
         escenarioPrincipal.show();
@@ -75,12 +76,39 @@ public class GestorLibreria extends Application {
             Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //Añado al centro del layoutPrincipal 
         layoutPrincipal.setCenter(vistaListado);
         
         
-//        VistaListadoController controller = loader.getController();
-//        controller.setGestorLibreria(this);
+        VistaListadoController controller = loader.getController();
+        controller.setGestorLibreria(this);
+    }
+    
+    public void muestraVistaNuevo(){
+        //Cargo la vista persona a partir de VistaPersona.fxml
+        FXMLLoader loader = new FXMLLoader();
+        URL location = GestorLibreria.class.getResource("/view/VistaNuevoP.fxml");
+        loader.setLocation(location);
+        try {
+            nuevoP = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Creo el escenario de edición (con modal) y establezco la escena
+        Stage escenarioNuevo = new Stage();
+        escenarioNuevo.setTitle("Añadir Producto");
+        escenarioNuevo.initModality(Modality.WINDOW_MODAL);
+        escenarioNuevo.initOwner(escenarioPrincipal);
+        Scene escena = new Scene(nuevoP);
+        escenarioNuevo.setScene(escena);
+        
+//        //Asigno el escenario de edición y la persona seleccionada al controlador
+//        EditarPersonaController controller = loader.getController();
+//        controller.setEscenarioEdicion(escenarioEdicion);
+//        controller.setPersona(persona);
+
+        //Muestro el diálogo ahjsta que el ussuario lo cierre
+        escenarioNuevo.showAndWait();
     }
     
     public static void main(String[] args) {

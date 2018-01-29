@@ -154,14 +154,13 @@
 }
 
 
-
-/*.menu:hover, .menu-item:hover{
-    -fx-background-color: red;
-}*/
-
-/*#hBox{
-    -fx-border-insets: 1 1 1 1;
+.tooltip{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-background-radius: 3;
+    -fx-padding: 2;
     -fx-border-color: black;
-    -fx-border-radius: 25;
-    -fx-background-radius: 100;
-}*/
+    -fx-border-radius: 3;
+    
+    
+}
