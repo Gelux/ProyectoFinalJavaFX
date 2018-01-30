@@ -1,3 +1,7 @@
+.root{
+    -fx-font-family: "Arial";
+}
+
 .background {
     -fx-background-color: #F5FFFF;
 }
@@ -5,7 +9,7 @@
 .label {
     -fx-font-size: 10pt;
     -fx-text-fill: black;
-    -fx-opacity: 0.6;
+    -fx-opacity: 1;
 }
 
 .label-bright {
@@ -61,15 +65,15 @@
 }
 
 .button:focused{
-    -fx-background-color: white;
     -fx-border-color: -fx-focus-color;
-    -fx-border-width: 2;
+}
+
+.button:pressed{
+    -fx-background-color: lightgray;
 }
 
 .text-area:focused{
-    -fx-background-color: white;
     -fx-border-color: -fx-focus-color;
-    -fx-border-width: 2;
 }
 
 .combo-box{
@@ -99,9 +103,11 @@
 }
 
 #bExaminar:focused{
-    -fx-background-color: white;
     -fx-border-color: -fx-focus-color;
-    -fx-border-width: 2;
+}
+
+#bExaminar:pressed{
+    -fx-background-color: lightgray;
 }
 
 .text-field{
