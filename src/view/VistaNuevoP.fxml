@@ -36,12 +36,13 @@
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ComboBox fx:id="comboGen" prefHeight="27.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField promptText="13 dígitos" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="isbnTF" onInputMethodTextChanged="#maxLengthISBN" promptText="13 dígitos" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <Label layoutX="16.0" layoutY="193.0" text="Año de &#10;publicación" AnchorPane.leftAnchor="16.0" />
       <Label layoutX="188.0" layoutY="200.0" text="Precio" AnchorPane.leftAnchor="192.0" />
-      <TextField layoutX="232.0" layoutY="197.0" prefHeight="25.0" prefWidth="68.0" />
+      <TextField fx:id="anioTF" layoutX="94.0" layoutY="198.0" prefHeight="27.0" prefWidth="87.0" AnchorPane.leftAnchor="92.0" />
+      <TextField fx:id="precioTF" layoutX="232.0" layoutY="197.0" prefHeight="25.0" prefWidth="67.0" />
       <Label layoutX="297.0" layoutY="201.0" prefHeight="17.0" prefWidth="5.0" text="€" AnchorPane.leftAnchor="300.0" />
       <Label layoutX="16.0" layoutY="242.0" text="Descripción" AnchorPane.bottomAnchor="138.0" AnchorPane.leftAnchor="16.0" />
       <TextArea layoutX="16.0" layoutY="261.0" prefHeight="123.0" prefWidth="294.0" wrapText="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
@@ -50,7 +51,6 @@
       <Button fx:id="bExaminar" layoutX="528.0" layoutY="97.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="Examinar..." AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
       <ImageView fitHeight="292.0" fitWidth="256.0" layoutX="330.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="54.0" AnchorPane.rightAnchor="15.0" />
       <Separator layoutX="326.0" layoutY="1.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="1.0" AnchorPane.leftAnchor="319.0" />
-      <Button layoutX="409.0" layoutY="358.0" mnemonicParsing="false" text="Crear Producto" AnchorPane.bottomAnchor="15.0" />
-      <TextField layoutX="94.0" layoutY="198.0" prefHeight="27.0" prefWidth="87.0" AnchorPane.leftAnchor="92.0" />
+      <Button fx:id="bCrearP" layoutX="409.0" layoutY="358.0" mnemonicParsing="false" onAction="#crearP" text="Crear Producto" AnchorPane.bottomAnchor="15.0" />
    </children>
 </AnchorPane>

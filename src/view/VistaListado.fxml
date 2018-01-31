@@ -15,10 +15,10 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="tablaP" layoutX="7.0" layoutY="-2.0" prefHeight="600.0" prefWidth="668.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
+                  <TableView fx:id="tablaP" layoutX="7.0" prefHeight="598.0" prefWidth="668.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="71.0" text="ID" />
-                      <TableColumn prefWidth="297.0" text="Nombre" />
+                      <TableColumn prefWidth="99.0" text="Código &#10;de barras" />
+                      <TableColumn prefWidth="269.0" text="Nombre" />
                         <TableColumn prefWidth="112.0" text="Fecha de &#10;lanzamiento" />
                         <TableColumn prefWidth="117.0" text="Fecha de &#10;modificación" />
                         <TableColumn prefWidth="69.0" text="Precio" />

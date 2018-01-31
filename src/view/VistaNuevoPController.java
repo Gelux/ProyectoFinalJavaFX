@@ -5,11 +5,18 @@
  */
 package view;
 
+import com.sun.glass.events.KeyEvent;
 import controller.GestorLibreria;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -21,6 +28,18 @@ public class VistaNuevoPController {
 
     @FXML
     ComboBox comboGen;
+
+    @FXML
+    Button bCrearP;
+
+    @FXML
+    TextField isbnTF;
+
+    @FXML
+    TextField precioTF;
+
+    @FXML
+    TextField anioTF;
 
     private ObservableList<String> generos
             = FXCollections.observableArrayList(
@@ -64,11 +83,31 @@ public class VistaNuevoPController {
 
     @FXML
     private void initialize() {
-            comboGen.setItems(generos);
+        comboGen.setItems(generos);
+
+    }
+
+    @FXML
+    private void crearP() {
+
+    }
+
+    @FXML
+    private void maxLengthISBN() {
+        System.out.println("jaja");
+
+        if (isbnTF.getLength() >= 12) {
+             isbnTF.setText(isbnTF.getText().substring(1));
+        }
+
     }
 
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
 
         this.gestorLibreria = gestorLibreria;
+    }
+
+    private boolean comprobarErrorISBN() {
+        return true;
     }
 }
