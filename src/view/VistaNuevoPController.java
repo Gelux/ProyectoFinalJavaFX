@@ -5,14 +5,10 @@
  */
 package view;
 
-import com.sun.glass.events.KeyEvent;
+
 import controller.GestorLibreria;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -33,7 +29,7 @@ public class VistaNuevoPController {
     Button bCrearP;
 
     @FXML
-    TextField isbnTF;
+    RestrictedTextField  isbnTF;
 
     @FXML
     TextField precioTF;
@@ -84,7 +80,6 @@ public class VistaNuevoPController {
     @FXML
     private void initialize() {
         comboGen.setItems(generos);
-
     }
 
     @FXML
@@ -94,11 +89,10 @@ public class VistaNuevoPController {
 
     @FXML
     private void maxLengthISBN() {
-        System.out.println("jaja");
+        
+        isbnTF.setMaxLength(13);
 
-        if (isbnTF.getLength() >= 12) {
-             isbnTF.setText(isbnTF.getText().substring(1));
-        }
+        
 
     }
 
