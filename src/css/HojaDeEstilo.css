@@ -238,6 +238,11 @@
     -fx-background-size: 30 25;
 }
 
+.error{
+    -fx-font-size: 8pt;
+    -fx-text-fill: red;
+}
+
 
 .tooltip{
     -fx-background-color: white;

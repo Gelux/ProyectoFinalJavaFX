@@ -102,12 +102,6 @@ public class GestorLibreria extends Application {
         Scene escena = new Scene(nuevoP);
         escenarioNuevo.setScene(escena);
         
-//        //Asigno el escenario de edición y la persona seleccionada al controlador
-//        EditarPersonaController controller = loader.getController();
-//        controller.setEscenarioEdicion(escenarioEdicion);
-//        controller.setPersona(persona);
-
-        //Muestro el diálogo ahjsta que el ussuario lo cierre
         escenarioNuevo.showAndWait();
     }
     
