@@ -5,13 +5,19 @@
  */
 package controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import view.VistaListadoController;
+import view.VistaPrincipalController;
 
 /**
  *
@@ -19,31 +25,86 @@ import javafx.stage.Stage;
  */
 public class GestorLibreria extends Application {
     
+    private Stage escenarioPrincipal;
+    private BorderPane layoutPrincipal;
+    private AnchorPane vistaListado, nuevoP;
+    
     @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+    public void start(Stage escenarioPrincipal) {
+        this.escenarioPrincipal = escenarioPrincipal;
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
         
-        Scene scene = new Scene(root, 300, 250);
+        this.escenarioPrincipal.setTitle("Gestor Librería");
         
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        
+        initLayoutPrincipal();
+        muestraVistaListado();
     }
-
-    /**
-     * @param args the command line arguments
-     */
+    
+    public void initLayoutPrincipal(){
+        
+       
+        FXMLLoader loader = new FXMLLoader();
+        URL location = GestorLibreria.class.getResource("../view/VistaPrincipal.fxml");
+        loader.setLocation(location);
+        try {
+            layoutPrincipal = loader.load();
+        } catch (IOException ex) {
+            System.out.println("No funca");
+        }
+        
+        
+        Scene escena = new Scene(layoutPrincipal);
+        escenarioPrincipal.setScene(escena);
+        
+        VistaPrincipalController controller = loader.getController();
+        controller.setGestorLibreria(this);
+        
+        escena.getStylesheets().add(getClass().getResource("../css/HojaDeEstilo.css").toExternalForm());
+        escenarioPrincipal.show();
+    }
+    
+    public void muestraVistaListado(){
+        
+        
+        FXMLLoader loader = new FXMLLoader();
+        URL location = GestorLibreria.class.getResource("../view/VistaListado.fxml");
+        loader.setLocation(location);
+        try {
+            vistaListado = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        layoutPrincipal.setCenter(vistaListado);
+        
+        
+        VistaListadoController controller = loader.getController();
+        controller.setGestorLibreria(this);
+    }
+    
+    public void muestraVistaNuevo(){
+        //Cargo la vista persona a partir de VistaPersona.fxml
+        FXMLLoader loader = new FXMLLoader();
+        URL location = GestorLibreria.class.getResource("/view/VistaNuevoP.fxml");
+        loader.setLocation(location);
+        try {
+            nuevoP = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Creo el escenario de edición (con modal) y establezco la escena
+        Stage escenarioNuevo = new Stage();
+        escenarioNuevo.setTitle("Añadir Producto");
+        escenarioNuevo.initModality(Modality.WINDOW_MODAL);
+        escenarioNuevo.initOwner(escenarioPrincipal);
+        Scene escena = new Scene(nuevoP);
+        escenarioNuevo.setScene(escena);
+        
+        escenarioNuevo.showAndWait();
+    }
+    
     public static void main(String[] args) {
         launch(args);
     }
