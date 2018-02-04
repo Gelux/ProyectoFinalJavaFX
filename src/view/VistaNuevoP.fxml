@@ -45,17 +45,19 @@
       <TextField fx:id="precioTF" layoutX="232.0" layoutY="197.0" prefHeight="25.0" prefWidth="67.0" AnchorPane.topAnchor="202.0" />
       <Label layoutX="297.0" layoutY="201.0" prefHeight="17.0" prefWidth="5.0" text="€" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="204.0" />
       <Label layoutX="16.0" layoutY="242.0" text="Descripción" AnchorPane.bottomAnchor="138.0" AnchorPane.leftAnchor="16.0" />
-      <TextArea layoutX="16.0" layoutY="261.0" prefHeight="123.0" prefWidth="294.0" wrapText="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+      <TextArea fx:id="descTA" layoutX="16.0" layoutY="261.0" prefHeight="123.0" prefWidth="294.0" wrapText="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
       <Button fx:id="bExaminar" layoutX="336.0" layoutY="97.0" mnemonicParsing="false" onAction="#elegirFoto" prefHeight="26.0" prefWidth="249.0" text="Seleccionar Foto..." AnchorPane.leftAnchor="336.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
       <ImageView fx:id="fotoP" fitHeight="292.0" fitWidth="249.0" layoutX="337.0" layoutY="47.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="54.0" AnchorPane.topAnchor="55.0" />
       <Separator layoutX="326.0" layoutY="1.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="1.0" AnchorPane.leftAnchor="319.0" />
       <Button fx:id="bCrearP" layoutX="409.0" layoutY="358.0" mnemonicParsing="false" onAction="#crearP" text="Crear Producto" AnchorPane.bottomAnchor="15.0" />
-      <Label fx:id="errorT" prefHeight="16.0" prefWidth="100.0" styleClass="error" text="Título incorrecto" AnchorPane.leftAnchor="93.0" AnchorPane.topAnchor="40.0" />
+      <Label fx:id="errorT" prefHeight="16.0" prefWidth="100.0" styleClass="error" text="Título vacío" AnchorPane.leftAnchor="93.0" AnchorPane.topAnchor="40.0" />
       <Label fx:id="errorISBN" layoutX="92.0" layoutY="176.0" prefHeight="16.0" prefWidth="100.0" styleClass="error" text="ISBN incorrecto" AnchorPane.leftAnchor="93.0" AnchorPane.topAnchor="187.0" />
-      <Label fx:id="errorAu" layoutX="10.0" layoutY="10.0" prefHeight="16.0" prefWidth="100.0" styleClass="error" text="Autor incorrecto" AnchorPane.leftAnchor="93.0" AnchorPane.topAnchor="76.0" />
-      <Label fx:id="errorG" layoutX="10.0" layoutY="10.0" prefHeight="16.0" prefWidth="100.0" styleClass="error" text="Género incorrecto" AnchorPane.leftAnchor="93.0" AnchorPane.topAnchor="114.0" />
-      <Label fx:id="errorE" layoutX="10.0" layoutY="10.0" prefHeight="16.0" prefWidth="100.0" styleClass="error" text="Editorial incorrecta" AnchorPane.leftAnchor="93.0" AnchorPane.topAnchor="150.0" />
+      <Label fx:id="errorAu" layoutX="10.0" layoutY="10.0" prefHeight="16.0" prefWidth="100.0" styleClass="error" text="Autor vacío" AnchorPane.leftAnchor="93.0" AnchorPane.topAnchor="76.0" />
+      <Label fx:id="errorG" layoutX="10.0" layoutY="10.0" prefHeight="16.0" prefWidth="123.0" styleClass="error" text="Género no seleccionado" AnchorPane.leftAnchor="93.0" AnchorPane.topAnchor="114.0" />
+      <Label fx:id="errorE" layoutX="10.0" layoutY="10.0" prefHeight="16.0" prefWidth="100.0" styleClass="error" text="Editorial vacía" AnchorPane.leftAnchor="93.0" AnchorPane.topAnchor="150.0" />
       <Label fx:id="errorA" layoutX="92.0" layoutY="226.0" prefHeight="16.0" prefWidth="87.0" styleClass="error" text="Año incorrecto" AnchorPane.leftAnchor="93.0" AnchorPane.topAnchor="225.0" />
       <Label fx:id="errorP" layoutX="192.0" layoutY="226.0" prefHeight="16.0" prefWidth="116.0" styleClass="error" text="Precio incorrecto" AnchorPane.topAnchor="225.0" />
+      <Label fx:id="errorF" layoutX="405.0" layoutY="347.0" prefHeight="16.0" prefWidth="107.0" styleClass="error" text="Foto no seleccionada" />
+      <Label fx:id="errorD" layoutX="26.0" layoutY="403.0" prefHeight="16.0" prefWidth="87.0" styleClass="error" text="Descripción vacía" />
    </children>
 </AnchorPane>

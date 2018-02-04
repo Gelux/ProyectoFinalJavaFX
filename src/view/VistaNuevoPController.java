@@ -19,10 +19,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 /**
@@ -32,6 +34,7 @@ import javax.imageio.ImageIO;
 public class VistaNuevoPController {
 
     private GestorLibreria gestorLibreria;
+    
 
     @FXML
     ComboBox comboGen;
@@ -43,11 +46,17 @@ public class VistaNuevoPController {
     TextField isbnTF, precioTF, anioTF, tituloTF, autorTF, editorialTF;
 
     @FXML
-    Label errorP, errorA, errorISBN, errorT, errorAu, errorE;
+    Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorF;
 
     @FXML
     ImageView fotoP;
+    
+    @FXML
+    TextArea descTA;
 
+    
+    
+    
     private ObservableList<String> generos
             = FXCollections.observableArrayList(
                     "Arte",
@@ -97,6 +106,9 @@ public class VistaNuevoPController {
         errorT.setVisible(false);
         errorAu.setVisible(false);
         errorE.setVisible(false);
+        errorG.setVisible(false);
+        errorD.setVisible(false);
+        errorF.setVisible(false);
 
         //Controlador del TextField del ISBN
         isbnTF.textProperty().addListener(new ChangeListener() {
@@ -143,7 +155,8 @@ public class VistaNuevoPController {
     private void crearP() {
 
         if (!comprobarErrores()) {
-
+            Stage stage = (Stage) bCrearP.getScene().getWindow();
+            stage.close();
         }
 
     }
@@ -174,7 +187,7 @@ public class VistaNuevoPController {
         boolean error = false;
 
         //Controla error de años
-        if (anioTF.getText().equals("")) {
+        if (anioTF.getText().isEmpty()) {
             errorA.setVisible(true);
             error = true;
         } else {
@@ -201,8 +214,8 @@ public class VistaNuevoPController {
             errorISBN.setVisible(false);
         }
         
-        //Controla error de titulo
-        if (tituloTF.getText().equals("")){
+        //Controla error de título
+        if (tituloTF.getText().isEmpty()){
             errorT.setVisible(true);
             error = true;
         }else{
@@ -210,7 +223,7 @@ public class VistaNuevoPController {
         }
         
         //Controla error de autor
-        if (autorTF.getText().equals("")){
+        if (autorTF.getText().isEmpty()){
             errorAu.setVisible(true);
             error = true;
         }else{
@@ -219,15 +232,36 @@ public class VistaNuevoPController {
         
         
         //Controla error de editorial
-        if (editorialTF.getText().equals("")){
+        if (editorialTF.getText().isEmpty()){
             errorE.setVisible(true);
             error = true;
         }else{
             errorE.setVisible(false);
         }
         
-        //Controla error de genero
+        //Controla error de género
+        if( comboGen.getValue() == null || comboGen.getValue().toString().isEmpty()){
+            errorG.setVisible(true);
+            error = true;
+        }else{
+            errorG.setVisible(false);
+        }
         
+        //Controla la descripción
+        if(descTA.getText().isEmpty()){
+            errorD.setVisible(true);
+            error = true;
+        }else{
+            errorD.setVisible(false);
+        }
+        
+        //Controla la foto
+        if(fotoP.getImage() == null){
+            errorF.setVisible(true);
+            error = true;
+        }else{
+            errorF.setVisible(false);
+        }
         
         return error;
     }
