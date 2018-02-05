@@ -114,6 +114,7 @@ public class VistaNuevoPController {
         isbnTF.textProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                System.out.println(isNumeric(isbnTF.getText()));
                 if (isbnTF.getText().length() > 13 || !isNumeric(isbnTF.getText())) {
                     if (!isbnTF.getText().equals("")) {
                         isbnTF.setText(oldValue.toString());
@@ -267,7 +268,7 @@ public class VistaNuevoPController {
     }
 
     private boolean isNumeric(String texto) {
-
+        boolean num = false;
         for (int i = 0; i < texto.length(); i++) {
             if (texto.charAt(i) == '0'
                     || texto.charAt(i) == '1'
@@ -279,10 +280,12 @@ public class VistaNuevoPController {
                     || texto.charAt(i) == '7'
                     || texto.charAt(i) == '8'
                     || texto.charAt(i) == '9') {
-                return true;
+                num = true;
+            }else{
+                num = false;
             }
         }
-        return false;
+        return num;
     }
 
     private boolean isPrecio(String texto) {
