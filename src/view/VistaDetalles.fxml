@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.Pane?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="323.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" stylesheets="@../css/DetallesEstilo.css" minWidth="-Infinity" prefHeight="573.0" prefWidth="323.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <Pane prefHeight="574.0" prefWidth="321.0">
          <children>
-            <Label alignment="CENTER" layoutX="115.0" layoutY="21.0" prefHeight="21.0" prefWidth="92.0" text="Detalles" />
-            <Pane layoutX="-9.0" prefHeight="64.0" prefWidth="313.0" />
-            <Pane layoutY="64.0" prefHeight="200.0" prefWidth="306.0" />
+            <Label fx:id="labelDetalles" alignment="CENTER" layoutX="115.0" layoutY="21.0" prefHeight="21.0" prefWidth="92.0" text="Detalles" />
+            <Pane fx:id="menuDetalles" layoutX="-9.0" prefHeight="64.0" prefWidth="313.0" />
+            <Pane fx:id="panleFoto" layoutY="64.0" prefHeight="200.0" prefWidth="306.0" />
             <Pane layoutY="264.0" prefHeight="290.0" prefWidth="307.0" />
          </children>
       </Pane>
