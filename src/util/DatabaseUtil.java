@@ -1,4 +1,3 @@
-
 package util;
 
 import java.sql.Connection;
@@ -9,27 +8,29 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
+import model.Producto;
 
 /**
  *
  * @author Jes
  */
 public class DatabaseUtil {
+    
+    Producto productoAux = null;
+    Connection conexion = null;
+    Statement sentencia = null;
+    ResultSet resultSet1 = null;
+    ObservableList listaProductos;
 
-    /**
-     * @param args the command line arguments
-    
-    */
-    
-    
-    public static void main(String[] args) {
-        Connection conexion = null;
-        Statement sentencia = null;
-        ResultSet resultSet1 = null;
-        
-        
+    DatabaseUtil() {
+
+    }
+
+    public void pruebaDB() {
+
         try {
-            Class.forName("oracle.jdbc.OracleDriver");
+            Class.forName("oracle.jdbc.driver.OracleDriver");
             conexion = DriverManager.getConnection("jdbc:oracle:thin:noobs/damnoobs@//proyectofinaljfx.ckga19q2gpk5.eu-central-1.rds.amazonaws.com"
                     + ":8080/LIBRODB");
             System.out.println("Conectado a base de datos...");
@@ -47,11 +48,14 @@ public class DatabaseUtil {
             sentencia = conexion.createStatement();
             resultSet1 = null;
             resultSet1 = sentencia.executeQuery(query);
-            
+
             if (resultSet1.next()) {
                 do {
-                    System.out.println(resultSet1.getString(1) + "  " + resultSet1.getString(2) + "       "
-                            + resultSet1.getString(3) + "       " + resultSet1.getString(4));
+                    productoAux = new Producto(resultSet1.getString(4), resultSet1.getString(2),
+                            resultSet1.getString(3), Double.parseDouble(resultSet1.getString(8)),
+                            Integer.parseInt(resultSet1.getString(6)), Long.parseLong(resultSet1.getString(1)),
+                            resultSet1.getDate(5), resultSet1.getDate(7));
+                    
                 } while (resultSet1.next());
             } else {
                 System.out.println("La tabla no tiene datos");
