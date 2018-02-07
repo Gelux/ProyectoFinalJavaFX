@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.Pane?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" stylesheets="@../css/DetallesEstilo.css" minWidth="-Infinity" prefHeight="573.0" prefWidth="323.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
-   <content>
-      <Pane prefHeight="574.0" prefWidth="321.0">
-         <children>
-            <Label fx:id="labelDetalles" alignment="CENTER" layoutX="115.0" layoutY="21.0" prefHeight="21.0" prefWidth="92.0" text="Detalles" />
-            <Pane fx:id="menuDetalles" layoutX="-9.0" prefHeight="64.0" prefWidth="313.0" />
-            <Pane fx:id="panleFoto" layoutY="64.0" prefHeight="200.0" prefWidth="306.0" />
-            <Pane layoutY="264.0" prefHeight="290.0" prefWidth="307.0" />
-         </children>
-      </Pane>
-   </content>
-</ScrollPane>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="323.0" stylesheets="@../css/DetallesEstilo.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+      <Pane fx:id="menuDetalles" layoutX="2.0" prefHeight="64.0" prefWidth="321.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <children>
+            <Label fx:id="labelDetalles" alignment="CENTER" layoutX="116.0" layoutY="22.0" prefHeight="21.0" prefWidth="92.0" text="Detalles" />
+      </children>
+   </Pane>
+      <Pane fx:id="panelFoto" layoutX="41.0" layoutY="84.0" prefHeight="177.0" prefWidth="239.0" AnchorPane.topAnchor="84.0" />
+      <Pane fx:id="panelDatos" layoutX="19.0" layoutY="284.0" prefHeight="239.0" prefWidth="263.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="281.0">
+      <padding>
+         <Insets bottom="30.0" left="30.0" right="30.0" />
+      </padding>
+      <children>
+         <ScrollBar layoutX="247.0" layoutY="1.0" orientation="VERTICAL" prefHeight="230.0" prefWidth="15.0" />
+      </children>
+   </Pane>
+   <Button fx:id="bEditar" layoutX="137.0" layoutY="534.0" mnemonicParsing="false" text="Editar" AnchorPane.bottomAnchor="20.0">
+      <font>
+         <Font size="15.0" />
+      </font>
+   </Button>
+
+</AnchorPane>
