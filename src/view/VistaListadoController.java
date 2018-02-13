@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,6 +37,7 @@ public class VistaListadoController {
     private DatabaseUtil db;
     private ObservableList<Producto> lista = FXCollections.observableArrayList();
     
+   
     @FXML
     TableView tablaP;
     @FXML
@@ -60,10 +62,12 @@ public class VistaListadoController {
         fechaModColumna.setCellValueFactory(new PropertyValueFactory<>("fechaModificacion"));
         precioColumna.setCellValueFactory(new PropertyValueFactory<>("precio"));
         
+        detallesPane.setMaxWidth(324);
+        
         tablaP.getSelectionModel().selectedItemProperty().addListener(new ChangeListener(){
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                detallesPane.setCenter(muestraVistaDetalles());
+                detallesPane.setTop(muestraVistaDetalles());
             }
             
         });

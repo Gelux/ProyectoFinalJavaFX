@@ -7,6 +7,7 @@ package view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,7 +20,7 @@ public class VistaDetallesController {
     
     
     @FXML
-    private Label lNombre, lAutor, lGenero, lBarras, lRaro, lLanzamiento, lStrock, lPublicacion, lEditorial;
+    private Label lNombre, lAutor, lGenero, lBarras, lRaro, lLanzamiento, lStock, lPublicacion, lEditorial;
     
     @FXML
     private TextArea tDescripcion;
@@ -27,6 +28,8 @@ public class VistaDetallesController {
     @FXML
     private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock;
     
+//    @FXML
+//    private ScrollPane detallesPane;
     
      @FXML
     private void initialize() {
@@ -44,7 +47,7 @@ public class VistaDetallesController {
        lBarras.setVisible(false);
        lRaro.setVisible(false);
        lLanzamiento.setVisible(false);
-       lStrock.setVisible(false);
+       lStock.setVisible(false);
        lPublicacion.setVisible(false);
        lEditorial.setVisible(false);
        
@@ -54,7 +57,7 @@ public class VistaDetallesController {
        tfBarras.setText(lBarras.getText());
        tfRaro.setText(lRaro.getText());
        tfLanzamiento.setText(lLanzamiento.getText());
-       tfStock.setText(lStrock.getText());
+       tfStock.setText(lStock.getText());
        tfPublicacion.setText(lPublicacion.getText());
        tfEditorial.setText(lEditorial.getText());
        

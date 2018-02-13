@@ -263,8 +263,9 @@
 
 #menuDetalles{
 
-    -fx-background-color: #9EDEF3 ;
-    -fx-border-color: black;
+    -fx-background-color: #C6F2F2 ;
+    -fx-border-color: #A0C4DB;
+    -fx-border-width: 2 0 2 0;
 
 }
 
@@ -272,13 +273,18 @@
 
     -fx-border-color: transparent;
     -fx-padding:0 0 0 5;
+    -fx-background-color: white;
 
+}
+
+#gridPane{
+    -fx-background-color: white;
 }
 
 #labelDetalles{
 
     -fx-font-size:15;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-alignment: center;
     -fx-opacity: 1;
     -fx-font-weight: bold;
