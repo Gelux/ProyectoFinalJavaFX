@@ -27,7 +27,7 @@ public class GestorLibreria extends Application {
     
     private Stage escenarioPrincipal;
     private BorderPane layoutPrincipal;
-    private AnchorPane vistaListado, nuevoP;
+    private AnchorPane vistaListado, nuevoP, detalles;
     
     @Override
     public void start(Stage escenarioPrincipal) {
@@ -104,6 +104,8 @@ public class GestorLibreria extends Application {
         
         escenarioNuevo.showAndWait();
     }
+    
+    
     
     public static void main(String[] args) {
         launch(args);

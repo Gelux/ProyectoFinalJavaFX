@@ -91,6 +91,8 @@ public class DatabaseUtil {
             ps.setString(2, libro.getNombre());
             ps.setString(3, libro.getDescription());
             ps.setString(4, libro.getFoto());
+            
+            
             if (ps.executeUpdate() != 1) {
                 System.out.println("Error insercion");
             } else {
@@ -102,5 +104,9 @@ public class DatabaseUtil {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+//    public boolean editarProducto ( Libro libro ){
+//        
+//    } 
 
 }
