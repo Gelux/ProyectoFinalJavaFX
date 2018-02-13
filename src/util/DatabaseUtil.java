@@ -1,5 +1,6 @@
 package util;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -37,7 +38,6 @@ public class DatabaseUtil {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             conexion = DriverManager.getConnection("jdbc:oracle:thin:noobs/damnoobs@//proyectofinaljfx.ckga19q2gpk5.eu-central-1.rds.amazonaws.com"
                     + ":8080/LIBRODB");
-            System.out.println("Conectado a base de datos...");
             DatabaseMetaData BD = conexion.getMetaData();
             //Info conexion
             String driver = BD.getDriverName();
@@ -55,10 +55,10 @@ public class DatabaseUtil {
 
             if (resultSet1.next()) {
                 do {
-                    productoAux = new Producto(resultSet1.getString(4), resultSet1.getString(2),
-                            resultSet1.getString(3), Double.parseDouble(resultSet1.getString(8)),
-                            Integer.parseInt(resultSet1.getString(6)), Long.parseLong(resultSet1.getString(1)),
-                            resultSet1.getDate(5), resultSet1.getDate(7));
+                    productoAux = new Producto(resultSet1.getString(2),
+                            resultSet1.getString(3), Double.parseDouble(resultSet1.getString(7)),
+                            Integer.parseInt(resultSet1.getString(5)), Long.parseLong(resultSet1.getString(1)),
+                            resultSet1.getDate(4), resultSet1.getDate(6));
                     listaProductos.add(productoAux);
                 } while (resultSet1.next());
             } else {
