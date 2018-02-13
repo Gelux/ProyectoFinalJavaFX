@@ -1,0 +1,50 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 06-feb-2018, 16:37:45
+    Author     : Pato
+*/
+
+#panelFoto{
+
+    -fx-background-color: #d0d8db ;
+    -fx-border-color: black;
+
+}
+
+#menuDetalles{
+
+    -fx-background-color: #9EDEF3 ;
+    -fx-border-color: black;
+
+}
+
+#panelDatos{
+
+    -fx-border-color: transparent;
+    -fx-padding:0 0 0 5;
+
+}
+
+#labelDetalles{
+
+    -fx-font-size:15;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+    -fx-font-weight: bold;
+}
+
+#bEditar{
+
+    -fx-font-size:15;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+    -fx-background-color: #d0d8db;
+    -fx-border-color: black;
+
+}
+
