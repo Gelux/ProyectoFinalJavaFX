@@ -44,6 +44,18 @@ public class Producto {
         this.fechaAlta = new SimpleObjectProperty(fechaAlta);
         this.fechaModificacion = new SimpleObjectProperty(fechaModificacion);
     }
+    
+    public Producto(String nombre, String description, Double precio, int stock, long codBarras, Date fechaAlta, Date fechaModificacion) {
+        this.nombre = new SimpleStringProperty(nombre);
+        this.description = new SimpleStringProperty(description);
+        this.precio = new SimpleDoubleProperty(precio);
+        this.stock = new SimpleIntegerProperty(stock);
+        this.codBarras = new SimpleLongProperty(codBarras);
+        this.fechaAlta = new SimpleObjectProperty(fechaAlta);
+        this.fechaModificacion = new SimpleObjectProperty(fechaModificacion);
+        this.foto = null;
+    }
+    
      public String getFoto() {
         return foto.get();
     }
