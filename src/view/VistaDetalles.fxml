@@ -1,32 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="323.0" stylesheets="@../css/DetallesEstilo.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
-      <Pane fx:id="menuDetalles" layoutX="2.0" prefHeight="64.0" prefWidth="321.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="324.0" stylesheets="@../css/DetallesEstilo.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VistaDetallesController">
+      <Pane fx:id="menuDetalles" prefHeight="64.0" prefWidth="321.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <children>
             <Label fx:id="labelDetalles" alignment="CENTER" layoutX="116.0" layoutY="22.0" prefHeight="21.0" prefWidth="92.0" text="Detalles" />
       </children>
    </Pane>
       <Pane fx:id="panelFoto" layoutX="41.0" layoutY="84.0" prefHeight="177.0" prefWidth="239.0" AnchorPane.topAnchor="84.0" />
-      <Pane fx:id="panelDatos" layoutX="19.0" layoutY="284.0" prefHeight="239.0" prefWidth="263.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="281.0">
-      <padding>
-         <Insets bottom="30.0" left="30.0" right="30.0" />
-      </padding>
-      <children>
-         <ScrollBar layoutX="247.0" layoutY="1.0" orientation="VERTICAL" prefHeight="230.0" prefWidth="15.0" />
-      </children>
-   </Pane>
-   <Button fx:id="bEditar" layoutX="137.0" layoutY="534.0" mnemonicParsing="false" text="Editar" AnchorPane.bottomAnchor="20.0">
+   <Button fx:id="bEditar" layoutX="132.0" layoutY="551.0" mnemonicParsing="false" onAction="#editar" text="Editar" AnchorPane.bottomAnchor="14.0">
       <font>
          <Font size="15.0" />
       </font>
    </Button>
+   <ScrollPane fx:id="panelDatos" layoutX="23.0" layoutY="299.0" prefHeight="243.0" prefWidth="289.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+      <content>
+         <GridPane prefHeight="923.0" prefWidth="280.0">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints fx:id="Par" maxHeight="36.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+             <RowConstraints maxHeight="102.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="77.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="106.33334350585938" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="193.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="31.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="46.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="108.0" minHeight="0.0" prefHeight="108.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="42.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="29.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="28.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="27.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+            <children>
+               <Label text="Nombre" />
+               <Label fx:id="lNombre" GridPane.rowIndex="1" />
+               <Label text="Autor" GridPane.rowIndex="2" />
+               <Label fx:id="lAutor" GridPane.rowIndex="3" />
+               <Label text="Genero" GridPane.rowIndex="4" />
+               <Label fx:id="lGenero" GridPane.rowIndex="5" />
+               <Label text="Editorial" GridPane.rowIndex="6" />
+               <Label fx:id="lEditorial" GridPane.rowIndex="7" />
+               <Label text="Descripcion" GridPane.rowIndex="8" />
+               <TextArea fx:id="tDescripcion" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="9" />
+               <Label text="Año de Publicación" GridPane.rowIndex="10" />
+               <Label fx:id="lPublicacion" GridPane.rowIndex="11" />
+               <Label text="Codigo de Barras" GridPane.rowIndex="12" />
+               <Label fx:id="lBarras" GridPane.rowIndex="13" />
+               <Label text="ISBN" GridPane.rowIndex="14" />
+               <Label fx:id="lRaro" GridPane.rowIndex="15" />
+               <Label text="Fecha Lanzamiento" GridPane.rowIndex="16" />
+               <Label fx:id="lLanzamiento" GridPane.rowIndex="17" />
+               <Label text="Stock" GridPane.rowIndex="18" />
+               <Label fx:id="lStock" GridPane.rowIndex="19" />
+               <TextField fx:id="tfNombre" visible="false" GridPane.rowIndex="1" />
+               <TextField fx:id="tfAutor" visible="false" GridPane.rowIndex="3" />
+               <TextField fx:id="tfGenero" visible="false" GridPane.rowIndex="5" />
+               <TextField fx:id="tfEditorial" visible="false" GridPane.rowIndex="7" />
+               <TextField fx:id="tfPublicacion" visible="false" GridPane.rowIndex="11" />
+               <TextField fx:id="tfBarras" visible="false" GridPane.rowIndex="13" />
+               <TextField fx:id="tfRaro" visible="false" GridPane.rowIndex="15" />
+               <TextField fx:id="tfLazamiento" visible="false" GridPane.rowIndex="17" />
+               <TextField fx:id="tfStock" visible="false" GridPane.rowIndex="19" />
+            </children>
+         </GridPane>
+      </content>
+   </ScrollPane>
 
 </AnchorPane>

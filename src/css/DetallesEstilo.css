@@ -24,8 +24,8 @@ and open the template in the editor.
 
 #panelDatos{
 
-    -fx-border-color: black;
-    -fx-padding: 30;
+    -fx-border-color: transparent;
+    -fx-padding:0 0 0 5;
 
 }
 
@@ -47,3 +47,4 @@ and open the template in the editor.
     -fx-border-color: black;
 
 }
+
