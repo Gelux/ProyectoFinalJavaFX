@@ -5,7 +5,14 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -13,8 +20,88 @@ import java.util.Date;
  */
 public class Libro extends Producto {
     
-    public Libro(String foto, String nombre, String description, double precio, int stock, int codBarras, Date fechaAlta, Date fechaModificacion) {
+    //el ISBN son 13 digitos***********
+    
+    private final LongProperty ISBN;
+    private final StringProperty genero;
+    private final StringProperty autor;
+    private final StringProperty editorial;
+    private final ObjectProperty anoPublicacion;
+    
+     public Libro(long ISBN, String genero, String autor, Date anoPublicacion, String editorial, String foto, String nombre, String description, double precio, int stock, int codBarras, Date fechaAlta, Date fechaModificacion) {
         super(foto, nombre, description, precio, stock, codBarras, fechaAlta, fechaModificacion);
+        this.ISBN = new SimpleLongProperty(ISBN);
+        this.genero = new SimpleStringProperty(genero);
+        this.autor = new SimpleStringProperty(autor);
+        this.anoPublicacion = new SimpleObjectProperty(editorial);
+        this.editorial=new SimpleStringProperty(editorial);
     }
+    
+
+    public long getISBN() {
+        return ISBN.get();
+    }
+
+    public void setISBN(long ISBN) {
+        this.ISBN.set(ISBN);
+    }
+
+    public LongProperty ISBNProperty() {
+        return ISBN;
+    }
+    
+
+    public String getGenero() {
+        return genero.get();
+    }
+
+    public void setGenero(String genero) {
+        this.genero.set(genero);
+    }
+
+    public StringProperty generoProperty() {
+        return genero;
+    }
+    
+    public String getAutor() {
+        return autor.get();
+    }
+
+    public void setAutor(String autor) {
+        this.autor.set(autor);
+    }
+
+    public StringProperty autorProperty() {
+        return autor;
+    }
+    
+    public String getEditorial() {
+        return editorial.get();
+    }
+
+    public void setEditorial(String editorial) {
+        this.editorial.set(editorial);
+    }
+
+    public StringProperty editorialProperty() {
+        return editorial;
+    }
+    
+    
+    public LocalDate getAnoPublicacion() {
+        return (LocalDate) anoPublicacion.get();
+    }
+
+    public void setAnoPublicacion(LocalDate anoPublicacion) {
+        this.anoPublicacion.set(anoPublicacion);
+    }
+
+    public ObjectProperty anoPublicacionProperty() {
+        return anoPublicacion;
+    }
+
+
+
+   
     
 }

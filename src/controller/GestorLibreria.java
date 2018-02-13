@@ -14,7 +14,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import view.VistaListadoController;
+import view.VistaPrincipalController;
 
 /**
  *
@@ -23,22 +26,24 @@ import javafx.stage.Stage;
 public class GestorLibreria extends Application {
     
     private Stage escenarioPrincipal;
-    private AnchorPane layoutPrincipal;
+    private BorderPane layoutPrincipal;
+    private AnchorPane vistaListado, nuevoP;
     
     @Override
     public void start(Stage escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
         
-        //Establezco el titulo
+        
         this.escenarioPrincipal.setTitle("Gestor Librería");
         
-        //Inicializa el layout principal
+        
         initLayoutPrincipal();
+        muestraVistaListado();
     }
     
     public void initLayoutPrincipal(){
         
-        //Cargo el layout principal a partir de la vista VistaPrincipal.fxml
+       
         FXMLLoader loader = new FXMLLoader();
         URL location = GestorLibreria.class.getResource("../view/VistaPrincipal.fxml");
         loader.setLocation(location);
@@ -48,11 +53,56 @@ public class GestorLibreria extends Application {
             System.out.println("No funca");
         }
         
-        //Cargo y muestro la escena que contiene ese layout principal
+        
         Scene escena = new Scene(layoutPrincipal);
         escenarioPrincipal.setScene(escena);
+        
+        VistaPrincipalController controller = loader.getController();
+        controller.setGestorLibreria(this);
+        
         escena.getStylesheets().add(getClass().getResource("../css/HojaDeEstilo.css").toExternalForm());
         escenarioPrincipal.show();
+    }
+    
+    public void muestraVistaListado(){
+        
+        
+        FXMLLoader loader = new FXMLLoader();
+        URL location = GestorLibreria.class.getResource("../view/VistaListado.fxml");
+        loader.setLocation(location);
+        try {
+            vistaListado = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        layoutPrincipal.setCenter(vistaListado);
+        
+        
+        VistaListadoController controller = loader.getController();
+        controller.setGestorLibreria(this);
+    }
+    
+    public void muestraVistaNuevo(){
+        //Cargo la vista persona a partir de VistaPersona.fxml
+        FXMLLoader loader = new FXMLLoader();
+        URL location = GestorLibreria.class.getResource("/view/VistaNuevoP.fxml");
+        loader.setLocation(location);
+        try {
+            nuevoP = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Creo el escenario de edición (con modal) y establezco la escena
+        Stage escenarioNuevo = new Stage();
+        escenarioNuevo.setTitle("Añadir Producto");
+        escenarioNuevo.initModality(Modality.WINDOW_MODAL);
+        escenarioNuevo.initOwner(escenarioPrincipal);
+        Scene escena = new Scene(nuevoP);
+        escenarioNuevo.setScene(escena);
+        
+        escenarioNuevo.showAndWait();
     }
     
     public static void main(String[] args) {

@@ -1,5 +1,5 @@
-
- /* To change this license header, choose License Headers in Project Properties.
+/*
+ * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -15,14 +15,29 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author calata98
  */
-public class VistaPrincipalController {
+public class VistaListadoController {
     
-     //Referencia a la clase principal
+    
     private GestorLibreria gestorLibreria;
-
-    //Es llamada por la clase Principal para tener una referencia de vuelta de si misma
+    
+//    VistaListadoController(){
+//        
+//    }
+    
+//    @FXML
+//    private void initialize() {
+//        
+//        
+//    }
+    
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
+        
         this.gestorLibreria = gestorLibreria;
+    }
+    
+    @FXML
+    private void nuevo(){
+        gestorLibreria.muestraVistaNuevo();
     }
 
     
