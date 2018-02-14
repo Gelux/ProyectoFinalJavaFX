@@ -26,14 +26,23 @@ public class Libro extends Producto {
     private final StringProperty genero;
     private final StringProperty autor;
     private final StringProperty editorial;
-    private final ObjectProperty anoPublicacion;
+    private final StringProperty anoPublicacion;
     
-     public Libro(long ISBN, String genero, String autor, Date anoPublicacion, String editorial, String foto, String nombre, String description, double precio, int stock, int codBarras, Date fechaAlta, Date fechaModificacion) {
+     public Libro(long ISBN, String genero, String autor, String anoPublicacion, String editorial, String foto, String nombre, String description, double precio, int stock, long codBarras, Date fechaAlta, Date fechaModificacion) {
         super(foto, nombre, description, precio, stock, codBarras, fechaAlta, fechaModificacion);
         this.ISBN = new SimpleLongProperty(ISBN);
         this.genero = new SimpleStringProperty(genero);
         this.autor = new SimpleStringProperty(autor);
-        this.anoPublicacion = new SimpleObjectProperty(editorial);
+        this.anoPublicacion = new SimpleStringProperty(editorial);
+        this.editorial=new SimpleStringProperty(editorial);
+    }
+     
+     public Libro(long ISBN, String genero, String autor, String anoPublicacion, String editorial, String nombre, String description, double precio, int stock, long codBarras, Date fechaAlta, Date fechaModificacion) {
+        super(nombre, description, precio, stock, codBarras, fechaAlta, fechaModificacion);
+        this.ISBN = new SimpleLongProperty(ISBN);
+        this.genero = new SimpleStringProperty(genero);
+        this.autor = new SimpleStringProperty(autor);
+        this.anoPublicacion = new SimpleStringProperty(editorial);
         this.editorial=new SimpleStringProperty(editorial);
     }
     
@@ -88,15 +97,15 @@ public class Libro extends Producto {
     }
     
     
-    public LocalDate getAnoPublicacion() {
-        return (LocalDate) anoPublicacion.get();
+    public String getAnoPublicacion() {
+        return (String) anoPublicacion.get();
     }
 
-    public void setAnoPublicacion(LocalDate anoPublicacion) {
+    public void setAnoPublicacion(String anoPublicacion) {
         this.anoPublicacion.set(anoPublicacion);
     }
 
-    public ObjectProperty anoPublicacionProperty() {
+    public StringProperty anoPublicacionProperty() {
         return anoPublicacion;
     }
 
