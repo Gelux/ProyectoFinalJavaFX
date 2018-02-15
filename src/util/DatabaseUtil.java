@@ -118,7 +118,7 @@ public class DatabaseUtil {
                 do {
                     libroAux = new Libro(Long.parseLong(resultSet1.getString(2)), resultSet1.getString(3),
                             resultSet1.getString(4), resultSet1.getString(6), resultSet1.getString(5), resultSet1.getString(7),
-                            resultSet1.getString(8), resultSet1.getDouble(12), resultSet1.getInt(9), resultSet1.getLong(1),
+                            resultSet1.getString(8), Double.parseDouble(resultSet1.getString(12)), Integer.parseInt(resultSet1.getString(10)), Long.parseLong(resultSet1.getString(1)),
                             resultSet1.getDate(9), resultSet1.getDate(11));
                 } while (resultSet1.next());
             } else {
