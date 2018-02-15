@@ -22,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import model.Libro;
 import model.Producto;
 import util.DatabaseUtil;
 
@@ -56,6 +57,7 @@ public class VistaListadoController {
     @FXML
     private void initialize() {
         
+        
         codigoColumna.setCellValueFactory(new PropertyValueFactory<>("codBarras"));
         nombreColumna.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         fechaLanColumna.setCellValueFactory(new PropertyValueFactory<>("fechaAlta"));
@@ -67,7 +69,12 @@ public class VistaListadoController {
         tablaP.getSelectionModel().selectedItemProperty().addListener(new ChangeListener(){
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                detallesPane.setTop(muestraVistaDetalles());
+                Producto productoAux = (Producto) tablaP.getSelectionModel().getSelectedItem();
+                if (productoAux != null){
+                    muestraVistaDetalles(productoAux);
+                }else{
+                    System.out.println("jo");
+                }
             }
             
         });
@@ -76,17 +83,22 @@ public class VistaListadoController {
         
    }
     
-    public AnchorPane muestraVistaDetalles(){
+    public void muestraVistaDetalles(Producto producto){
+        db = new DatabaseUtil();
         FXMLLoader loader = new FXMLLoader();
         URL location = GestorLibreria.class.getResource("/view/VistaDetalles.fxml");
         loader.setLocation(location);
         try {
             detalles = loader.load();
-            return detalles;
         } catch (IOException ex) {
             Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
+        
+        detallesPane.setTop(detalles);
+        
+        VistaDetallesController controller = loader.getController();
+        controller.setLibro(db.detallesLibro(producto.getCodBarras()));
+        controller.setVistaListadoController(this);
     }
     
     public void setGestorLibreria(GestorLibreria gestorLibreria) {

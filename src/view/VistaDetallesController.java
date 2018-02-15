@@ -5,18 +5,23 @@
  */
 package view;
 
+import controller.GestorLibreria;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Libro;
 
 /**
  *
  * @author evasa
  */
 public class VistaDetallesController {
+    
+    private VistaListadoController vistaListado;
+    private Libro libro;
     
     
     @FXML
@@ -28,13 +33,10 @@ public class VistaDetallesController {
     @FXML
     private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock;
     
-//    @FXML
-//    private ScrollPane detallesPane;
-    
      @FXML
     private void initialize() {
         
-       
+      // setTextos();
     }
     
     
@@ -70,12 +72,28 @@ public class VistaDetallesController {
        tfRaro.setVisible(true);
        tfLanzamiento.setVisible(true);
        tfStock.setVisible(true);
-
        
        
-       
-        
-        
+    }
+    
+    public void setLibro(Libro libro){
+        this.libro = libro;
+    }
+    
+    public void setTextos(){
+        lNombre.setText(libro.getNombre());
+        lAutor.setText(libro.getAutor());
+        lGenero.setText(libro.getGenero());
+        lBarras.setText(String.valueOf(libro.getCodBarras()));
+        lRaro.setText(String.valueOf(libro.getISBN()));
+        lLanzamiento.setText(String.valueOf(libro.getFechaAlta()));
+        lStock.setText(String.valueOf(libro.getStock()));
+        lPublicacion.setText(String.valueOf(libro.getAnoPublicacion()));
+        lEditorial.setText(libro.getEditorial());
+    }
+    
+    public void setVistaListadoController(VistaListadoController vistaListado) {
+        this.vistaListado = vistaListado;
     }
     
 }
