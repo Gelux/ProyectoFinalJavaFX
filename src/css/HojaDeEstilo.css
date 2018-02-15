@@ -194,7 +194,6 @@
 /*.menu-item:hover, .menu:hover{
     -fx-background-color: darkblue;
 }
-
 .menu:visited{
     -fx-background-color: darkblue;
 }*/
@@ -253,4 +252,50 @@
     -fx-border-radius: 3;
     
     
+}
+
+#panelFoto{
+
+    -fx-background-color: #d0d8db ;
+    -fx-border-color: black;
+
+}
+
+#menuDetalles{
+
+    -fx-background-color: #C6F2F2 ;
+    -fx-border-color: #A0C4DB;
+    -fx-border-width: 2 0 2 0;
+
+}
+
+#panelDatos{
+
+    -fx-border-color: transparent;
+    -fx-padding:0 0 0 5;
+    -fx-background-color: white;
+
+}
+
+#gridPane{
+    -fx-background-color: white;
+}
+
+#labelDetalles{
+
+    -fx-font-size:15;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+    -fx-font-weight: bold;
+}
+
+#bEditar{
+
+    -fx-font-size:15;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+    -fx-background-color: #d0d8db;
+    -fx-border-color: black;
+
 }

@@ -94,7 +94,8 @@ public class VistaNuevoPController {
                     "Oposiciones",
                     "Psicología y Pedagogía",
                     "Romántica y erótica",
-                    "Salud y Dietas"
+                    "Salud y Dietas",
+                    "Otros"
             );
 
     @FXML

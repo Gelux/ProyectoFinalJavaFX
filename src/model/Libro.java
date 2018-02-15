@@ -42,7 +42,7 @@ public class Libro extends Producto {
         this.ISBN = new SimpleLongProperty(ISBN);
         this.genero = new SimpleStringProperty(genero);
         this.autor = new SimpleStringProperty(autor);
-        this.anoPublicacion = new SimpleStringProperty(editorial);
+        this.anoPublicacion = new SimpleStringProperty(anoPublicacion);
         this.editorial=new SimpleStringProperty(editorial);
     }
     
