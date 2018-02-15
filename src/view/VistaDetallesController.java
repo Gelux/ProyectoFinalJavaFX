@@ -6,13 +6,17 @@
 package view;
 
 import controller.GestorLibreria;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.Libro;
+import util.DatabaseUtil;
 
 /**
  *
@@ -22,6 +26,7 @@ public class VistaDetallesController {
     
     private VistaListadoController vistaListado;
     private Libro libro;
+    private DatabaseUtil db;
     
     
     @FXML
@@ -33,10 +38,13 @@ public class VistaDetallesController {
     @FXML
     private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock;
     
+    @FXML
+    private ImageView imagen;
+    
      @FXML
     private void initialize() {
         
-      // setTextos();
+      
     }
     
     
@@ -78,9 +86,11 @@ public class VistaDetallesController {
     
     public void setLibro(Libro libro){
         this.libro = libro;
+        setTextos();
     }
     
     public void setTextos(){
+        db = new DatabaseUtil();
         lNombre.setText(libro.getNombre());
         lAutor.setText(libro.getAutor());
         lGenero.setText(libro.getGenero());
@@ -90,6 +100,10 @@ public class VistaDetallesController {
         lStock.setText(String.valueOf(libro.getStock()));
         lPublicacion.setText(String.valueOf(libro.getAnoPublicacion()));
         lEditorial.setText(libro.getEditorial());
+        
+        Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
+        imagen.setImage(image);
+        
     }
     
     public void setVistaListadoController(VistaListadoController vistaListado) {

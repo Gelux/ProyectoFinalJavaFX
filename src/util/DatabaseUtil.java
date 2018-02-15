@@ -141,6 +141,7 @@ public class DatabaseUtil {
             resultSet1 = null;
             resultSet1 = sentencia.executeQuery(query);
 
+            resultSet1.next();
             blob = resultSet1.getBlob(1);
             InputStream in = blob.getBinaryStream();
             auxImage = ImageIO.read(in);

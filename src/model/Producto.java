@@ -127,8 +127,8 @@ public class Producto {
         return codBarras;
     }
     
-    public LocalDate getFechaAlta() {
-        return (LocalDate) fechaAlta.get();
+    public Date getFechaAlta() {
+        return (Date) fechaAlta.get();
     }
 
     public void setFechaAlta(LocalDate fechaAlta) {

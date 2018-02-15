@@ -70,11 +70,8 @@ public class VistaListadoController {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 Producto productoAux = (Producto) tablaP.getSelectionModel().getSelectedItem();
-                if (productoAux != null){
-                    muestraVistaDetalles(productoAux);
-                }else{
-                    System.out.println("jo");
-                }
+                muestraVistaDetalles(productoAux.getCodBarras());
+                
             }
             
         });
@@ -83,7 +80,7 @@ public class VistaListadoController {
         
    }
     
-    public void muestraVistaDetalles(Producto producto){
+    public void muestraVistaDetalles(Long cod){
         db = new DatabaseUtil();
         FXMLLoader loader = new FXMLLoader();
         URL location = GestorLibreria.class.getResource("/view/VistaDetalles.fxml");
@@ -97,8 +94,9 @@ public class VistaListadoController {
         detallesPane.setTop(detalles);
         
         VistaDetallesController controller = loader.getController();
-        controller.setLibro(db.detallesLibro(producto.getCodBarras()));
-        controller.setVistaListadoController(this);
+        Libro libroAux = db.detallesLibro(cod);
+        //System.out.println(libroAux.getNombre());
+        controller.setLibro(libroAux);
     }
     
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
