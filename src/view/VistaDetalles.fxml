@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="324.0" stylesheets="@../css/HojaDeEstilo.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VistaDetallesController">
@@ -23,14 +24,15 @@
       <children>
          <ImageView fx:id="imagen" fitHeight="150.0" fitWidth="200.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       </children></Pane>
+   <Button fx:id="bGuardar" layoutX="95.0" mnemonicParsing="false" text="Guardar cambios" visible="false" AnchorPane.bottomAnchor="14.0" />   
    <Button fx:id="bEditar" layoutX="132.0" layoutY="551.0" mnemonicParsing="false" onAction="#editar" text="Editar" AnchorPane.bottomAnchor="14.0">
       <font>
          <Font size="15.0" />
       </font>
    </Button>
-   <ScrollPane fx:id="panelDatos" layoutX="23.0" layoutY="299.0" prefHeight="243.0" prefWidth="289.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+   <ScrollPane fx:id="panelDatos" layoutX="13.0" layoutY="299.0" prefHeight="243.0" prefWidth="301.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0">
       <content>
-         <GridPane fx:id="gridPane" prefHeight="923.0" prefWidth="280.0">
+         <GridPane fx:id="gridPane" prefHeight="919.0" prefWidth="297.0">
            <columnConstraints>
              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
            </columnConstraints>
@@ -55,40 +57,135 @@
                <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="27.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
             <children>
-               <Label text="Nombre" />
-               <Label fx:id="lNombre" GridPane.rowIndex="1" />
-               <Label text="Autor" GridPane.rowIndex="2" />
-               <Label fx:id="lAutor" GridPane.rowIndex="3" />
-               <Label text="Genero" GridPane.rowIndex="4" />
-               <Label fx:id="lGenero" GridPane.rowIndex="5" />
-               <Label text="Editorial" GridPane.rowIndex="6" />
-               <Label fx:id="lEditorial" GridPane.rowIndex="7" />
-               <Label text="Descripcion" GridPane.rowIndex="8" />
-               <TextArea fx:id="tDescripcion" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="9" />
-               <Label text="Año de Publicación" GridPane.rowIndex="10" />
-               <Label fx:id="lPublicacion" GridPane.rowIndex="11" />
-               <Label text="Codigo de Barras" GridPane.rowIndex="12" />
-               <Label fx:id="lBarras" GridPane.rowIndex="13" />
-               <Label text="ISBN" GridPane.rowIndex="14" />
-               <Label fx:id="lRaro" GridPane.rowIndex="15" />
-               <Label text="Fecha Lanzamiento" GridPane.rowIndex="16" />
-               <Label fx:id="lLanzamiento" GridPane.rowIndex="17" />
-               <Label text="Stock" GridPane.rowIndex="18" />
-               <Label fx:id="lStock" GridPane.rowIndex="19" />
-               <TextField fx:id="tfNombre" visible="false" GridPane.rowIndex="1" />
-               <TextField fx:id="tfAutor" visible="false" GridPane.rowIndex="3" />
-               <TextField fx:id="tfGenero" visible="false" GridPane.rowIndex="5" />
-               <TextField fx:id="tfEditorial" visible="false" GridPane.rowIndex="7" />
-               <TextField fx:id="tfPublicacion" visible="false" GridPane.rowIndex="11" />
-               <TextField fx:id="tfBarras" visible="false" GridPane.rowIndex="13" />
-               <TextField fx:id="tfRaro" visible="false" GridPane.rowIndex="15" />
-               <TextField fx:id="tfLanzamiento" visible="false" GridPane.rowIndex="17" />
-               <TextField fx:id="tfStock" visible="false" GridPane.rowIndex="19" />
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos">
+                  <children>
+                     <Label styleClass="titulos" text="Nombre" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="42.0" prefWidth="263.0" styleClass="detalles" GridPane.rowIndex="1">
+                  <children>
+                     <Label fx:id="lNombre" styleClass="detalles" />
+                     <TextField fx:id="tfNombre" visible="false" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="2">
+                  <children>
+                     <Label styleClass="titulos" text="Autor" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="3">
+                  <children>
+                     <Label fx:id="lAutor" styleClass="detalles" />
+                     <TextField fx:id="tfAutor" visible="false" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="4">
+                  <children>
+                     <Label styleClass="titulos" text="Genero" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="5">
+                  <children>
+                     <Label fx:id="lGenero" styleClass="detalles" />
+                     <TextField fx:id="tfGenero" visible="false" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="6">
+                  <children>
+                     <Label styleClass="titulos" text="Editorial" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="7">
+                  <children>
+                     <Label fx:id="lEditorial" styleClass="detalles" />
+                     <TextField fx:id="tfEditorial" visible="false" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="8">
+                  <children>
+                     <Label styleClass="titulos" text="Descripcion" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="9">
+                  <children>
+                     <TextArea fx:id="tDescripcion" editable="false" prefHeight="200.0" prefWidth="200.0" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="10">
+                  <children>
+                     <Label styleClass="titulos" text="Año de Publicación" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="11">
+                  <children>
+                     <Label fx:id="lPublicacion" styleClass="detalles" />
+                     <TextField fx:id="tfPublicacion" visible="false" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="12">
+                  <children>
+                     <Label styleClass="titulos" text="Codigo de Barras" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="13">
+                  <children>
+                     <Label fx:id="lBarras" styleClass="detalles" />
+                     <TextField fx:id="tfBarras" visible="false" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="14">
+                  <children>
+                     <Label styleClass="titulos" text="ISBN" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="15">
+                  <children>
+                     <Label fx:id="lRaro" styleClass="detalles" />
+                     <TextField fx:id="tfRaro" visible="false" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="16">
+                  <children>
+                     <Label styleClass="titulos" text="Fecha Lanzamiento" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="17">
+                  <children>
+                     <Label fx:id="lLanzamiento" styleClass="detalles" />
+                     <TextField fx:id="tfLanzamiento" visible="false" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="18">
+                  <children>
+                     <Label styleClass="titulos" text="Stock" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="19">
+                  <children>
+                     <TextField fx:id="tfStock" visible="false" />
+                     <Label fx:id="lStock" styleClass="detalles" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="20">
+                  <children>
+                     <Label text="Precio" />
+                  </children>
+               </StackPane>
+               <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="21">
+                  <children>
+                     <Label fx:id="lPrecio" styleClass="detalles" />
+                     <TextField fx:id="tfPrecio" visible="false" />
+                  </children>
+               </StackPane>
+               <Button fx:id="bImprimirC" maxHeight="15.0" maxWidth="15.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" GridPane.rowIndex="13" />
             </children>
          </GridPane>
       </content>
    </ScrollPane>
+   
 
 </AnchorPane>
