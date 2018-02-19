@@ -38,6 +38,16 @@ public class GeneradorCodeBar {
         barcode.setCheckDigit(true);
 
         BufferedImage bufferedImage = barcode.draw(new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB));
+        
+        
+        
+//        final DirectoryChooser directoryChooser =
+//                new DirectoryChooser();
+//            final File selectedDirectory =
+//                    directoryChooser.showDialog(stage);
+//            if (selectedDirectory != null) {
+//                selectedDirectory.getAbsolutePath();
+//            }
 
         //File choser para elegir el directorio donde guardar la imagen.
         JFileChooser jfc = new JFileChooser();

@@ -112,6 +112,7 @@ public class VistaDetallesController {
         lStock.setText(String.valueOf(libro.getStock()));
         lPublicacion.setText(String.valueOf(libro.getAnoPublicacion()));
         lEditorial.setText(libro.getEditorial());
+        lPrecio.setText(String.valueOf(libro.getPrecio()));
         
         Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
         imagen.setImage(image);
