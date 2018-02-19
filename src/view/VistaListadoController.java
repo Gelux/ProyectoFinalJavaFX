@@ -97,12 +97,19 @@ public class VistaListadoController {
         Libro libroAux = db.detallesLibro(cod);
         //System.out.println(libroAux.getNombre());
         controller.setLibro(libroAux);
+        controller.setVistaListadoController(this);
     }
     
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
         
         this.gestorLibreria = gestorLibreria;
         setListaProductos();
+        
+    }
+    
+    public GestorLibreria getGestorLibreria() {
+        
+        return gestorLibreria;
         
     }
     

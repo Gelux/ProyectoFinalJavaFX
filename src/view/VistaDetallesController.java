@@ -6,8 +6,14 @@
 package view;
 
 import controller.GestorLibreria;
+import java.io.IOException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -16,6 +22,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Libro;
 import util.DatabaseUtil;
 
@@ -27,6 +36,7 @@ public class VistaDetallesController {
     
     private VistaListadoController vistaListado;
     private Libro libro;
+    private AnchorPane detallesE; 
     private DatabaseUtil db;
     
     
@@ -43,7 +53,7 @@ public class VistaDetallesController {
     private ImageView imagen;
     
     @FXML
-    private Button bImprimirC, bEditar, bGuardar;
+    private Button bImprimirC, bEditar, bGuardar, bExpand;
     
      @FXML
     private void initialize() {
@@ -96,9 +106,35 @@ public class VistaDetallesController {
        
     }
     
+    @FXML
+    public void muestraVistaDetallesExtraible(){
+        FXMLLoader loader = new FXMLLoader();
+        URL location = GestorLibreria.class.getResource("/view/VistaDetallesExtraible.fxml");
+        loader.setLocation(location);
+        try {
+            detallesE = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Creo el escenario de edición (con modal) y establezco la escena
+        Stage escenarioNuevo = new Stage();
+        escenarioNuevo.setTitle("Detalles");
+        escenarioNuevo.initModality(Modality.WINDOW_MODAL);
+        escenarioNuevo.initOwner(vistaListado.getGestorLibreria().getEscenario());
+        Scene escena = new Scene(detallesE);
+        escenarioNuevo.setScene(escena);
+        
+        escenarioNuevo.showAndWait();
+    }
+    
     public void setLibro(Libro libro){
         this.libro = libro;
         setTextos();
+    }
+    
+    public Libro getLibro(){
+        return libro;
     }
     
     public void setTextos(){

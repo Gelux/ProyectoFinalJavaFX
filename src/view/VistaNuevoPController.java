@@ -43,7 +43,7 @@ public class VistaNuevoPController {
     Button bCrearP;
 
     @FXML
-    TextField isbnTF, precioTF, anioTF, tituloTF, autorTF, editorialTF;
+    TextField isbnTF, precioTF, anioTF, tituloTF, autorTF, editorialTF, stockTF;
 
     @FXML
     Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorF;
@@ -53,7 +53,9 @@ public class VistaNuevoPController {
     
     @FXML
     TextArea descTA;
-
+    
+    
+    private ObservableList<Integer> nStock = FXCollections.observableArrayList();
     
     
     
@@ -100,6 +102,8 @@ public class VistaNuevoPController {
 
     @FXML
     private void initialize() {
+        
+        
         comboGen.setItems(generos);
         errorA.setVisible(false);
         errorP.setVisible(false);
@@ -150,6 +154,19 @@ public class VistaNuevoPController {
                 }
             }
         });
+        
+        //Controlador del TextField del stock
+        stockTF.textProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (stockTF.getText().length() > 5 || !isNumeric(stockTF.getText()) || stockTF.getText().equals("0")) {
+                    if (!stockTF.getText().equals("")) {
+                        stockTF.setText(oldValue.toString());
+                    }
+                }
+            }
+        });
+        
 
     }
 

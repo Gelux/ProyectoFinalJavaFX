@@ -186,6 +186,7 @@
          </GridPane>
       </content>
    </ScrollPane>
+   <Button fx:id="bExpand" layoutX="301.0" layoutY="46.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#muestraVistaDetallesExtraible" prefHeight="4.0" prefWidth="20.0" AnchorPane.rightAnchor="0.0" />
    
 
 </AnchorPane>

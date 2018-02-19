@@ -105,6 +105,9 @@ public class GestorLibreria extends Application {
         escenarioNuevo.showAndWait();
     }
     
+    public Stage getEscenario(){
+        return escenarioPrincipal;
+    }
     
     
     public static void main(String[] args) {
