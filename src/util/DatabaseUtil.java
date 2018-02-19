@@ -1,6 +1,9 @@
 package util;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -146,6 +149,30 @@ public class DatabaseUtil {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return auxImage;
+    }
+    
+    public boolean subirImagen(File img){
+        
+        try {
+            File blob = new File(img.getAbsolutePath());
+            FileInputStream fis = new FileInputStream(blob);
+            
+            ps = conexion.prepareStatement("update productos set foto = ? where foto is null");
+            
+            ps.setBinaryStream(1, fis, (int)blob.length());
+            
+            if(ps.executeUpdate() != 1){
+                System.out.println("Subida de imagen erronea");
+            }else{
+                System.out.println("Imagen subida");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
     }
 
 //    public boolean insertarImagen(File file, long codigoFoto){
