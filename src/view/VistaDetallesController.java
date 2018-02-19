@@ -8,6 +8,7 @@ package view;
 import controller.GestorLibreria;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -30,16 +31,19 @@ public class VistaDetallesController {
     
     
     @FXML
-    private Label lNombre, lAutor, lGenero, lBarras, lRaro, lLanzamiento, lStock, lPublicacion, lEditorial;
+    private Label lNombre, lAutor, lGenero, lBarras, lRaro, lLanzamiento, lStock, lPublicacion, lEditorial, lPrecio;
     
     @FXML
     private TextArea tDescripcion;
     
     @FXML
-    private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock;
+    private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock, tfPrecio;
     
     @FXML
     private ImageView imagen;
+    
+    @FXML
+    private Button bImprimirC, bEditar, bGuardar;
     
      @FXML
     private void initialize() {
@@ -60,6 +64,9 @@ public class VistaDetallesController {
        lStock.setVisible(false);
        lPublicacion.setVisible(false);
        lEditorial.setVisible(false);
+       bImprimirC.setVisible(false);
+       lPrecio.setVisible(false);
+       bEditar.setVisible(false);
        
        tfNombre.setText(lNombre.getText());
        tfAutor.setText(lAutor.getText());
@@ -70,6 +77,9 @@ public class VistaDetallesController {
        tfStock.setText(lStock.getText());
        tfPublicacion.setText(lPublicacion.getText());
        tfEditorial.setText(lEditorial.getText());
+       tDescripcion.setEditable(true);
+       tfPrecio.setText(lPrecio.getText());
+       
        
        tfNombre.setVisible(true);
        tfAutor.setVisible(true);
@@ -80,6 +90,8 @@ public class VistaDetallesController {
        tfRaro.setVisible(true);
        tfLanzamiento.setVisible(true);
        tfStock.setVisible(true);
+       tfPrecio.setVisible(true);
+       bGuardar.setVisible(true);
        
        
     }
@@ -100,6 +112,7 @@ public class VistaDetallesController {
         lStock.setText(String.valueOf(libro.getStock()));
         lPublicacion.setText(String.valueOf(libro.getAnoPublicacion()));
         lEditorial.setText(libro.getEditorial());
+        lPrecio.setText(String.valueOf(libro.getPrecio()));
         
         Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
         imagen.setImage(image);

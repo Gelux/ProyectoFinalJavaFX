@@ -3,13 +3,28 @@
 }
 
 .background {
-    -fx-background-color: #F5FFFF;
+    -fx-background-color: #EEFEFE;
 }
 
 .label {
     -fx-font-size: 10pt;
     -fx-text-fill: black;
     -fx-opacity: 1;
+}
+
+.titulos{
+    -fx-font-size: 8pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+    -fx-background-color: white;
+}
+
+.detalles{
+    -fx-font-size: 14pt;
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+    -fx-background-color: #EEFEFE;
 }
 
 .label-bright {
@@ -53,7 +68,7 @@
 }
 
 #detallesPane{
-    -fx-background-color: #F5FFFF;
+    -fx-background-color: #EEFEFE;
 }
 
 .button{
@@ -272,7 +287,6 @@
 #panelDatos{
 
     -fx-border-color: transparent;
-    -fx-padding:0 0 0 5;
     -fx-background-color: white;
 
 }
@@ -298,4 +312,30 @@
     -fx-background-color: #d0d8db;
     -fx-border-color: black;
 
+}
+
+#bGuardar{
+
+    -fx-font-size:15;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+    -fx-background-color: #d0d8db;
+    -fx-border-color: black;
+
+}
+
+#bImprimirC{
+    -fx-background-image: url("../img/printer.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20 20;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+#bImprimirC:pressed{
+    -fx-background-image: url("../img/printerPressed.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20 20;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
 }
