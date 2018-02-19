@@ -1,6 +1,7 @@
 package util;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -31,24 +32,20 @@ public class DatabaseUtil {
     Statement sentencia = null;
     ResultSet resultSet1 = null;
     PreparedStatement ps = null;
+    static DatabaseMetaData conexInfo;
     ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
 
     public DatabaseUtil() {
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            conexion = DriverManager.getConnection("jdbc:oracle:thin:noobs/damnoobs@//proyectofinaljfx.ckga19q2gpk5.eu-central-1.rds.amazonaws.com"
-                    + ":8080/LIBRODB");
-            DatabaseMetaData BD = conexion.getMetaData();
-            //Info conexion
-            String driver = BD.getDriverName();
-            String url = BD.getURL();
-            String product = BD.getDatabaseProductName();
-            String usuario = BD.getUserName();
-            System.out.println("Driver: " + driver + " //URL:" + url + " //Producto: " + product + " //User: " + usuario);
-        } catch (ClassNotFoundException cn) {
-            cn.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        if (conexion == null) {
+            try {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                conexion = DriverManager.getConnection("jdbc:oracle:thin:noobs/damnoobs@//proyectofinaljfx.ckga19q2gpk5.eu-central-1.rds.amazonaws.com"
+                        + ":8080/LIBRODB");
+            } catch (ClassNotFoundException cn) {
+                cn.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
 
     }
@@ -77,27 +74,41 @@ public class DatabaseUtil {
             conexion.close();
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return listaProductos;
     }
 
-    public void insertarProducto(Libro libro) {
+    public void insertarNuevoLibro(Libro libro) {
         try {
 
-            ps = conexion.prepareStatement("insert into jobs values (?,?,?,?,?,?) ");
-            ps.setString(1, String.valueOf(libro.getCodBarras()));
+            ps = conexion.prepareStatement("insert into productos values (?,?,?, sysdate, ?, sysdate, ?, 'LI', null) ");
+            ps.setLong(1, 123456789456123L);
             ps.setString(2, libro.getNombre());
             ps.setString(3, libro.getDescription());
-            ps.setString(4, libro.getFoto());
-            
-            
+            ps.setInt(4, libro.getStock());
+            ps.setDouble(6, libro.getPrecio());
+
             if (ps.executeUpdate() != 1) {
                 System.out.println("Error insercion");
             } else {
                 System.out.println("Fila insertada");
+                
+                conexion.commit();
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -126,6 +137,12 @@ public class DatabaseUtil {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return libroAux;
     }
@@ -145,17 +162,25 @@ public class DatabaseUtil {
             blob = resultSet1.getBlob(1);
             InputStream in = blob.getBinaryStream();
             auxImage = ImageIO.read(in);
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return auxImage;
     }
-    
+
+//    public boolean insertarImagen(File file, long codigoFoto){
+//        
+//    }
 //    public boolean editarProducto ( Libro libro ){
 //        
 //    } 
-
 }
