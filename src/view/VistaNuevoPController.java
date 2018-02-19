@@ -9,7 +9,6 @@ import controller.GestorLibreria;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,7 +26,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import model.Libro;
-import model.Producto;
 import util.DatabaseUtil;
 
 /**
@@ -165,8 +163,10 @@ public class VistaNuevoPController {
         
         if (!comprobarErrores()) {
             
-            Libro libroAux = new Libro(tituloTF.getText(), descTA.getText(),
-            Double.parseDouble(precioTF.getText()), 0, 0L, null, null);
+            Libro libroAux = new Libro(Long.parseLong(isbnTF.getText()), comboGen.getValue().toString(),
+            autorTF.getText(), anioTF.getText(), editorialTF.getText(), tituloTF.getText(),
+            descTA.getText(), Double.parseDouble(precioTF.getText()), 0, 0L, null, null);
+            
             Stage stage = (Stage) bCrearP.getScene().getWindow();
             db.insertarNuevoLibro(libroAux);
             stage.close();

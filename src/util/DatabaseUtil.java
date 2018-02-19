@@ -1,18 +1,14 @@
 package util;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -28,7 +24,7 @@ import model.Producto;
 public class DatabaseUtil {
 
     Producto productoAux = null;
-    Connection conexion = null;
+    Connection conexion;
     Statement sentencia = null;
     ResultSet resultSet1 = null;
     PreparedStatement ps = null;
@@ -37,18 +33,8 @@ public class DatabaseUtil {
     ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
 
     public DatabaseUtil() {
-        if (conexion == null) {
-            try {
-                Class.forName("oracle.jdbc.driver.OracleDriver");
-                conexion = DriverManager.getConnection("jdbc:oracle:thin:noobs/damnoobs@//proyectofinaljfx.ckga19q2gpk5.eu-central-1.rds.amazonaws.com"
-                        + ":8080/LIBRODB");
-            } catch (ClassNotFoundException cn) {
-                cn.printStackTrace();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-
+        ConnectDB helper = new ConnectDB();
+        conexion = helper.getConnection();
     }
 
     public ObservableList<Producto> anadirLista() {
@@ -72,15 +58,9 @@ public class DatabaseUtil {
             } else {
                 System.out.println("La tabla no tiene datos");
             }
-            conexion.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            try {
-                conexion.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         return listaProductos;
     }
@@ -112,12 +92,6 @@ public class DatabaseUtil {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            try {
-                conexion.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 
@@ -146,12 +120,6 @@ public class DatabaseUtil {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
-            try {
-                conexion.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         return libroAux;
     }
@@ -176,12 +144,6 @@ public class DatabaseUtil {
             ex.printStackTrace();
         } catch (IOException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            try {
-                conexion.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         return auxImage;
     }
