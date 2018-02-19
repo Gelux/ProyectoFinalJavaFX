@@ -16,38 +16,38 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import javafx.application.Application;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javax.imageio.ImageIO;
-import jbarcodebean.JBarcodeBean;
-import net.sourceforge.jbarcodebean.model.Code93;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author gonza
  */
-public class CreaPdfCodBarras extends Application {
+public class CreaPdfCodBarras extends JFrame{
 
     //IMPORTANTEE!!!!!!!!!!!!!!!!!!
+    
     //importar librearia itextpdf-5.3.2.jar
+    
     // poner nombre producto , la imagen , y numero de copias
     //ejemplo:
     //Image imagen = Image.getInstance("codBarrasImg/codebar.jpg");
     //CreaPdf nuevo = new CreaPdfCodBarras("jesus", imagen, 50);
+    
     //importar librearia itextpdf-5.3.2.jar
+    
+
     public static Document documento;
     String nProducto;
     Image codBarras;
     int numCopias;
-    static String numero, rutaGuardar;
-    static byte[] bufferImagen, imgCB;
-    static Stage chooserStage, alertStage;
+    static String numero;
+    static String rutaGuardar;
+    
 
     public CreaPdfCodBarras(String nProducto, Image imgCodBarras, int numCopias) {
         this.codBarras = imgCodBarras;
@@ -62,18 +62,20 @@ public class CreaPdfCodBarras extends Application {
         documento = new Document();
         FileOutputStream ficheroPdf;
         
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Elige el directorio donde guardar el PDF");
-        File defaultDirectory = new File("C:/");
-        fc.setInitialDirectory(defaultDirectory);
+        JFileChooser jfc = new JFileChooser();
+        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        jfc.setCurrentDirectory(new File("c:\\"));
+        jfc.setDialogTitle("Selecciona el directorio donde vas a guardar el PDF.");
 
-        File selectedDirectory = fc.showSaveDialog(chooserStage);
-
-        if (selectedDirectory != null) {
-            rutaGuardar = selectedDirectory.getAbsolutePath();
-            
-            try {
-            ficheroPdf = new FileOutputStream(rutaGuardar + "\\" + nProducto + ".PDF");
+        if ((jfc.showDialog(jfc, "Seleccionar") == JFileChooser.CANCEL_OPTION)) {
+            JOptionPane.showMessageDialog(null, "No has seleccionado una ruta para guardar.");
+        } else {
+            File archivo = jfc.getSelectedFile();
+            rutaGuardar = archivo.getAbsolutePath();
+        }
+        
+        try {
+            ficheroPdf = new FileOutputStream(rutaGuardar + nProducto + ".PDF");
             PdfWriter.getInstance(
                     documento,
                     ficheroPdf
@@ -84,6 +86,7 @@ public class CreaPdfCodBarras extends Application {
         try {
             documento.open();
 
+            
             Font f = new Font(FontFamily.TIMES_ROMAN, 25.0f, Font.UNDERLINE, BaseColor.GRAY);
             Paragraph p = new Paragraph(nProducto, f);
 
@@ -105,18 +108,10 @@ public class CreaPdfCodBarras extends Application {
         } catch (DocumentException ex) {
             System.out.println(ex.toString());
         }
-        
-        } else {
-            
-            
-            
-        }
-
-        
     }
 
     private static void creaTabla(Image codBarras, int numCopias) throws DocumentException {
-
+        
         int nad = numCopias % 4;
 
         PdfPTable tabla = new PdfPTable(4);
@@ -130,53 +125,12 @@ public class CreaPdfCodBarras extends Application {
         documento.add(tabla);
 
     }
-
-    public static byte[] CrearImgCB(String numero) throws IOException {
-
-        JBarcodeBean barcode = new JBarcodeBean();
-
-        // nuestro tipo de codigo de barra
-        barcode.setCodeType(new Code93());
-        //barcode.setCodeType(new Code39());
-
-        // nuestro valor a codificar y algunas configuraciones mas
-        barcode.setCode(numero);
-        barcode.setCheckDigit(true);
-
-        BufferedImage bufferedImage = barcode.draw(new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB));
-
-        byte[] bufferImage = crearBufferDesdeImagen(bufferedImage);
-
-        return bufferImage;
-    }
-
-    public static byte[] crearBufferDesdeImagen(BufferedImage imagen) throws IOException {
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(imagen, "jpg", baos);
-        baos.flush();
-        bufferImagen = baos.toByteArray();
-        baos.close();
-
-        return bufferImagen;
-    }
-
-    public void botonGenerar(String codigoBarras) throws IOException, BadElementException {
-
+    public static void main(String[] args) throws BadElementException, IOException {
         
-    }
-    
-    public static void main(String[] args) throws IOException, BadElementException {
-        imgCB = CrearImgCB("1234567894561");
-
-        Image imagen = Image.getInstance(imgCB);
-        generaPdf("evolandia", imagen, 10);
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+        GeneradorCodeBar codeBar = new GeneradorCodeBar();
         
-        
+        Image imagen = Image.getInstance(codeBar.CrearImgCB("1234567894686"));
+        generaPdf("evolandia", imagen, 1000);
     }
 
 }
