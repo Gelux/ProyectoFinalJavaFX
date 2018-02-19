@@ -1,18 +1,14 @@
 package util;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -28,26 +24,17 @@ import model.Producto;
 public class DatabaseUtil {
 
     Producto productoAux = null;
-    Connection conexion = null;
+    Connection conexion;
     Statement sentencia = null;
     ResultSet resultSet1 = null;
     PreparedStatement ps = null;
+    PreparedStatement ps2 = null;
     static DatabaseMetaData conexInfo;
     ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
 
     public DatabaseUtil() {
-        if (conexion == null) {
-            try {
-                Class.forName("oracle.jdbc.driver.OracleDriver");
-                conexion = DriverManager.getConnection("jdbc:oracle:thin:noobs/damnoobs@//proyectofinaljfx.ckga19q2gpk5.eu-central-1.rds.amazonaws.com"
-                        + ":8080/LIBRODB");
-            } catch (ClassNotFoundException cn) {
-                cn.printStackTrace();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-
+        ConnectDB helper = new ConnectDB();
+        conexion = helper.getConnection();
     }
 
     public ObservableList<Producto> anadirLista() {
@@ -71,15 +58,9 @@ public class DatabaseUtil {
             } else {
                 System.out.println("La tabla no tiene datos");
             }
-            conexion.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            try {
-                conexion.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         return listaProductos;
     }
@@ -88,13 +69,21 @@ public class DatabaseUtil {
         try {
 
             ps = conexion.prepareStatement("insert into productos values (?,?,?, sysdate, ?, sysdate, ?, 'LI', null) ");
-            ps.setLong(1, 123456789456123L);
+            ps.setLong(1, 0L);
             ps.setString(2, libro.getNombre());
             ps.setString(3, libro.getDescription());
             ps.setInt(4, libro.getStock());
-            ps.setDouble(6, libro.getPrecio());
-
-            if (ps.executeUpdate() != 1) {
+            ps.setString(5, String.valueOf(libro.getPrecio()));
+            
+            ps2 = conexion.prepareStatement("insert into libros values(?,?,?,?,?,?)");
+            ps2.setLong(1, 0L);
+            ps2.setLong(2, libro.getISBN());
+            ps2.setString(3, libro.getGenero());
+            ps2.setString(4, libro.getAutor());
+            ps2.setString(5, libro.getEditorial());
+            ps2.setInt(6, Integer.parseInt(libro.getAnoPublicacion()));
+            
+            if (ps.executeUpdate() != 1 || ps2.executeUpdate() != 1) {
                 System.out.println("Error insercion");
             } else {
                 System.out.println("Fila insertada");
@@ -103,12 +92,6 @@ public class DatabaseUtil {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            try {
-                conexion.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 
@@ -137,12 +120,6 @@ public class DatabaseUtil {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
-            try {
-                conexion.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         return libroAux;
     }
@@ -167,12 +144,6 @@ public class DatabaseUtil {
             ex.printStackTrace();
         } catch (IOException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            try {
-                conexion.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         return auxImage;
     }
