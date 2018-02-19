@@ -26,6 +26,9 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import model.Libro;
+import model.Producto;
+import util.DatabaseUtil;
 
 /**
  *
@@ -34,7 +37,7 @@ import javax.imageio.ImageIO;
 public class VistaNuevoPController {
 
     private GestorLibreria gestorLibreria;
-    
+    private DatabaseUtil db;
 
     @FXML
     ComboBox comboGen;
@@ -150,14 +153,22 @@ public class VistaNuevoPController {
                 }
             }
         });
+        
+        //Inicializo el auxiliar de la database
+        db = new DatabaseUtil();
 
     }
 
     @FXML
     private void crearP() {
-
+        
+        
         if (!comprobarErrores()) {
+            
+            Libro libroAux = new Libro(tituloTF.getText(), descTA.getText(),
+            Double.parseDouble(precioTF.getText()), 0, 0L, null, null);
             Stage stage = (Stage) bCrearP.getScene().getWindow();
+            db.insertarNuevoLibro(libroAux);
             stage.close();
         }
 

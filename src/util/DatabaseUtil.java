@@ -32,6 +32,7 @@ public class DatabaseUtil {
     Statement sentencia = null;
     ResultSet resultSet1 = null;
     PreparedStatement ps = null;
+    PreparedStatement ps2 = null;
     static DatabaseMetaData conexInfo;
     ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
 
@@ -88,13 +89,21 @@ public class DatabaseUtil {
         try {
 
             ps = conexion.prepareStatement("insert into productos values (?,?,?, sysdate, ?, sysdate, ?, 'LI', null) ");
-            ps.setLong(1, 123456789456123L);
+            ps.setLong(1, 0L);
             ps.setString(2, libro.getNombre());
             ps.setString(3, libro.getDescription());
             ps.setInt(4, libro.getStock());
-            ps.setDouble(6, libro.getPrecio());
-
-            if (ps.executeUpdate() != 1) {
+            ps.setString(5, String.valueOf(libro.getPrecio()));
+            
+            ps2 = conexion.prepareStatement("insert into libros values(?,?,?,?,?,?)");
+            ps2.setLong(1, 0L);
+            ps2.setLong(2, libro.getISBN());
+            ps2.setString(3, libro.getGenero());
+            ps2.setString(4, libro.getAutor());
+            ps2.setString(5, libro.getEditorial());
+            ps2.setInt(6, Integer.parseInt(libro.getAnoPublicacion()));
+            
+            if (ps.executeUpdate() != 1 || ps2.executeUpdate() != 1) {
                 System.out.println("Error insercion");
             } else {
                 System.out.println("Fila insertada");
