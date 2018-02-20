@@ -7,10 +7,6 @@ package view;
 
 import controller.GestorLibreria;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 /**
  *
@@ -29,6 +25,10 @@ public class VistaPrincipalController {
     @FXML
     private void cerrarVista(){ 
         System.exit(0);
+        
+    }
+    @FXML
+    private void abrirManualUsuario(){
         
     }
  
