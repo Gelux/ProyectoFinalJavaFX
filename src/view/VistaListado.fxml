@@ -34,14 +34,14 @@
                            <tooltip>
                               <Tooltip text="Añadir Producto" />
                            </tooltip></Button>
-                        <Button fx:id="bDelete" mnemonicParsing="false" prefHeight="45.0" prefWidth="50.0">
+                        <Button fx:id="bDelete" onAction="#eliminarProducto" mnemonicParsing="false" prefHeight="45.0" prefWidth="50.0">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                            <tooltip>
                               <Tooltip text="Eliminar Producto" />
                            </tooltip></Button>
-                        <Button fx:id="bRefresh" mnemonicParsing="false" prefHeight="45.0" prefWidth="50.0" textAlignment="CENTER">
+                        <Button fx:id="bRefresh" onAction="#setListaProductos" mnemonicParsing="false" prefHeight="45.0" prefWidth="50.0" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
