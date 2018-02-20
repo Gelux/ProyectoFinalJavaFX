@@ -9,7 +9,6 @@ import controller.GestorLibreria;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -26,6 +25,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import model.Libro;
+import util.DatabaseUtil;
 
 /**
  *
@@ -34,7 +35,9 @@ import javax.imageio.ImageIO;
 public class VistaNuevoPController {
 
     private GestorLibreria gestorLibreria;
-    
+    private VistaListadoController controllerListado;
+    private DatabaseUtil db;
+    private File archivoE;
 
     @FXML
     ComboBox comboGen;
@@ -43,79 +46,68 @@ public class VistaNuevoPController {
     Button bCrearP;
 
     @FXML
-    TextField isbnTF, precioTF, anioTF, tituloTF, autorTF, editorialTF;
+    TextField isbnTF, precioTF, anioTF, tituloTF, autorTF, editorialTF, stockTF;
 
     @FXML
     Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorF;
 
     @FXML
     ImageView fotoP;
-    
+
     @FXML
     TextArea descTA;
 
-    
-    
-    
     private ObservableList<String> generos
             = FXCollections.observableArrayList(
                     "Arte",
                     "Autoayuda y Espiritualidad",
                     "Ciencias Humanas",
-                    "Ciencias Políticas y Sociales",
+                    "Ciencias PolÃ­ticas y Sociales",
                     "Ciencias",
                     "Cocina",
-                    "Cómics Adultos",
-                    "Cómics infantil y juvenil",
+                    "CÃ³mics Adultos",
+                    "CÃ³mics infantil y juvenil",
                     "Deportes y juegos",
                     "Derecho",
-                    "Economía",
+                    "EconomÃ­a",
                     "Empresa",
-                    "Filología",
-                    "Fotografía",
-                    "Guías de viaje",
+                    "FilologÃ­a",
+                    "FotografÃ­a",
+                    "GuÃ­as de viaje",
                     "Historia",
                     "Idiomas",
                     "Infantil",
-                    "Informática",
-                    "Ingeniería",
+                    "InformÃ¡tica",
+                    "IngenierÃ­a",
                     "Juegos educativos",
                     "Juvenil",
                     "Libro antiguo y de ocasion",
-                    "Libros de Texto y Formación",
+                    "Libros de Texto y FormaciÃ³n",
                     "Libros latinoamericanos",
                     "Literatura",
                     "Manualidades",
                     "Medicina",
-                    "Música",
-                    "Narrativa histórica",
-                    "Novela contemporánea",
+                    "MÃºsica",
+                    "Narrativa histÃ³rica",
+                    "Novela contemporÃ¡nea",
                     "Novela negra",
                     "Oposiciones",
-                    "Psicología y Pedagogía",
-                    "Romántica y erótica",
+                    "PsicologÃ­a y PedagogÃ­a",
+                    "RomÃ¡ntica y erÃ³tica",
                     "Salud y Dietas",
                     "Otros"
             );
 
     @FXML
     private void initialize() {
+        
+        
         comboGen.setItems(generos);
-        errorA.setVisible(false);
-        errorP.setVisible(false);
-        errorISBN.setVisible(false);
-        errorT.setVisible(false);
-        errorAu.setVisible(false);
-        errorE.setVisible(false);
-        errorG.setVisible(false);
-        errorD.setVisible(false);
-        errorF.setVisible(false);
 
         //Controlador del TextField del ISBN
         isbnTF.textProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                System.out.println(isNumeric(isbnTF.getText()));
                 if (isbnTF.getText().length() > 13 || !isNumeric(isbnTF.getText())) {
                     if (!isbnTF.getText().equals("")) {
                         isbnTF.setText(oldValue.toString());
@@ -139,7 +131,7 @@ public class VistaNuevoPController {
             }
         });
 
-        //Controlador del TextField del año
+        //Controlador del TextField del aÃ±o
         anioTF.textProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
@@ -150,6 +142,22 @@ public class VistaNuevoPController {
                 }
             }
         });
+        
+        //Controlador del TextField del stock
+        stockTF.textProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (stockTF.getText().length() > 5 || !isNumeric(stockTF.getText()) || stockTF.getText().equals("0")) {
+                    if (!stockTF.getText().equals("")) {
+                        stockTF.setText(oldValue.toString());
+                    }
+                }
+            }
+        });
+        
+
+        //Inicializo el auxiliar de la database
+        db = new DatabaseUtil();
 
     }
 
@@ -157,7 +165,18 @@ public class VistaNuevoPController {
     private void crearP() {
 
         if (!comprobarErrores()) {
+
+            Libro libroAux = new Libro(Long.parseLong(isbnTF.getText()), comboGen.getValue().toString(),
+                    autorTF.getText(), anioTF.getText(), editorialTF.getText(), tituloTF.getText(),
+                    descTA.getText(), Double.parseDouble(precioTF.getText()), 0, 0L, null, null);
+
+            //Pillo el controller de vistalistadocontroller
+            controllerListado = gestorLibreria.getVistaListadoController();
+
             Stage stage = (Stage) bCrearP.getScene().getWindow();
+            db.insertarNuevoLibro(libroAux);
+            db.subirImagen(archivoE);
+            controllerListado.setListaProductos();
             stage.close();
         }
 
@@ -174,7 +193,7 @@ public class VistaNuevoPController {
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
 
-        File archivoE = fileChooser.showOpenDialog(bCrearP.getScene().getWindow());
+        archivoE = fileChooser.showOpenDialog(bCrearP.getScene().getWindow());
 
         try {
             BufferedImage bufferedImage = ImageIO.read(archivoE);
@@ -185,10 +204,10 @@ public class VistaNuevoPController {
     }
 
     private boolean comprobarErrores() {
-        
+
         boolean error = false;
 
-        //Controla error de años
+        //Controla error de aÃ±os
         if (anioTF.getText().isEmpty()) {
             errorA.setVisible(true);
             error = true;
@@ -208,63 +227,62 @@ public class VistaNuevoPController {
         } else {
             errorP.setVisible(false);
         }
-        
-        if(isbnTF.getText().length() != 13){
+
+        if (isbnTF.getText().length() != 13) {
             errorISBN.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorISBN.setVisible(false);
         }
-        
-        //Controla error de título
-        if (tituloTF.getText().isEmpty()){
+
+        //Controla error de tÃ­tulo
+        if (tituloTF.getText().isEmpty()) {
             errorT.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorT.setVisible(false);
         }
-        
+
         //Controla error de autor
-        if (autorTF.getText().isEmpty()){
+        if (autorTF.getText().isEmpty()) {
             errorAu.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorAu.setVisible(false);
         }
-        
-        
+
         //Controla error de editorial
-        if (editorialTF.getText().isEmpty()){
+        if (editorialTF.getText().isEmpty()) {
             errorE.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorE.setVisible(false);
         }
-        
-        //Controla error de género
-        if( comboGen.getValue() == null || comboGen.getValue().toString().isEmpty()){
+
+        //Controla error de gÃ©nero
+        if (comboGen.getValue() == null || comboGen.getValue().toString().isEmpty()) {
             errorG.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorG.setVisible(false);
         }
-        
-        //Controla la descripción
-        if(descTA.getText().isEmpty()){
+
+        //Controla la descripciÃ³n
+        if (descTA.getText().isEmpty()) {
             errorD.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorD.setVisible(false);
         }
-        
+
         //Controla la foto
-        if(fotoP.getImage() == null){
+        if (fotoP.getImage() == null) {
             errorF.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorF.setVisible(false);
         }
-        
+
         return error;
     }
 
@@ -282,7 +300,7 @@ public class VistaNuevoPController {
                     || texto.charAt(i) == '8'
                     || texto.charAt(i) == '9') {
                 num = true;
-            }else{
+            } else {
                 num = false;
             }
         }
@@ -334,6 +352,7 @@ public class VistaNuevoPController {
     }
 
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
+        
         this.gestorLibreria = gestorLibreria;
     }
 }

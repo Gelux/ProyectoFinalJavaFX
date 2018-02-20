@@ -1,34 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="727.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VistaDetallesExtraibleController">
+<AnchorPane fx:id="AnchorPaneD" prefHeight="532.0" prefWidth="727.0" stylesheets="@../css/HojaDeEstilo.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VistaDetallesExtraibleController">
    <children>
-      <Label layoutX="18.0" layoutY="321.0" text="Nombre" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="320.0" />
-      <Label fx:id="nombreP" layoutX="18.0" layoutY="348.0" text="" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="340.0" />
-      <Label layoutX="20.0" layoutY="373.0" text="Autor" AnchorPane.topAnchor="370.0" />
-      <Label fx:id="autorP" layoutX="17.0" layoutY="399.0" text="" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="390.0" />
-      <Label layoutX="435.0" layoutY="356.0" text="Editorial" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="470.0" />
-      <Label fx:id="editorialP" layoutX="14.0" layoutY="146.0" prefHeight="17.0" prefWidth="70.0" text="" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="490.0" />
-      <Label layoutX="553.0" layoutY="356.0" text="Género" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="420.0" />
-      <Label fx:id="generoP" layoutX="15.0" layoutY="210.0" text="" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="440.0" />
-      <Label layoutX="463.0" layoutY="138.0" text="Descripción" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="170.0" />
-      <TextArea fx:id="descripcionP" editable="false" layoutX="370.0" layoutY="44.0" prefHeight="120.0" prefWidth="330.0" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="190.0" />
-      <Label layoutX="471.0" layoutY="459.0" text="Año de publicación" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="370.0" />
-      <Label fx:id="aniodPP" layoutX="15.0" layoutY="373.0" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="390.0" />
-      <Label layoutX="125.0" layoutY="468.0" text="Código de barras" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="70.0" />
-      <Label fx:id="codbP" layoutX="15.0" layoutY="426.0" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="90.0" />
-      <Label layoutX="375.0" layoutY="382.0" text="ISBN" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="20.0" />
-      <Label fx:id="isbnP" layoutX="374.0" layoutY="34.0" text="" AnchorPane.topAnchor="40.0" />
-      <Label layoutX="374.0" layoutY="219.0" text="Fecha de lanzamiento" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="410.0" />
-      <Label fx:id="fechaLP" layoutX="373.0" layoutY="95.0" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="430.0" />
-      <Label layoutX="375.0" layoutY="258.0" text="Fecha de modificación" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="450.0" />
-      <Label fx:id="fechaMP" layoutX="374.0" layoutY="146.0" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="470.0" />
-      <Label layoutX="374.0" layoutY="176.0" text="Stock" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="320.0" />
-      <Label fx:id="stockP" layoutX="374.0" layoutY="210.0" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="340.0" />
-      <ImageView fitHeight="290.0" fitWidth="330.0" layoutX="20.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="18.0" layoutY="321.0" prefHeight="16.0" prefWidth="330.0" styleClass="titulos2" text="Nombre" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="320.0" />
+      <Label fx:id="nombreP" layoutX="18.0" layoutY="348.0" styleClass="detalles" text="" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="340.0" />
+      <Label layoutX="20.0" layoutY="373.0" prefHeight="16.0" prefWidth="330.0" styleClass="titulos2" text="Autor" AnchorPane.topAnchor="370.0" />
+      <Label fx:id="autorP" layoutX="17.0" layoutY="399.0" styleClass="detalles" text="" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="390.0" />
+      <Label layoutX="435.0" layoutY="356.0" prefHeight="16.0" prefWidth="324.0" styleClass="titulos2" text="Editorial" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="470.0" />
+      <Label fx:id="editorialP" layoutX="14.0" layoutY="146.0" prefHeight="20.0" prefWidth="330.0" styleClass="detalles" text="" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="490.0" />
+      <Label layoutX="20.0" layoutY="356.0" prefHeight="16.0" prefWidth="324.0" styleClass="titulos2" text="Género" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="420.0" />
+      <Label fx:id="generoP" layoutX="15.0" layoutY="210.0" styleClass="detalles" text="" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="440.0" />
+      <Label layoutX="463.0" layoutY="138.0" prefHeight="16.0" prefWidth="358.0" styleClass="titulos2" text="Descripción" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="170.0" />
+      <TextArea fx:id="descripcionP" editable="false" layoutX="370.0" layoutY="44.0" prefHeight="120.0" prefWidth="330.0" styleClass="detalles" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="190.0" />
+      <Label layoutX="471.0" layoutY="459.0" prefHeight="16.0" prefWidth="358.0" styleClass="titulos2" text="Año de publicación" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="370.0" />
+      <Label fx:id="aniodPP" layoutX="15.0" layoutY="373.0" styleClass="detalles" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="390.0" />
+      <Label layoutX="125.0" layoutY="468.0" prefHeight="16.0" prefWidth="358.0" styleClass="titulos2" text="Código de barras" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="70.0" />
+      <ImageView fitHeight="70.0" fitWidth="175.0" layoutX="375.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="94.0" />
+      <Label layoutX="375.0" layoutY="382.0" prefHeight="16.0" prefWidth="358.0" styleClass="titulos2" text="ISBN" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="20.0" />
+      <Label fx:id="isbnP" layoutX="374.0" layoutY="34.0" styleClass="detalles" text="" AnchorPane.topAnchor="40.0" />
+      <Label layoutX="374.0" layoutY="219.0" prefHeight="16.0" prefWidth="358.0" styleClass="titulos2" text="Fecha de lanzamiento" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="420.0" />
+      <Label fx:id="fechaLP" layoutX="373.0" layoutY="95.0" styleClass="detalles" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="440.0" />
+      <Label layoutX="375.0" layoutY="258.0" prefHeight="16.0" prefWidth="358.0" styleClass="titulos2" text="Fecha de modificación" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="470.0" />
+      <Label fx:id="fechaMP" layoutX="374.0" layoutY="146.0" styleClass="detalles" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="490.0" />
+      <Label layoutX="374.0" layoutY="176.0" prefHeight="16.0" prefWidth="358.0" styleClass="titulos2" text="Stock" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="320.0" />
+      <Label fx:id="stockP" layoutX="374.0" layoutY="210.0" styleClass="detalles" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="340.0" />
+      <ImageView fx:id="imagen" fitHeight="290.0" fitWidth="330.0" layoutX="20.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Button fx:id="bImprimirC2" layoutX="549.0" layoutY="116.0" mnemonicParsing="false" onAction="#imprimir" prefHeight="40.0" prefWidth="40.0" AnchorPane.topAnchor="116.0" />
+      <TextField fx:id="nCDB" layoutX="549.0" layoutY="122.0" prefHeight="27.0" prefWidth="75.0" visible="false" />
+      <Label fx:id="labelNCDB" layoutX="549.0" layoutY="107.0" prefHeight="16.0" prefWidth="57.0" text="Nº copias" visible="false" />
+      <Button fx:id="bOK" layoutX="628.0" layoutY="122.0" mnemonicParsing="false" onAction="#OK" prefHeight="25.0" prefWidth="40.0" text="OK" visible="false" />
    </children>
 </AnchorPane>
