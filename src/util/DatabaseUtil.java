@@ -235,9 +235,10 @@ public class DatabaseUtil {
     }
     
     public ObservableList<Producto> buscarLibro(String busqueda, boolean tipoBusqueda){
+        listaProductos.clear();
         String query = "";
         if(tipoBusqueda){
-            query = "select * from productos where nombre = '" + busqueda + "'";
+            query = "select * from productos where LOWER(nombre) like '" + busqueda + "%'";
         }else{
             query = "select * from productos where codigo = " + Long.parseLong(busqueda);
         }

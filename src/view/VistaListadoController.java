@@ -18,9 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -53,6 +53,8 @@ public class VistaListadoController {
     TableColumn fechaModColumna;
     @FXML
     TableColumn precioColumna;
+    @FXML
+    TextField busqueda;
 
     @FXML
     private void initialize() {
@@ -78,6 +80,8 @@ public class VistaListadoController {
             }
 
         });
+        
+        
 
     }
 
@@ -127,6 +131,14 @@ public class VistaListadoController {
         lista = db.anadirLista();
         tablaP.setItems(lista);
 
+    }
+    
+    public void laBusqueda(ObservableList<Producto> listaP){
+        
+        //getItems.clear() borra la lista que esta asociada a la tabla
+        // dando como resultado una lista vacia
+        tablaP.setItems(listaP);
+        
     }
 
     @FXML

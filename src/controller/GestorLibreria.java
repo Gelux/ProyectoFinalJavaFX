@@ -31,6 +31,7 @@ public class GestorLibreria extends Application {
     private AnchorPane vistaListado, nuevoP, detalles;
     private VistaListadoController controllerListado;
     private VistaNuevoPController controllerNuevo;
+    private VistaPrincipalController controller;
     
     @Override
     public void start(Stage escenarioPrincipal) {
@@ -60,8 +61,7 @@ public class GestorLibreria extends Application {
         Scene escena = new Scene(layoutPrincipal);
         escenarioPrincipal.setScene(escena);
         
-        VistaPrincipalController controller = loader.getController();
-        controller.setGestorLibreria(this);
+        controller = loader.getController();
         
         escena.getStylesheets().add(getClass().getResource("../css/HojaDeEstilo.css").toExternalForm());
         escenarioPrincipal.show();
@@ -83,6 +83,7 @@ public class GestorLibreria extends Application {
         
         
         controllerListado = loader.getController();
+        controller.setGestorLibreria(this);
         controllerListado.setGestorLibreria(this);
     }
     
