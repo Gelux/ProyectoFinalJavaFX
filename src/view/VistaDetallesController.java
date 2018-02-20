@@ -5,6 +5,7 @@
  */
 package view;
 
+import com.itextpdf.text.BadElementException;
 import controller.GestorLibreria;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -35,6 +36,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import model.Libro;
+import util.CreaPdfCodBarras;
 import util.DatabaseUtil;
 
 /**
@@ -42,19 +44,22 @@ import util.DatabaseUtil;
  * @author evasa
  */
 public class VistaDetallesController {
-    
+
     private VistaListadoController vistaListado;
     private Libro libro;
     private AnchorPane detallesE; 
     private DatabaseUtil db;
-    
-    
+
     @FXML
     private Label lNombre, lAutor, lGenero, lBarras, lRaro, lLanzamiento, lStock, lPublicacion, lEditorial, lPrecio, lFechaM;
     
+
     @FXML
     private TextArea tDescripcion;
-    
+
+    @FXML
+    private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock, tfPrecio;
+
     @FXML
     private Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorF, errorGeneral;
     
@@ -65,10 +70,60 @@ public class VistaDetallesController {
     @FXML
     private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfRaro, tfStock, tfPrecio;
     
+
     @FXML
     private ImageView imagen;
-    
+
     @FXML
+
+    private Button bImprimirC, bEditar, bGuardar;
+
+    @FXML
+    private void initialize() {
+
+    }
+
+    @FXML
+    private void editar() {
+
+        lNombre.setVisible(false);
+        lAutor.setVisible(false);
+        lGenero.setVisible(false);
+        lBarras.setVisible(false);
+        lRaro.setVisible(false);
+        lLanzamiento.setVisible(false);
+        lStock.setVisible(false);
+        lPublicacion.setVisible(false);
+        lEditorial.setVisible(false);
+        bImprimirC.setVisible(false);
+        lPrecio.setVisible(false);
+        bEditar.setVisible(false);
+
+        tfNombre.setText(lNombre.getText());
+        tfAutor.setText(lAutor.getText());
+        tfGenero.setText(lGenero.getText());
+        tfBarras.setText(lBarras.getText());
+        tfRaro.setText(lRaro.getText());
+        tfLanzamiento.setText(lLanzamiento.getText());
+        tfStock.setText(lStock.getText());
+        tfPublicacion.setText(lPublicacion.getText());
+        tfEditorial.setText(lEditorial.getText());
+        tDescripcion.setEditable(true);
+        tfPrecio.setText(lPrecio.getText());
+
+        tfNombre.setVisible(true);
+        tfAutor.setVisible(true);
+        tfGenero.setVisible(true);
+        tfEditorial.setVisible(true);
+        tfPublicacion.setVisible(true);
+        tfBarras.setVisible(true);
+        tfRaro.setVisible(true);
+        tfLanzamiento.setVisible(true);
+        tfStock.setVisible(true);
+        tfPrecio.setVisible(true);
+        bGuardar.setVisible(true);
+
+=======
     private Button bImprimirC, bEditar, bGuardar, bExaminar;
     
     private ObservableList<String> generos
@@ -76,38 +131,38 @@ public class VistaDetallesController {
                     "Arte",
                     "Autoayuda y Espiritualidad",
                     "Ciencias Humanas",
-                    "Ciencias PolÌticas y Sociales",
+                    "Ciencias Pol√≠ticas y Sociales",
                     "Ciencias",
                     "Cocina",
-                    "CÛmics Adultos",
-                    "CÛmics infantil y juvenil",
+                    "C√≥mics Adultos",
+                    "C√≥mics infantil y juvenil",
                     "Deportes y juegos",
                     "Derecho",
-                    "EconomÌa",
+                    "Econom√≠a",
                     "Empresa",
-                    "FilologÌa",
-                    "FotografÌa",
-                    "GuÌas de viaje",
+                    "Filolog√≠a",
+                    "Fotograf√≠a",
+                    "Gu√≠as de viaje",
                     "Historia",
                     "Idiomas",
                     "Infantil",
-                    "Inform·tica",
-                    "IngenierÌa",
+                    "Inform√°tica",
+                    "Ingenier√≠a",
                     "Juegos educativos",
                     "Juvenil",
                     "Libro antiguo y de ocasion",
-                    "Libros de Texto y FormaciÛn",
+                    "Libros de Texto y Formaci√≥n",
                     "Libros latinoamericanos",
                     "Literatura",
                     "Manualidades",
                     "Medicina",
-                    "M˙sica",
-                    "Narrativa histÛrica",
-                    "Novela contempor·nea",
+                    "M√∫sica",
+                    "Narrativa hist√≥rica",
+                    "Novela contempor√°nea",
                     "Novela negra",
                     "Oposiciones",
-                    "PsicologÌa y PedagogÌa",
-                    "Rom·ntica y erÛtica",
+                    "Psicolog√≠a y Pedagog√≠a",
+                    "Rom√°ntica y er√≥tica",
                     "Salud y Dietas",
                     "Otros"
             );
@@ -145,7 +200,7 @@ public class VistaDetallesController {
             }
         });
 
-        //Controlador del TextField del aÒo
+        //Controlador del TextField del a√±o
         tfPublicacion.textProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
@@ -312,7 +367,7 @@ public class VistaDetallesController {
             Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //Creo el escenario de ediciÛn (con modal) y establezco la escena
+        //Creo el escenario de edici√≥n (con modal) y establezco la escena
         Stage escenarioNuevo = new Stage();
         escenarioNuevo.setTitle("Detalles");
         escenarioNuevo.initModality(Modality.WINDOW_MODAL);
@@ -324,12 +379,14 @@ public class VistaDetallesController {
         controller.setDatos(getLibro());
         
         escenarioNuevo.showAndWait();
+
     }
-    
-    public void setLibro(Libro libro){
+
+    public void setLibro(Libro libro) {
         this.libro = libro;
         setTextos();
     }
+
     
     public Libro getLibro(){
         return libro;
@@ -348,18 +405,20 @@ public class VistaDetallesController {
         lPublicacion.setText(String.valueOf(libro.getAnoPublicacion()));
         lEditorial.setText(libro.getEditorial());
         lPrecio.setText(String.valueOf(libro.getPrecio()));
+
         lFechaM.setText(String.valueOf(libro.getFechaModificacion()));
-        
+
         Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
         imagen.setImage(image);
-        
+
     }
+
     
     private boolean comprobarErrores() {
         
         boolean error = false;
 
-        //Controla error de aÒos
+        //Controla error de a√±os
         if (tfPublicacion.getText().isEmpty()) {
             errorA.setVisible(true);
             error = true;
@@ -387,7 +446,7 @@ public class VistaDetallesController {
             errorISBN.setVisible(false);
         }
         
-        //Controla error de tÌtulo
+        //Controla error de t√≠tulo
         if (tfNombre.getText().isEmpty()){
             errorT.setVisible(true);
             error = true;
@@ -412,7 +471,7 @@ public class VistaDetallesController {
             errorE.setVisible(false);
         }
         
-        //Controla error de gÈnero
+        //Controla error de g√©nero
         if( comboGen.getValue() == null || comboGen.getValue().toString().isEmpty()){
             errorG.setVisible(true);
             error = true;
@@ -420,7 +479,7 @@ public class VistaDetallesController {
             errorG.setVisible(false);
         }
         
-        //Controla la descripciÛn
+        //Controla la descripci√≥n
         if(tDescripcion.getText().isEmpty()){
             errorD.setVisible(true);
             error = true;
@@ -503,9 +562,35 @@ public class VistaDetallesController {
         }
         return true;
     }
-    
+
     public void setVistaListadoController(VistaListadoController vistaListado) {
         this.vistaListado = vistaListado;
     }
-    
+
+    public void generarPDf() throws IOException, BadElementException {
+
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Elige el directorio donde guardar el PDF.");
+        File defaultDirectory = new File("C:/");
+        fc.setInitialDirectory(defaultDirectory);
+        fc.setInitialFileName(libro.getNombre() + "CB");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+
+        File selectedDirectory = fc.showSaveDialog(bImprimirC.getScene().getWindow());
+        
+        if (selectedDirectory != null) {
+            String rutaGuardar = selectedDirectory.getAbsolutePath();
+
+            CreaPdfCodBarras pdfGenerator = new CreaPdfCodBarras();
+            
+            long numCB = libro.getCodBarras();
+            String strCB = String.valueOf(numCB);
+            
+            byte[] imagenCB = pdfGenerator.CrearImgCB(strCB);
+            
+            pdfGenerator.generaPdf(rutaGuardar, libro.getNombre(), imagenCB, 10);
+        }
+    }
+
 }

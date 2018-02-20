@@ -196,7 +196,8 @@
                      <TextField fx:id="tfPrecio" visible="false" />
                   </children>
                </StackPane>
-               <Button fx:id="bImprimirC" maxHeight="15.0" maxWidth="15.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" GridPane.rowIndex="13" />
+
+               <Button fx:id="bImprimirC" maxHeight="15.0" maxWidth="15.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#generarPDf" prefHeight="15.0" prefWidth="15.0" GridPane.rowIndex="13" />
                <Label fx:id="errorT" styleClass="error" text="Nombre vacío" visible="false" />
                <Label fx:id="errorAu" styleClass="error" text="Autor vacío" visible="false" GridPane.rowIndex="2" />
                <Label fx:id="errorG" styleClass="error" text="Género incorrecto" visible="false" GridPane.rowIndex="4" />
@@ -205,6 +206,7 @@
                <Label fx:id="errorISBN" styleClass="error" text="ISBN incorrecto" visible="false" GridPane.rowIndex="14" />
                <Label fx:id="errorP" styleClass="error" text="Precio incorrecto" visible="false" GridPane.rowIndex="22" />
                <Label fx:id="errorA" styleClass="error" text="Año incorrecto" visible="false" GridPane.rowIndex="10" />
+
             </children>
          </GridPane>
       </content>
