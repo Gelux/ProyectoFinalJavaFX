@@ -35,7 +35,9 @@ import util.DatabaseUtil;
 public class VistaNuevoPController {
 
     private GestorLibreria gestorLibreria;
+    private VistaListadoController controllerListado;
     private DatabaseUtil db;
+    private File archivoE;
 
     @FXML
     ComboBox comboGen;
@@ -51,13 +53,10 @@ public class VistaNuevoPController {
 
     @FXML
     ImageView fotoP;
-    
+
     @FXML
     TextArea descTA;
 
-    
-    
-    
     private ObservableList<String> generos
             = FXCollections.observableArrayList(
                     "Arte",
@@ -151,7 +150,7 @@ public class VistaNuevoPController {
                 }
             }
         });
-        
+
         //Inicializo el auxiliar de la database
         db = new DatabaseUtil();
 
@@ -159,16 +158,20 @@ public class VistaNuevoPController {
 
     @FXML
     private void crearP() {
-        
-        
+
         if (!comprobarErrores()) {
-            
+
             Libro libroAux = new Libro(Long.parseLong(isbnTF.getText()), comboGen.getValue().toString(),
-            autorTF.getText(), anioTF.getText(), editorialTF.getText(), tituloTF.getText(),
-            descTA.getText(), Double.parseDouble(precioTF.getText()), 0, 0L, null, null);
-            
+                    autorTF.getText(), anioTF.getText(), editorialTF.getText(), tituloTF.getText(),
+                    descTA.getText(), Double.parseDouble(precioTF.getText()), 0, 0L, null, null);
+
+            //Pillo el controller de vistalistadocontroller
+            controllerListado = gestorLibreria.getVistaListadoController();
+
             Stage stage = (Stage) bCrearP.getScene().getWindow();
             db.insertarNuevoLibro(libroAux);
+            db.subirImagen(archivoE);
+            controllerListado.setListaProductos();
             stage.close();
         }
 
@@ -185,7 +188,7 @@ public class VistaNuevoPController {
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
 
-        File archivoE = fileChooser.showOpenDialog(bCrearP.getScene().getWindow());
+        archivoE = fileChooser.showOpenDialog(bCrearP.getScene().getWindow());
 
         try {
             BufferedImage bufferedImage = ImageIO.read(archivoE);
@@ -196,7 +199,7 @@ public class VistaNuevoPController {
     }
 
     private boolean comprobarErrores() {
-        
+
         boolean error = false;
 
         //Controla error de años
@@ -219,63 +222,62 @@ public class VistaNuevoPController {
         } else {
             errorP.setVisible(false);
         }
-        
-        if(isbnTF.getText().length() != 13){
+
+        if (isbnTF.getText().length() != 13) {
             errorISBN.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorISBN.setVisible(false);
         }
-        
+
         //Controla error de título
-        if (tituloTF.getText().isEmpty()){
+        if (tituloTF.getText().isEmpty()) {
             errorT.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorT.setVisible(false);
         }
-        
+
         //Controla error de autor
-        if (autorTF.getText().isEmpty()){
+        if (autorTF.getText().isEmpty()) {
             errorAu.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorAu.setVisible(false);
         }
-        
-        
+
         //Controla error de editorial
-        if (editorialTF.getText().isEmpty()){
+        if (editorialTF.getText().isEmpty()) {
             errorE.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorE.setVisible(false);
         }
-        
+
         //Controla error de género
-        if( comboGen.getValue() == null || comboGen.getValue().toString().isEmpty()){
+        if (comboGen.getValue() == null || comboGen.getValue().toString().isEmpty()) {
             errorG.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorG.setVisible(false);
         }
-        
+
         //Controla la descripción
-        if(descTA.getText().isEmpty()){
+        if (descTA.getText().isEmpty()) {
             errorD.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorD.setVisible(false);
         }
-        
+
         //Controla la foto
-        if(fotoP.getImage() == null){
+        if (fotoP.getImage() == null) {
             errorF.setVisible(true);
             error = true;
-        }else{
+        } else {
             errorF.setVisible(false);
         }
-        
+
         return error;
     }
 
@@ -293,7 +295,7 @@ public class VistaNuevoPController {
                     || texto.charAt(i) == '8'
                     || texto.charAt(i) == '9') {
                 num = true;
-            }else{
+            } else {
                 num = false;
             }
         }
@@ -345,6 +347,7 @@ public class VistaNuevoPController {
     }
 
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
+        
         this.gestorLibreria = gestorLibreria;
     }
 }

@@ -165,20 +165,46 @@ public class DatabaseUtil {
                 System.out.println("Subida de imagen erronea");
             }else{
                 System.out.println("Imagen subida");
+                return true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return true;
+        return false;
     }
-
-//    public boolean insertarImagen(File file, long codigoFoto){
-//        
-//    }
-//    public boolean editarProducto ( Libro libro ){
-//        
-//    } 
+    
+    public boolean borrarLibro(long codBarr){
+        try{
+            ps = conexion.prepareStatement("delete from productos where codigo = ?");
+            
+            ps.setLong(1, codBarr);
+            
+            ps2 = conexion.prepareStatement("delete from libros where codigo = ?");
+            
+            ps2.setLong(1, codBarr);
+            
+            if(ps.executeUpdate() != 1 || ps2.executeUpdate() != 1){
+                System.out.println("Libros eliminados");
+                return true;
+            }else{
+                System.out.println("Error al eliminar");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return false;
+    }
+    
+    public boolean actualizarLibro(Libro libro){
+        try{
+            ps = conexion.prepareStatement("update productos set ");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
 }
