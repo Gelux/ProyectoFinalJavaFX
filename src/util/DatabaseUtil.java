@@ -157,7 +157,8 @@ public class DatabaseUtil {
             File blob = new File(img.getAbsolutePath());
             FileInputStream fis = new FileInputStream(blob);
             
-            ps = conexion.prepareStatement("update productos set foto = ? where foto is null");
+            ps = conexion.prepareStatement("update productos set foto = ? where fecha_modificacion = "
+                    + "(select max(fecha_modificacion) from productos)");
             
             ps.setBinaryStream(1, fis, (int)blob.length());
             
@@ -186,10 +187,11 @@ public class DatabaseUtil {
             ps2.setLong(1, codBarr);
             
             if(ps.executeUpdate() != 1 || ps2.executeUpdate() != 1){
-                System.out.println("Libros eliminados");
-                return true;
-            }else{
                 System.out.println("Error al eliminar");
+            }else{
+                System.out.println("Libros eliminados");
+                conexion.commit();
+                return true;
             }
             
         } catch (SQLException ex) {
@@ -200,9 +202,31 @@ public class DatabaseUtil {
     
     public boolean actualizarLibro(Libro libro){
         try{
-            ps = conexion.prepareStatement("update productos set ");
+            ps = conexion.prepareStatement("update productos set nombre = ?, set descripcion = ?, "
+                    + "set stock = ?, set precio = ? where codigo = ?");
+            ps.setString(1, libro.getNombre());
+            ps.setString(2, libro.getDescription());
+            ps.setInt(3, libro.getStock());
+            ps.setString(4, String.valueOf(libro.getPrecio()));
+            ps.setLong(5, libro.getCodBarras());
             
-            ps2 = conexion.prepareStatement("update libros set");
+            ps2 = conexion.prepareStatement("update libros set cod_isbn = ?, set genero = ?, set autor = ?, "
+                    + "set editorial = ?, set ano_publicacion = ? where codigo = ?");
+            ps2.setString(1, String.valueOf(libro.getISBN()));
+            ps2.setString(2, libro.getGenero());
+            ps2.setString(3, libro.getAutor());
+            ps2.setString(4, libro.getEditorial());
+            ps2.setInt(5, Integer.parseInt(libro.getAnoPublicacion()));
+            ps2.setLong(6, libro.getCodBarras());
+            
+            if (ps.executeUpdate() != 1 || ps2.executeUpdate() != 1) {
+                System.out.println("Error insercion");
+            } else {
+                System.out.println("Filas modificadas");
+                
+                conexion.commit();
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
