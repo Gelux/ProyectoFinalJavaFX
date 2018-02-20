@@ -5,7 +5,10 @@
  */
 package view;
 
+import com.itextpdf.text.BadElementException;
 import controller.GestorLibreria;
+import java.io.File;
+import java.io.IOException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,7 +19,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import model.Libro;
+import util.CreaPdfCodBarras;
 import util.DatabaseUtil;
 
 /**
@@ -24,84 +29,79 @@ import util.DatabaseUtil;
  * @author evasa
  */
 public class VistaDetallesController {
-    
+
     private VistaListadoController vistaListado;
     private Libro libro;
     private DatabaseUtil db;
-    
-    
+
     @FXML
     private Label lNombre, lAutor, lGenero, lBarras, lRaro, lLanzamiento, lStock, lPublicacion, lEditorial, lPrecio;
-    
+
     @FXML
     private TextArea tDescripcion;
-    
+
     @FXML
     private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock, tfPrecio;
-    
+
     @FXML
     private ImageView imagen;
-    
+
     @FXML
     private Button bImprimirC, bEditar, bGuardar;
-    
-     @FXML
+
+    @FXML
     private void initialize() {
-        
-      
+
     }
-    
-    
-    @FXML 
-    private void editar(){
-        
-       lNombre.setVisible(false);
-       lAutor.setVisible(false);
-       lGenero.setVisible(false);
-       lBarras.setVisible(false);
-       lRaro.setVisible(false);
-       lLanzamiento.setVisible(false);
-       lStock.setVisible(false);
-       lPublicacion.setVisible(false);
-       lEditorial.setVisible(false);
-       bImprimirC.setVisible(false);
-       lPrecio.setVisible(false);
-       bEditar.setVisible(false);
-       
-       tfNombre.setText(lNombre.getText());
-       tfAutor.setText(lAutor.getText());
-       tfGenero.setText(lGenero.getText());
-       tfBarras.setText(lBarras.getText());
-       tfRaro.setText(lRaro.getText());
-       tfLanzamiento.setText(lLanzamiento.getText());
-       tfStock.setText(lStock.getText());
-       tfPublicacion.setText(lPublicacion.getText());
-       tfEditorial.setText(lEditorial.getText());
-       tDescripcion.setEditable(true);
-       tfPrecio.setText(lPrecio.getText());
-       
-       
-       tfNombre.setVisible(true);
-       tfAutor.setVisible(true);
-       tfGenero.setVisible(true);
-       tfEditorial.setVisible(true);
-       tfPublicacion.setVisible(true);
-       tfBarras.setVisible(true);
-       tfRaro.setVisible(true);
-       tfLanzamiento.setVisible(true);
-       tfStock.setVisible(true);
-       tfPrecio.setVisible(true);
-       bGuardar.setVisible(true);
-       
-       
+
+    @FXML
+    private void editar() {
+
+        lNombre.setVisible(false);
+        lAutor.setVisible(false);
+        lGenero.setVisible(false);
+        lBarras.setVisible(false);
+        lRaro.setVisible(false);
+        lLanzamiento.setVisible(false);
+        lStock.setVisible(false);
+        lPublicacion.setVisible(false);
+        lEditorial.setVisible(false);
+        bImprimirC.setVisible(false);
+        lPrecio.setVisible(false);
+        bEditar.setVisible(false);
+
+        tfNombre.setText(lNombre.getText());
+        tfAutor.setText(lAutor.getText());
+        tfGenero.setText(lGenero.getText());
+        tfBarras.setText(lBarras.getText());
+        tfRaro.setText(lRaro.getText());
+        tfLanzamiento.setText(lLanzamiento.getText());
+        tfStock.setText(lStock.getText());
+        tfPublicacion.setText(lPublicacion.getText());
+        tfEditorial.setText(lEditorial.getText());
+        tDescripcion.setEditable(true);
+        tfPrecio.setText(lPrecio.getText());
+
+        tfNombre.setVisible(true);
+        tfAutor.setVisible(true);
+        tfGenero.setVisible(true);
+        tfEditorial.setVisible(true);
+        tfPublicacion.setVisible(true);
+        tfBarras.setVisible(true);
+        tfRaro.setVisible(true);
+        tfLanzamiento.setVisible(true);
+        tfStock.setVisible(true);
+        tfPrecio.setVisible(true);
+        bGuardar.setVisible(true);
+
     }
-    
-    public void setLibro(Libro libro){
+
+    public void setLibro(Libro libro) {
         this.libro = libro;
         setTextos();
     }
-    
-    public void setTextos(){
+
+    public void setTextos() {
         db = new DatabaseUtil();
         lNombre.setText(libro.getNombre());
         lAutor.setText(libro.getAutor());
@@ -113,14 +113,40 @@ public class VistaDetallesController {
         lPublicacion.setText(String.valueOf(libro.getAnoPublicacion()));
         lEditorial.setText(libro.getEditorial());
         lPrecio.setText(String.valueOf(libro.getPrecio()));
-        
+
         Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
         imagen.setImage(image);
-        
+
     }
-    
+
     public void setVistaListadoController(VistaListadoController vistaListado) {
         this.vistaListado = vistaListado;
     }
-    
+
+    public void generarPDf() throws IOException, BadElementException {
+
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Elige el directorio donde guardar el PDF.");
+        File defaultDirectory = new File("C:/");
+        fc.setInitialDirectory(defaultDirectory);
+        fc.setInitialFileName(libro.getNombre() + "CB");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+
+        File selectedDirectory = fc.showSaveDialog(bImprimirC.getScene().getWindow());
+        
+        if (selectedDirectory != null) {
+            String rutaGuardar = selectedDirectory.getAbsolutePath();
+
+            CreaPdfCodBarras pdfGenerator = new CreaPdfCodBarras();
+            
+            long numCB = libro.getCodBarras();
+            String strCB = String.valueOf(numCB);
+            
+            byte[] imagenCB = pdfGenerator.CrearImgCB(strCB);
+            
+            pdfGenerator.generaPdf(rutaGuardar, libro.getNombre(), imagenCB, 10);
+        }
+    }
+
 }
