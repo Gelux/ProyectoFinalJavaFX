@@ -140,8 +140,8 @@ public class Producto {
     }
     
     
-    public LocalDate getFechaModificacion() {
-        return (LocalDate) fechaModificacion.get();
+    public Date getFechaModificacion() {
+        return (Date) fechaModificacion.get();
     }
 
     public void setFechaModificacion(LocalDate fechaModificacion) {

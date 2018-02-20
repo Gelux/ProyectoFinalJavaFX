@@ -97,6 +97,7 @@ public class VistaListadoController {
         Libro libroAux = db.detallesLibro(cod);
         //System.out.println(libroAux.getNombre());
         controller.setLibro(libroAux);
+        controller.setVistaListadoController(this);
     }
 
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
@@ -106,6 +107,13 @@ public class VistaListadoController {
 
     }
 
+    
+    public GestorLibreria getGestorLibreria() {
+        
+        return gestorLibreria;
+        
+    }
+    
     @FXML
     private void nuevo() {
         gestorLibreria.muestraVistaNuevo();

@@ -339,3 +339,47 @@
     -fx-border-color: transparent;
     -fx-background-color: transparent;
 }
+
+#bImprimirC2{
+    -fx-background-image: url("../img/printer.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 40 40;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+#bImprimirC2:pressed{
+    -fx-background-image: url("../img/printerPressed.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 40 40;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+#AnchorPaneD{
+    -fx-background-color: #EEFEFE;
+}
+
+.titulos2{
+    -fx-background-color: white;
+}
+
+#descripcionP .content{
+    -fx-background-color: #EEFEFE;
+}
+
+#tDescripcion .content{
+    -fx-background-color: #EEFEFE;
+}
+
+#bExpand{
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-image: url("../img/maximize.png");
+    -fx-background-size: 20 20;
+    -fx-border-color: transparent;
+}
+
+#bExpand:pressed{
+    -fx-background-image: url("../img/maximizePressed.png");
+}
