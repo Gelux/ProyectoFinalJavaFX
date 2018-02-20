@@ -114,7 +114,8 @@ public class GestorLibreria extends Application {
 
     public Stage getEscenario(){
         return escenarioPrincipal;
-
+    }
+    
     public VistaListadoController getVistaListadoController(){
         return controllerListado;
     }
