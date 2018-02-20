@@ -1,11 +1,30 @@
+.root{
+    -fx-font-family: "Arial";
+}
+
 .background {
-    -fx-background-color: #F5FFFF;
+    -fx-background-color: #EEFEFE;
 }
 
 .label {
     -fx-font-size: 10pt;
     -fx-text-fill: black;
-    -fx-opacity: 0.6;
+    -fx-opacity: 1;
+}
+
+.titulos{
+    -fx-font-size: 8pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+    -fx-background-color: white;
+}
+
+.detalles{
+    -fx-font-size: 14pt;
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+    -fx-background-color: #EEFEFE;
 }
 
 .label-bright {
@@ -49,7 +68,7 @@
 }
 
 #detallesPane{
-    -fx-background-color: #F5FFFF;
+    -fx-background-color: #EEFEFE;
 }
 
 .button{
@@ -61,15 +80,15 @@
 }
 
 .button:focused{
-    -fx-background-color: white;
     -fx-border-color: -fx-focus-color;
-    -fx-border-width: 2;
+}
+
+.button:pressed{
+    -fx-background-color: lightgray;
 }
 
 .text-area:focused{
-    -fx-background-color: white;
     -fx-border-color: -fx-focus-color;
-    -fx-border-width: 2;
 }
 
 .combo-box{
@@ -99,9 +118,11 @@
 }
 
 #bExaminar:focused{
-    -fx-background-color: white;
     -fx-border-color: -fx-focus-color;
-    -fx-border-width: 2;
+}
+
+#bExaminar:pressed{
+    -fx-background-color: lightgray;
 }
 
 .text-field{
@@ -188,7 +209,6 @@
 /*.menu-item:hover, .menu:hover{
     -fx-background-color: darkblue;
 }
-
 .menu:visited{
     -fx-background-color: darkblue;
 }*/
@@ -232,6 +252,11 @@
     -fx-background-size: 30 25;
 }
 
+.error{
+    -fx-font-size: 8pt;
+    -fx-text-fill: red;
+}
+
 
 .tooltip{
     -fx-background-color: white;
@@ -242,4 +267,119 @@
     -fx-border-radius: 3;
     
     
+}
+
+#panelFoto{
+
+    -fx-background-color: #d0d8db ;
+    -fx-border-color: black;
+
+}
+
+#menuDetalles{
+
+    -fx-background-color: #C6F2F2 ;
+    -fx-border-color: #A0C4DB;
+    -fx-border-width: 2 0 2 0;
+
+}
+
+#panelDatos{
+
+    -fx-border-color: transparent;
+    -fx-background-color: white;
+
+}
+
+#gridPane{
+    -fx-background-color: white;
+}
+
+#labelDetalles{
+
+    -fx-font-size:15;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+    -fx-font-weight: bold;
+}
+
+#bEditar{
+
+    -fx-font-size:15;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+    -fx-background-color: #d0d8db;
+    -fx-border-color: black;
+
+}
+
+#bGuardar{
+
+    -fx-font-size:15;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+    -fx-background-color: #d0d8db;
+    -fx-border-color: black;
+
+}
+
+#bImprimirC{
+    -fx-background-image: url("../img/printer.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20 20;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+#bImprimirC:pressed{
+    -fx-background-image: url("../img/printerPressed.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20 20;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+#bImprimirC2{
+    -fx-background-image: url("../img/printer.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 40 40;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+#bImprimirC2:pressed{
+    -fx-background-image: url("../img/printerPressed.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 40 40;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+#AnchorPaneD{
+    -fx-background-color: #EEFEFE;
+}
+
+.titulos2{
+    -fx-background-color: white;
+}
+
+#descripcionP .content{
+    -fx-background-color: #EEFEFE;
+}
+
+#tDescripcion .content{
+    -fx-background-color: #EEFEFE;
+}
+
+#bExpand{
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-image: url("../img/maximize.png");
+    -fx-background-size: 20 20;
+    -fx-border-color: transparent;
+}
+
+#bExpand:pressed{
+    -fx-background-image: url("../img/maximizePressed.png");
 }

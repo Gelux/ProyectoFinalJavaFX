@@ -10,9 +10,11 @@ import java.time.LocalDate;
 import java.util.Date;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -28,20 +30,32 @@ public class Producto {
     private final StringProperty description;
     private final DoubleProperty precio;
     private final IntegerProperty stock;
-    private final IntegerProperty codBarras;
+    private final LongProperty codBarras;
     private final ObjectProperty fechaAlta;
     private final ObjectProperty  fechaModificacion;
     
-    public Producto(String foto, String nombre, String description, Double precio, int stock, int codBarras, Date fechaAlta, Date fechaModificacion) {
+    public Producto(String foto, String nombre, String description, Double precio, int stock, long codBarras, Date fechaAlta, Date fechaModificacion) {
         this.foto = new SimpleStringProperty(foto);
         this.nombre = new SimpleStringProperty(nombre);;
         this.description = new SimpleStringProperty(description);;
         this.precio = new SimpleDoubleProperty(precio);
         this.stock = new SimpleIntegerProperty(stock);
-        this.codBarras = new SimpleIntegerProperty(codBarras);
+        this.codBarras = new SimpleLongProperty(codBarras);
         this.fechaAlta = new SimpleObjectProperty(fechaAlta);
         this.fechaModificacion = new SimpleObjectProperty(fechaModificacion);
     }
+    
+    public Producto(String nombre, String description, Double precio, int stock, long codBarras, Date fechaAlta, Date fechaModificacion) {
+        this.nombre = new SimpleStringProperty(nombre);
+        this.description = new SimpleStringProperty(description);
+        this.precio = new SimpleDoubleProperty(precio);
+        this.stock = new SimpleIntegerProperty(stock);
+        this.codBarras = new SimpleLongProperty(codBarras);
+        this.fechaAlta = new SimpleObjectProperty(fechaAlta);
+        this.fechaModificacion = new SimpleObjectProperty(fechaModificacion);
+        this.foto = null;
+    }
+    
      public String getFoto() {
         return foto.get();
     }
@@ -102,19 +116,19 @@ public class Producto {
     }
 
     
-    public int getCodBarras() {
+    public long getCodBarras() {
         return codBarras.get();
     }
 
     public void setCodBarras(int codBarras) {
         this.codBarras.set(codBarras);
     }
-    public IntegerProperty codBarrasProperty() {
+    public LongProperty codBarrasProperty() {
         return codBarras;
     }
     
-    public LocalDate getFechaAlta() {
-        return (LocalDate) fechaAlta.get();
+    public Date getFechaAlta() {
+        return (Date) fechaAlta.get();
     }
 
     public void setFechaAlta(LocalDate fechaAlta) {
@@ -126,8 +140,8 @@ public class Producto {
     }
     
     
-    public LocalDate getFechaModificacion() {
-        return (LocalDate) fechaModificacion.get();
+    public Date getFechaModificacion() {
+        return (Date) fechaModificacion.get();
     }
 
     public void setFechaModificacion(LocalDate fechaModificacion) {
