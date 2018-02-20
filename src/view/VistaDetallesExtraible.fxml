@@ -31,7 +31,7 @@
       <Label styleClass="detalles" fx:id="fechaMP" layoutX="374.0" layoutY="146.0" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="490.0" />
       <Label layoutX="374.0" layoutY="176.0" prefHeight="16.0" prefWidth="358.0" styleClass="titulos2" text="Stock" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="320.0" />
       <Label styleClass="detalles" fx:id="stockP" layoutX="374.0" layoutY="210.0" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="340.0" />
-      <ImageView fitHeight="290.0" fitWidth="330.0" layoutX="20.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <ImageView fx:id="imagen" fitHeight="290.0" fitWidth="330.0" layoutX="20.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <Button fx:id="bImprimirC2" layoutX="445.0" layoutY="108.0" mnemonicParsing="false" onAction="#imprimir" prefHeight="40.0" prefWidth="40.0" AnchorPane.topAnchor="108.0" />
       <TextField fx:id="nCDB" layoutX="498.0" layoutY="121.0" prefHeight="27.0" prefWidth="75.0" visible="false" />
       <Label fx:id="labelNCDB" layoutX="498.0" layoutY="107.0" prefHeight="16.0" prefWidth="57.0" text="Nº copias" visible="false" />

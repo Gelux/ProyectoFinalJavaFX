@@ -5,18 +5,24 @@
  */
 package view;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.Libro;
+import util.DatabaseUtil;
 
 /**
  *
  * @author dam
  */
 public class VistaDetallesExtraibleController {
+    
+    private DatabaseUtil db;
     
     @FXML
     Button bImprimirC2, bOK;
@@ -29,6 +35,9 @@ public class VistaDetallesExtraibleController {
     
     @FXML
     TextArea descripcionP;
+    
+    @FXML
+    ImageView imagen;
     
     
     
@@ -55,6 +64,7 @@ public class VistaDetallesExtraibleController {
     }
     
     public void setDatos(Libro libro){
+        db = new DatabaseUtil();
         
         nombreP.setText(libro.getNombre());
         autorP.setText(libro.getAutor());
@@ -65,6 +75,10 @@ public class VistaDetallesExtraibleController {
         fechaLP.setText(String.valueOf(libro.getFechaAlta()));
         fechaMP.setText(String.valueOf(libro.getFechaModificacion()));
         stockP.setText(String.valueOf(libro.getStock()));
+        
+        
+        Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
+        imagen.setImage(image);
     }
     
     
