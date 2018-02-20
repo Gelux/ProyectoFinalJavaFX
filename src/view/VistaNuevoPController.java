@@ -103,15 +103,6 @@ public class VistaNuevoPController {
         
         
         comboGen.setItems(generos);
-        errorA.setVisible(false);
-        errorP.setVisible(false);
-        errorISBN.setVisible(false);
-        errorT.setVisible(false);
-        errorAu.setVisible(false);
-        errorE.setVisible(false);
-        errorG.setVisible(false);
-        errorD.setVisible(false);
-        errorF.setVisible(false);
 
         //Controlador del TextField del ISBN
         isbnTF.textProperty().addListener(new ChangeListener() {

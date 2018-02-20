@@ -368,6 +368,10 @@
     -fx-background-color: #EEFEFE;
 }
 
+#tDescripcion .content{
+    -fx-background-color: #EEFEFE;
+}
+
 #bExpand{
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;

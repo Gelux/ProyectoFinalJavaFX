@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
@@ -15,6 +16,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="324.0" stylesheets="@../css/HojaDeEstilo.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VistaDetallesController">
+   <Label fx:id="errorGeneral" layoutX="129.0" layoutY="580.0" styleClass="error" text="Hay errores" visible="false" AnchorPane.bottomAnchor="3.0" />
       <Pane fx:id="menuDetalles" prefHeight="46.0" prefWidth="324.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <children>
             <Label fx:id="labelDetalles" alignment="CENTER" layoutX="116.0" layoutY="12.0" prefHeight="21.0" prefWidth="92.0" text="Detalles" />
@@ -24,8 +26,8 @@
       <children>
          <ImageView fx:id="imagen" fitHeight="150.0" fitWidth="200.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       </children></Pane>
-   <Button fx:id="bGuardar" layoutX="95.0" mnemonicParsing="false" text="Guardar cambios" visible="false" AnchorPane.bottomAnchor="14.0" />   
-   <Button fx:id="bEditar" layoutX="132.0" layoutY="551.0" mnemonicParsing="false" onAction="#editar" text="Editar" AnchorPane.bottomAnchor="14.0">
+   <Button fx:id="bGuardar" layoutX="95.0" mnemonicParsing="false" onAction="#confirmarCambios" text="Guardar cambios" visible="false" AnchorPane.bottomAnchor="20.0" />   
+   <Button fx:id="bEditar" layoutX="132.0" layoutY="551.0" mnemonicParsing="false" onAction="#editar" text="Editar" AnchorPane.bottomAnchor="20.0">
       <font>
          <Font size="15.0" />
       </font>
@@ -37,20 +39,20 @@
              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
            </columnConstraints>
            <rowConstraints>
-             <RowConstraints fx:id="Par" maxHeight="36.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+             <RowConstraints fx:id="Par" maxHeight="36.0" minHeight="0.0" prefHeight="20.0" valignment="BOTTOM" vgrow="SOMETIMES" />
              <RowConstraints maxHeight="102.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="77.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="77.0" minHeight="0.0" prefHeight="20.0" valignment="BOTTOM" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="106.33334350585938" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="106.33334350585938" minHeight="0.0" prefHeight="20.0" valignment="BOTTOM" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="193.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="31.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="31.0" minHeight="0.0" prefHeight="20.0" valignment="BOTTOM" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="46.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="46.0" minHeight="0.0" prefHeight="20.0" valignment="BOTTOM" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="108.0" minHeight="0.0" prefHeight="108.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="42.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="42.0" minHeight="0.0" prefHeight="20.0" valignment="BOTTOM" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="29.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="28.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
@@ -87,13 +89,13 @@
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="4">
                   <children>
-                     <Label styleClass="titulos" text="Genero" />
+                     <Label styleClass="titulos" text="Género" />
                   </children>
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="5">
                   <children>
                      <Label fx:id="lGenero" styleClass="detalles" />
-                     <TextField fx:id="tfGenero" visible="false" />
+                     <ComboBox fx:id="comboGen" prefHeight="38.0" prefWidth="315.0" visible="false" />
                   </children>
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="6">
@@ -109,7 +111,7 @@
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="8">
                   <children>
-                     <Label styleClass="titulos" text="Descripcion" />
+                     <Label styleClass="titulos" text="Descripción" />
                   </children>
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="9">
@@ -130,7 +132,7 @@
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="titulos" GridPane.rowIndex="12">
                   <children>
-                     <Label styleClass="titulos" text="Codigo de Barras" />
+                     <Label styleClass="titulos" text="Código de Barras" />
                   </children>
                </StackPane>
                <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="detalles" GridPane.rowIndex="13">
@@ -194,12 +196,23 @@
                      <TextField fx:id="tfPrecio" visible="false" />
                   </children>
                </StackPane>
-               <Button fx:id="bImprimirC" maxHeight="15.0" maxWidth="15.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" GridPane.rowIndex="13" />
+
+               <Button fx:id="bImprimirC" maxHeight="15.0" maxWidth="15.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#generarPDf" prefHeight="15.0" prefWidth="15.0" GridPane.rowIndex="13" />
+               <Label fx:id="errorT" styleClass="error" text="Nombre vacío" visible="false" />
+               <Label fx:id="errorAu" styleClass="error" text="Autor vacío" visible="false" GridPane.rowIndex="2" />
+               <Label fx:id="errorG" styleClass="error" text="Género incorrecto" visible="false" GridPane.rowIndex="4" />
+               <Label fx:id="errorE" styleClass="error" text="Editorial vacía" visible="false" GridPane.rowIndex="6" />
+               <Label fx:id="errorD" styleClass="error" text="Descripción vacía" visible="false" GridPane.rowIndex="8" />
+               <Label fx:id="errorISBN" styleClass="error" text="ISBN incorrecto" visible="false" GridPane.rowIndex="14" />
+               <Label fx:id="errorP" styleClass="error" text="Precio incorrecto" visible="false" GridPane.rowIndex="22" />
+               <Label fx:id="errorA" styleClass="error" text="Año incorrecto" visible="false" GridPane.rowIndex="10" />
+
             </children>
          </GridPane>
       </content>
    </ScrollPane>
    <Button fx:id="bExpand" layoutX="301.0" layoutY="46.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#muestraVistaDetallesExtraible" prefHeight="4.0" prefWidth="20.0" AnchorPane.rightAnchor="0.0" />
+   <Button fx:id="bExaminar" layoutX="108.0" layoutY="54.0" mnemonicParsing="false" onAction="#elegirFoto" text="Seleccionar Foto..." visible="false" />
    
 
 </AnchorPane>

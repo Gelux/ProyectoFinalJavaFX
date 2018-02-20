@@ -133,6 +133,7 @@ public class VistaDetallesExtraibleController {
         editorialP.setText(libro.getEditorial());
         generoP.setText(libro.getGenero());
         aniodPP.setText(libro.getAnoPublicacion());
+        descripcionP.setText(libro.getDescription());
         isbnP.setText(String.valueOf(libro.getISBN()));
         fechaLP.setText(String.valueOf(libro.getFechaAlta()));
         fechaMP.setText(String.valueOf(libro.getFechaModificacion()));

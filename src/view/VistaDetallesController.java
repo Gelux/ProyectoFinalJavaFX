@@ -5,13 +5,18 @@
  */
 package view;
 
+import com.itextpdf.text.BadElementException;
 import controller.GestorLibreria;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,9 +31,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 import model.Libro;
+import util.CreaPdfCodBarras;
 import util.DatabaseUtil;
 
 /**
@@ -36,37 +44,87 @@ import util.DatabaseUtil;
  * @author evasa
  */
 public class VistaDetallesController {
-    
+
     private VistaListadoController vistaListado;
     private Libro libro;
     private AnchorPane detallesE; 
     private DatabaseUtil db;
-    
-    
+
     @FXML
     private Label lNombre, lAutor, lGenero, lBarras, lRaro, lLanzamiento, lStock, lPublicacion, lEditorial, lPrecio, lFechaM;
     
+
     @FXML
     private TextArea tDescripcion;
-    
+
     @FXML
-    private Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorF;
+    private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock, tfPrecio;
+
+    @FXML
+    private Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorF, errorGeneral;
     
     @FXML
     ComboBox comboGen;
     
     
-    @FXML
-    private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfRaro, tfStock, tfPrecio;
-    
+
     @FXML
     private ImageView imagen;
+
+    
     
     @FXML
-    private Button bImprimirC, bEditar, bGuardar, bExpand;
+    private Button bImprimirC, bEditar, bGuardar, bExaminar;
+
+
+  
+        
+    
+    private ObservableList<String> generos
+            = FXCollections.observableArrayList(
+                    "Arte",
+                    "Autoayuda y Espiritualidad",
+                    "Ciencias Humanas",
+                    "Ciencias Políticas y Sociales",
+                    "Ciencias",
+                    "Cocina",
+                    "Cómics Adultos",
+                    "Cómics infantil y juvenil",
+                    "Deportes y juegos",
+                    "Derecho",
+                    "Economía",
+                    "Empresa",
+                    "Filología",
+                    "Fotografía",
+                    "Guías de viaje",
+                    "Historia",
+                    "Idiomas",
+                    "Infantil",
+                    "Informática",
+                    "Ingeniería",
+                    "Juegos educativos",
+                    "Juvenil",
+                    "Libro antiguo y de ocasion",
+                    "Libros de Texto y Formación",
+                    "Libros latinoamericanos",
+                    "Literatura",
+                    "Manualidades",
+                    "Medicina",
+                    "Música",
+                    "Narrativa histórica",
+                    "Novela contemporánea",
+                    "Novela negra",
+                    "Oposiciones",
+                    "Psicología y Pedagogía",
+                    "Romántica y erótica",
+                    "Salud y Dietas",
+                    "Otros"
+            );
     
      @FXML
     private void initialize() {
+        
+        comboGen.setItems(generos);
         
         
          //Controlador del TextField del ISBN
@@ -96,7 +154,7 @@ public class VistaDetallesController {
             }
         });
 
-        //Controlador del TextField del a�o
+        //Controlador del TextField del año
         tfPublicacion.textProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
@@ -112,7 +170,7 @@ public class VistaDetallesController {
         tfStock.textProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                if (tfStock.getText().length() > 5 || !isNumeric(tfStock.getText())) {
+                if (tfStock.getText().length() > 5 || !isNumeric(tfStock.getText()) || tfStock.getText().equals("")) {
                     if (!tfStock.getText().equals("")) {
                         tfStock.setText(oldValue.toString());
                     }
@@ -139,7 +197,6 @@ public class VistaDetallesController {
        
        tfNombre.setText(lNombre.getText());
        tfAutor.setText(lAutor.getText());
-       tfGenero.setText(lGenero.getText());
        tfRaro.setText(lRaro.getText());
        tfStock.setText(lStock.getText());
        tfPublicacion.setText(lPublicacion.getText());
@@ -150,15 +207,107 @@ public class VistaDetallesController {
        
        tfNombre.setVisible(true);
        tfAutor.setVisible(true);
-       tfGenero.setVisible(true);
        tfEditorial.setVisible(true);
        tfPublicacion.setVisible(true);
        tfRaro.setVisible(true);
        tfStock.setVisible(true);
        tfPrecio.setVisible(true);
        bGuardar.setVisible(true);
+       comboGen.setVisible(true);
+       bExaminar.setVisible(true);
        
-       
+        for (int i = 0; i < generos.size(); i++) {
+            if(lGenero.getText().equals(generos.get(i))){
+                comboGen.getSelectionModel().select(i);
+            }
+        }
+    }
+    
+    @FXML
+    private void elegirFoto() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Abre la foto");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+                new FileChooser.ExtensionFilter("BMP", "*.bmp"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+
+        File archivoE = fileChooser.showOpenDialog(lNombre.getScene().getWindow());
+
+        try {
+            BufferedImage bufferedImage = ImageIO.read(archivoE);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            imagen.setImage(image);
+        } catch (IOException ex) {
+        }
+    }
+    
+    @FXML
+    public void confirmarCambios(){
+        
+        if(!comprobarErrores()){
+            
+            errorGeneral.setVisible(false);
+            
+            tfNombre.setVisible(false);
+            tfAutor.setVisible(false);
+            tfEditorial.setVisible(false);
+            tfPublicacion.setVisible(false);
+            tfRaro.setVisible(false);
+            tfStock.setVisible(false);
+            tfPrecio.setVisible(false);
+            bGuardar.setVisible(false);
+            comboGen.setVisible(false);
+            bExaminar.setVisible(false);
+            
+
+            lNombre.setText(tfNombre.getText());
+            lAutor.setText(tfAutor.getText());
+            lRaro.setText(tfRaro.getText());
+            lStock.setText(tfStock.getText());
+            lPublicacion.setText(tfPublicacion.getText());
+            lEditorial.setText(tfEditorial.getText());
+            tDescripcion.setEditable(false);
+            lPrecio.setText(tfPrecio.getText());
+            lGenero.setText((String) comboGen.getSelectionModel().getSelectedItem());
+            
+            lNombre.setVisible(true);
+            lAutor.setVisible(true);
+            lGenero.setVisible(true);
+            lRaro.setVisible(true);
+            lStock.setVisible(true);
+            lPublicacion.setVisible(true);
+            lEditorial.setVisible(true);
+            bImprimirC.setVisible(true);
+            lPrecio.setVisible(true);
+            bEditar.setVisible(true);
+            
+            
+            Libro libroMod = new Libro(Long.parseLong(lRaro.getText()), comboGen.getValue().toString(),
+                    lAutor.getText(), lPublicacion.getText(), lEditorial.getText(), lNombre.getText(),
+                    tDescripcion.getText(), Double.parseDouble(lPrecio.getText()), Integer.parseInt(lStock.getText()), Long.parseLong(lBarras.getText()), libro.getFechaAlta(), libro.getFechaModificacion());
+            
+            db.actualizarLibro(libroMod);
+            
+            libroMod = db.detallesLibro(libroMod.getCodBarras());
+            
+            
+            setLibro(libroMod);
+            
+            lFechaM.setText(String.valueOf(libroMod.getFechaModificacion()));
+            
+            
+            
+            
+            vistaListado.setListaProductos();
+            
+            
+        }else{
+            errorGeneral.setVisible(true);
+        }
+        
     }
     
     @FXML
@@ -172,7 +321,7 @@ public class VistaDetallesController {
             Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //Creo el escenario de edici�n (con modal) y establezco la escena
+        //Creo el escenario de edición (con modal) y establezco la escena
         Stage escenarioNuevo = new Stage();
         escenarioNuevo.setTitle("Detalles");
         escenarioNuevo.initModality(Modality.WINDOW_MODAL);
@@ -184,12 +333,14 @@ public class VistaDetallesController {
         controller.setDatos(getLibro());
         
         escenarioNuevo.showAndWait();
+
     }
-    
-    public void setLibro(Libro libro){
+
+    public void setLibro(Libro libro) {
         this.libro = libro;
         setTextos();
     }
+
     
     public Libro getLibro(){
         return libro;
@@ -208,18 +359,20 @@ public class VistaDetallesController {
         lPublicacion.setText(String.valueOf(libro.getAnoPublicacion()));
         lEditorial.setText(libro.getEditorial());
         lPrecio.setText(String.valueOf(libro.getPrecio()));
+
         lFechaM.setText(String.valueOf(libro.getFechaModificacion()));
-        
+
         Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
         imagen.setImage(image);
-        
+
     }
+
     
     private boolean comprobarErrores() {
         
         boolean error = false;
 
-        //Controla error de a�os
+        //Controla error de años
         if (tfPublicacion.getText().isEmpty()) {
             errorA.setVisible(true);
             error = true;
@@ -247,7 +400,7 @@ public class VistaDetallesController {
             errorISBN.setVisible(false);
         }
         
-        //Controla error de t�tulo
+        //Controla error de título
         if (tfNombre.getText().isEmpty()){
             errorT.setVisible(true);
             error = true;
@@ -272,7 +425,7 @@ public class VistaDetallesController {
             errorE.setVisible(false);
         }
         
-        //Controla error de g�nero
+        //Controla error de género
         if( comboGen.getValue() == null || comboGen.getValue().toString().isEmpty()){
             errorG.setVisible(true);
             error = true;
@@ -280,7 +433,7 @@ public class VistaDetallesController {
             errorG.setVisible(false);
         }
         
-        //Controla la descripci�n
+        //Controla la descripción
         if(tDescripcion.getText().isEmpty()){
             errorD.setVisible(true);
             error = true;
@@ -363,9 +516,35 @@ public class VistaDetallesController {
         }
         return true;
     }
-    
+
     public void setVistaListadoController(VistaListadoController vistaListado) {
         this.vistaListado = vistaListado;
     }
-    
+
+    public void generarPDf() throws IOException, BadElementException {
+
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Elige el directorio donde guardar el PDF.");
+        File defaultDirectory = new File("C:/");
+        fc.setInitialDirectory(defaultDirectory);
+        fc.setInitialFileName(libro.getNombre() + "CB");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+
+        File selectedDirectory = fc.showSaveDialog(bImprimirC.getScene().getWindow());
+        
+        if (selectedDirectory != null) {
+            String rutaGuardar = selectedDirectory.getAbsolutePath();
+
+            CreaPdfCodBarras pdfGenerator = new CreaPdfCodBarras();
+            
+            long numCB = libro.getCodBarras();
+            String strCB = String.valueOf(numCB);
+            
+            byte[] imagenCB = pdfGenerator.CrearImgCB(strCB);
+            
+            pdfGenerator.generaPdf(rutaGuardar, libro.getNombre(), imagenCB, 10);
+        }
+    }
+
 }

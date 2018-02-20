@@ -220,6 +220,7 @@ public class DatabaseUtil {
             ps2.setLong(6, libro.getCodBarras());
             
             if (ps.executeUpdate() != 1 || ps2.executeUpdate() != 1) {
+                System.out.println(libro.getCodBarras());
                 System.out.println("Error insercion");
             } else {
                 System.out.println("Filas modificadas");
