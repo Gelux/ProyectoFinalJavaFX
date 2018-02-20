@@ -16,6 +16,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="324.0" stylesheets="@../css/HojaDeEstilo.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VistaDetallesController">
+   <Label fx:id="errorGeneral" layoutX="129.0" layoutY="580.0" styleClass="error" text="Hay errores" visible="false" AnchorPane.bottomAnchor="3.0" />
       <Pane fx:id="menuDetalles" prefHeight="46.0" prefWidth="324.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <children>
             <Label fx:id="labelDetalles" alignment="CENTER" layoutX="116.0" layoutY="12.0" prefHeight="21.0" prefWidth="92.0" text="Detalles" />
@@ -25,8 +26,8 @@
       <children>
          <ImageView fx:id="imagen" fitHeight="150.0" fitWidth="200.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       </children></Pane>
-   <Button fx:id="bGuardar" layoutX="95.0" mnemonicParsing="false" onAction="#confirmarCambios" text="Guardar cambios" visible="false" AnchorPane.bottomAnchor="14.0" />   
-   <Button fx:id="bEditar" layoutX="132.0" layoutY="551.0" mnemonicParsing="false" onAction="#editar" text="Editar" AnchorPane.bottomAnchor="14.0">
+   <Button fx:id="bGuardar" layoutX="95.0" mnemonicParsing="false" onAction="#confirmarCambios" text="Guardar cambios" visible="false" AnchorPane.bottomAnchor="20.0" />   
+   <Button fx:id="bEditar" layoutX="132.0" layoutY="551.0" mnemonicParsing="false" onAction="#editar" text="Editar" AnchorPane.bottomAnchor="20.0">
       <font>
          <Font size="15.0" />
       </font>

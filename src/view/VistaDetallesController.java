@@ -56,7 +56,7 @@ public class VistaDetallesController {
     private TextArea tDescripcion;
     
     @FXML
-    private Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorF;
+    private Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorF, errorGeneral;
     
     @FXML
     ComboBox comboGen;
@@ -240,6 +240,7 @@ public class VistaDetallesController {
         
         if(!comprobarErrores()){
             
+            errorGeneral.setVisible(false);
             
             tfNombre.setVisible(false);
             tfAutor.setVisible(false);
@@ -254,13 +255,13 @@ public class VistaDetallesController {
             
 
             lNombre.setText(tfNombre.getText());
-            tfAutor.setText(tfAutor.getText());
-            tfRaro.setText(tfRaro.getText());
-            tfStock.setText(tfStock.getText());
-            tfPublicacion.setText(tfPublicacion.getText());
-            tfEditorial.setText(tfEditorial.getText());
+            lAutor.setText(tfAutor.getText());
+            lRaro.setText(tfRaro.getText());
+            lStock.setText(tfStock.getText());
+            lPublicacion.setText(tfPublicacion.getText());
+            lEditorial.setText(tfEditorial.getText());
             tDescripcion.setEditable(false);
-            tfPrecio.setText(tfPrecio.getText());
+            lPrecio.setText(tfPrecio.getText());
             lGenero.setText((String) comboGen.getSelectionModel().getSelectedItem());
             
             lNombre.setVisible(true);
@@ -273,9 +274,29 @@ public class VistaDetallesController {
             bImprimirC.setVisible(true);
             lPrecio.setVisible(true);
             bEditar.setVisible(true);
-
             
             
+            Libro libroMod = new Libro(Long.parseLong(lRaro.getText()), comboGen.getValue().toString(),
+                    lAutor.getText(), lPublicacion.getText(), lEditorial.getText(), lNombre.getText(),
+                    tDescripcion.getText(), Double.parseDouble(lPrecio.getText()), Integer.parseInt(lStock.getText()), Long.parseLong(lBarras.getText()), libro.getFechaAlta(), libro.getFechaModificacion());
+            
+            db.actualizarLibro(libroMod);
+            
+            libroMod = db.detallesLibro(libroMod.getCodBarras());
+            
+            
+            setLibro(libroMod);
+            
+            lFechaM.setText(String.valueOf(libroMod.getFechaModificacion()));
+            
+            
+            
+            
+            vistaListado.setListaProductos();
+            
+            
+        }else{
+            errorGeneral.setVisible(true);
         }
         
     }
