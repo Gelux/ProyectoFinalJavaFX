@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import view.VistaListadoController;
+import view.VistaNuevoPController;
 import view.VistaPrincipalController;
 
 /**
@@ -28,6 +29,8 @@ public class GestorLibreria extends Application {
     private Stage escenarioPrincipal;
     private BorderPane layoutPrincipal;
     private AnchorPane vistaListado, nuevoP, detalles;
+    private VistaListadoController controllerListado;
+    private VistaNuevoPController controllerNuevo;
     
     @Override
     public void start(Stage escenarioPrincipal) {
@@ -79,8 +82,8 @@ public class GestorLibreria extends Application {
         layoutPrincipal.setCenter(vistaListado);
         
         
-        VistaListadoController controller = loader.getController();
-        controller.setGestorLibreria(this);
+        controllerListado = loader.getController();
+        controllerListado.setGestorLibreria(this);
     }
     
     public void muestraVistaNuevo(){
@@ -102,9 +105,15 @@ public class GestorLibreria extends Application {
         Scene escena = new Scene(nuevoP);
         escenarioNuevo.setScene(escena);
         
+        controllerNuevo = loader.getController();
+        controllerNuevo.setGestorLibreria(this);
+        
         escenarioNuevo.showAndWait();
     }
     
+    public VistaListadoController getVistaListadoController(){
+        return controllerListado;
+    }
     
     
     public static void main(String[] args) {
