@@ -298,9 +298,6 @@ public class VistaDetallesController {
             
             lFechaM.setText(String.valueOf(libroMod.getFechaModificacion()));
             
-            
-            
-            
             vistaListado.setListaProductos();
             
             

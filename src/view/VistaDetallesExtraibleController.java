@@ -132,6 +132,7 @@ public class VistaDetallesExtraibleController {
         autorP.setText(libro.getAutor());
         editorialP.setText(libro.getEditorial());
         generoP.setText(libro.getGenero());
+        precioP.setText(String.valueOf(libro.getPrecio()));
         aniodPP.setText(libro.getAnoPublicacion());
         descripcionP.setText(libro.getDescription());
         isbnP.setText(String.valueOf(libro.getISBN()));
@@ -230,6 +231,13 @@ public class VistaDetallesExtraibleController {
                     libroOriginal.getCodBarras(), null, null);
             
             db.actualizarLibro(libroAux);
+            
+            libroAux = db.detallesLibro(libroAux.getCodBarras());
+            
+           
+            
+            fechaMP.setText(String.valueOf(libroAux.getFechaModificacion()));
+            
         }
     }
     
