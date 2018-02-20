@@ -201,6 +201,8 @@ public class DatabaseUtil {
     public boolean actualizarLibro(Libro libro){
         try{
             ps = conexion.prepareStatement("update productos set ");
+            
+            ps2 = conexion.prepareStatement("update libros set");
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
