@@ -37,7 +37,7 @@ public class GestorLibreria extends Application {
         this.escenarioPrincipal = escenarioPrincipal;
         
         
-        this.escenarioPrincipal.setTitle("Gestor Librería");
+        this.escenarioPrincipal.setTitle("Gestor LibrerÃ­a");
         
         
         initLayoutPrincipal();
@@ -97,9 +97,9 @@ public class GestorLibreria extends Application {
             Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //Creo el escenario de edición (con modal) y establezco la escena
+        //Creo el escenario de ediciÃ³n (con modal) y establezco la escena
         Stage escenarioNuevo = new Stage();
-        escenarioNuevo.setTitle("Añadir Producto");
+        escenarioNuevo.setTitle("AÃ±adir Producto");
         escenarioNuevo.initModality(Modality.WINDOW_MODAL);
         escenarioNuevo.initOwner(escenarioPrincipal);
         Scene escena = new Scene(nuevoP);
@@ -111,6 +111,10 @@ public class GestorLibreria extends Application {
         escenarioNuevo.showAndWait();
     }
     
+
+    public Stage getEscenario(){
+        return escenarioPrincipal;
+
     public VistaListadoController getVistaListadoController(){
         return controllerListado;
     }

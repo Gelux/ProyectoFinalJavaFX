@@ -59,5 +59,7 @@
       <Label fx:id="errorP" layoutX="192.0" layoutY="226.0" prefHeight="16.0" prefWidth="116.0" styleClass="error" text="Precio incorrecto" AnchorPane.topAnchor="225.0" />
       <Label fx:id="errorF" layoutX="405.0" layoutY="347.0" prefHeight="16.0" prefWidth="107.0" styleClass="error" text="Foto no seleccionada" />
       <Label fx:id="errorD" layoutX="26.0" layoutY="403.0" prefHeight="16.0" prefWidth="87.0" styleClass="error" text="Descripción vacía" />
+      <Label layoutX="192.0" layoutY="250.0" text="Stock" />
+      <TextField fx:id="stockTF" alignment="CENTER_RIGHT" layoutX="232.0" layoutY="246.0" prefHeight="25.0" prefWidth="67.0" text="1" />
    </children>
 </AnchorPane>

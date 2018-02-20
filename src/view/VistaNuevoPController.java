@@ -46,7 +46,7 @@ public class VistaNuevoPController {
     Button bCrearP;
 
     @FXML
-    TextField isbnTF, precioTF, anioTF, tituloTF, autorTF, editorialTF;
+    TextField isbnTF, precioTF, anioTF, tituloTF, autorTF, editorialTF, stockTF;
 
     @FXML
     Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorF;
@@ -62,44 +62,46 @@ public class VistaNuevoPController {
                     "Arte",
                     "Autoayuda y Espiritualidad",
                     "Ciencias Humanas",
-                    "Ciencias Políticas y Sociales",
+                    "Ciencias PolÃ­ticas y Sociales",
                     "Ciencias",
                     "Cocina",
-                    "Cómics Adultos",
-                    "Cómics infantil y juvenil",
+                    "CÃ³mics Adultos",
+                    "CÃ³mics infantil y juvenil",
                     "Deportes y juegos",
                     "Derecho",
-                    "Economía",
+                    "EconomÃ­a",
                     "Empresa",
-                    "Filología",
-                    "Fotografía",
-                    "Guías de viaje",
+                    "FilologÃ­a",
+                    "FotografÃ­a",
+                    "GuÃ­as de viaje",
                     "Historia",
                     "Idiomas",
                     "Infantil",
-                    "Informática",
-                    "Ingeniería",
+                    "InformÃ¡tica",
+                    "IngenierÃ­a",
                     "Juegos educativos",
                     "Juvenil",
                     "Libro antiguo y de ocasion",
-                    "Libros de Texto y Formación",
+                    "Libros de Texto y FormaciÃ³n",
                     "Libros latinoamericanos",
                     "Literatura",
                     "Manualidades",
                     "Medicina",
-                    "Música",
-                    "Narrativa histórica",
-                    "Novela contemporánea",
+                    "MÃºsica",
+                    "Narrativa histÃ³rica",
+                    "Novela contemporÃ¡nea",
                     "Novela negra",
                     "Oposiciones",
-                    "Psicología y Pedagogía",
-                    "Romántica y erótica",
+                    "PsicologÃ­a y PedagogÃ­a",
+                    "RomÃ¡ntica y erÃ³tica",
                     "Salud y Dietas",
                     "Otros"
             );
 
     @FXML
     private void initialize() {
+        
+        
         comboGen.setItems(generos);
         errorA.setVisible(false);
         errorP.setVisible(false);
@@ -115,7 +117,6 @@ public class VistaNuevoPController {
         isbnTF.textProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                System.out.println(isNumeric(isbnTF.getText()));
                 if (isbnTF.getText().length() > 13 || !isNumeric(isbnTF.getText())) {
                     if (!isbnTF.getText().equals("")) {
                         isbnTF.setText(oldValue.toString());
@@ -139,7 +140,7 @@ public class VistaNuevoPController {
             }
         });
 
-        //Controlador del TextField del año
+        //Controlador del TextField del aÃ±o
         anioTF.textProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
@@ -150,6 +151,19 @@ public class VistaNuevoPController {
                 }
             }
         });
+        
+        //Controlador del TextField del stock
+        stockTF.textProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (stockTF.getText().length() > 5 || !isNumeric(stockTF.getText()) || stockTF.getText().equals("0")) {
+                    if (!stockTF.getText().equals("")) {
+                        stockTF.setText(oldValue.toString());
+                    }
+                }
+            }
+        });
+        
 
         //Inicializo el auxiliar de la database
         db = new DatabaseUtil();
@@ -202,7 +216,7 @@ public class VistaNuevoPController {
 
         boolean error = false;
 
-        //Controla error de años
+        //Controla error de aÃ±os
         if (anioTF.getText().isEmpty()) {
             errorA.setVisible(true);
             error = true;
@@ -230,7 +244,7 @@ public class VistaNuevoPController {
             errorISBN.setVisible(false);
         }
 
-        //Controla error de título
+        //Controla error de tÃ­tulo
         if (tituloTF.getText().isEmpty()) {
             errorT.setVisible(true);
             error = true;
@@ -254,7 +268,7 @@ public class VistaNuevoPController {
             errorE.setVisible(false);
         }
 
-        //Controla error de género
+        //Controla error de gÃ©nero
         if (comboGen.getValue() == null || comboGen.getValue().toString().isEmpty()) {
             errorG.setVisible(true);
             error = true;
@@ -262,7 +276,7 @@ public class VistaNuevoPController {
             errorG.setVisible(false);
         }
 
-        //Controla la descripción
+        //Controla la descripciÃ³n
         if (descTA.getText().isEmpty()) {
             errorD.setVisible(true);
             error = true;
