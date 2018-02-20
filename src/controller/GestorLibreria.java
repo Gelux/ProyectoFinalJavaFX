@@ -37,6 +37,7 @@ public class GestorLibreria extends Application {
         this.escenarioPrincipal = escenarioPrincipal;
         
         
+        
         this.escenarioPrincipal.setTitle("Gestor Librería");
         
         
@@ -62,6 +63,7 @@ public class GestorLibreria extends Application {
         
         VistaPrincipalController controller = loader.getController();
         controller.setGestorLibreria(this);
+        
         
         escena.getStylesheets().add(getClass().getResource("../css/HojaDeEstilo.css").toExternalForm());
         escenarioPrincipal.show();
