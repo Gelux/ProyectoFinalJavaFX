@@ -17,7 +17,8 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Archivo">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Cerrar" />
+                    <MenuItem mnemonicParsing="false" onAction="#cerrarVista" text="Cerrar" />
+
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Editar">
