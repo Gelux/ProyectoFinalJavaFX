@@ -115,19 +115,18 @@ public class VistaNuevoPController {
         errorD.setVisible(false);
         errorF.setVisible(false);
 
-        //Controlador del TextField del ISBN
-        isbnTF.textProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                System.out.println(isNumeric(isbnTF.getText()));
-                if (isbnTF.getText().length() > 13 || !isNumeric(isbnTF.getText())) {
-                    if (!isbnTF.getText().equals("")) {
-                        isbnTF.setText(oldValue.toString());
-                    }
-                }
-
-            }
-        });
+//        //Controlador del TextField del ISBN
+//        isbnTF.textProperty().addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+//                if (isbnTF.getText().length() > 13 || !isNumeric(isbnTF.getText())) {
+//                    if (!isbnTF.getText().equals("")) {
+//                        isbnTF.setText(oldValue.toString());
+//                    }
+//                }
+//
+//            }
+//        });
 
         //Controlador del TextField del precio
         precioTF.textProperty().addListener(new ChangeListener() {

@@ -41,13 +41,13 @@ public class VistaDetallesController {
     
     
     @FXML
-    private Label lNombre, lAutor, lGenero, lBarras, lRaro, lLanzamiento, lStock, lPublicacion, lEditorial, lPrecio;
+    private Label lNombre, lAutor, lGenero, lBarras, lRaro, lLanzamiento, lStock, lPublicacion, lEditorial, lPrecio, lFechaM;
     
     @FXML
     private TextArea tDescripcion;
     
     @FXML
-    private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock, tfPrecio;
+    private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock, tfPrecio, tfFechaM;
     
     @FXML
     private ImageView imagen;
@@ -77,6 +77,7 @@ public class VistaDetallesController {
        bImprimirC.setVisible(false);
        lPrecio.setVisible(false);
        bEditar.setVisible(false);
+       lFechaM.setVisible(false);
        
        tfNombre.setText(lNombre.getText());
        tfAutor.setText(lAutor.getText());
@@ -89,6 +90,7 @@ public class VistaDetallesController {
        tfEditorial.setText(lEditorial.getText());
        tDescripcion.setEditable(true);
        tfPrecio.setText(lPrecio.getText());
+       tfFechaM.setText(lFechaM.getText());
        
        
        tfNombre.setVisible(true);
@@ -102,6 +104,7 @@ public class VistaDetallesController {
        tfStock.setVisible(true);
        tfPrecio.setVisible(true);
        bGuardar.setVisible(true);
+       tfFechaM.setVisible(true);
        
        
     }
@@ -125,6 +128,9 @@ public class VistaDetallesController {
         Scene escena = new Scene(detallesE);
         escenarioNuevo.setScene(escena);
         
+        VistaDetallesExtraibleController controller = loader.getController();
+        controller.setDatos(getLibro());
+        
         escenarioNuevo.showAndWait();
     }
     
@@ -145,10 +151,12 @@ public class VistaDetallesController {
         lBarras.setText(String.valueOf(libro.getCodBarras()));
         lRaro.setText(String.valueOf(libro.getISBN()));
         lLanzamiento.setText(String.valueOf(libro.getFechaAlta()));
+        tDescripcion.setText(libro.getDescription());
         lStock.setText(String.valueOf(libro.getStock()));
         lPublicacion.setText(String.valueOf(libro.getAnoPublicacion()));
         lEditorial.setText(libro.getEditorial());
         lPrecio.setText(String.valueOf(libro.getPrecio()));
+        lFechaM.setText(String.valueOf(libro.getFechaModificacion()));
         
         Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
         imagen.setImage(image);

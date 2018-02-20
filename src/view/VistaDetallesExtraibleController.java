@@ -8,6 +8,7 @@ package view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import model.Libro;
 
@@ -24,10 +25,10 @@ public class VistaDetallesExtraibleController {
     TextField nCDB;
     
     @FXML
-    Label labelNCDB, nombreP, autorP, editorialP, generoP, descripcionP, anioDPP, codBP, isbnP;
+    Label labelNCDB, nombreP, autorP, editorialP, generoP, aniodPP, isbnP, fechaLP, fechaMP, stockP;
     
-    
-    
+    @FXML
+    TextArea descripcionP;
     
     
     
@@ -53,10 +54,17 @@ public class VistaDetallesExtraibleController {
         
     }
     
-    private void setDatos(Libro libro){
+    public void setDatos(Libro libro){
         
-        
-        
+        nombreP.setText(libro.getNombre());
+        autorP.setText(libro.getAutor());
+        editorialP.setText(libro.getEditorial());
+        generoP.setText(libro.getGenero());
+        aniodPP.setText(libro.getAnoPublicacion());
+        isbnP.setText(String.valueOf(libro.getISBN()));
+        fechaLP.setText(String.valueOf(libro.getFechaAlta()));
+        fechaMP.setText(String.valueOf(libro.getFechaModificacion()));
+        stockP.setText(String.valueOf(libro.getStock()));
     }
     
     
