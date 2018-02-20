@@ -202,16 +202,16 @@ public class DatabaseUtil {
     
     public boolean actualizarLibro(Libro libro){
         try{
-            ps = conexion.prepareStatement("update productos set nombre = ?, set descripcion = ?, "
-                    + "set stock = ?, set precio = ? where codigo = ?");
+            ps = conexion.prepareStatement("update productos set nombre = ?, descripcion = ?, "
+                    + "stock = ?, precio = ? where codigo = ?");
             ps.setString(1, libro.getNombre());
             ps.setString(2, libro.getDescription());
             ps.setInt(3, libro.getStock());
             ps.setString(4, String.valueOf(libro.getPrecio()));
             ps.setLong(5, libro.getCodBarras());
             
-            ps2 = conexion.prepareStatement("update libros set cod_isbn = ?, set genero = ?, set autor = ?, "
-                    + "set editorial = ?, set ano_publicacion = ? where codigo = ?");
+            ps2 = conexion.prepareStatement("update libros set cod_isbn = ?, genero = ?, autor = ?, "
+                    + "editorial = ?, ano_publicacion = ? where codigo = ?");
             ps2.setString(1, String.valueOf(libro.getISBN()));
             ps2.setString(2, libro.getGenero());
             ps2.setString(3, libro.getAutor());

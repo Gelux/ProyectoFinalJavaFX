@@ -51,7 +51,7 @@
       <TextField fx:id="isbnTf" layoutX="371.0" layoutY="39.0" prefHeight="25.0" prefWidth="358.0" visible="false" />
       <TextField fx:id="stockTf" layoutX="371.0" layoutY="339.0" prefHeight="25.0" prefWidth="358.0" visible="false" />
       <TextField fx:id="aniopubTf" layoutX="371.0" layoutY="389.0" prefHeight="25.0" prefWidth="358.0" visible="false" />
-      <Label fx:id="errorN" layoutX="283.0" layoutY="321.0" styleClass="error" text="Nombre vacío" visible="false" />
+      <Label fx:id="errorT" layoutX="283.0" layoutY="321.0" styleClass="error" text="Nombre vacío" visible="false" />
       <Label fx:id="errorAu" layoutX="296.0" layoutY="371.0" styleClass="error" text="Autor vacío" visible="false" />
       <Label fx:id="errorG" layoutX="260.0" layoutY="421.0" styleClass="error" text="Genero incorrecto" visible="false" />
       <Label fx:id="errorE" layoutX="283.0" layoutY="471.0" styleClass="error" text="Editorial vacía" visible="false" />
@@ -62,5 +62,6 @@
       <Label fx:id="errorP" layoutX="648.0" layoutY="271.0" styleClass="error" text="Precio Incorrecto" visible="false" />
       <Label fx:id="errorD" layoutX="640.0" layoutY="171.0" styleClass="error" text="Descricpion vacía" visible="false" />
       <TextField fx:id="precioTf" layoutX="371.0" layoutY="288.0" prefHeight="25.0" prefWidth="358.0" visible="false" />
+      <Label fx:id="errorSt" layoutX="650.0" layoutY="321.0" styleClass="error" text="Stock incorrecto" visible="false" />
    </children>
 </AnchorPane>

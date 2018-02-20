@@ -28,6 +28,7 @@ import util.DatabaseUtil;
 public class VistaDetallesExtraibleController {
     
     private DatabaseUtil db;
+    private Libro libroOriginal;
     
     @FXML
     Button bImprimirC2, bOK, bEditar, bCommit;
@@ -37,7 +38,7 @@ public class VistaDetallesExtraibleController {
     
     @FXML
     Label labelNCDB, nombreP, autorP, editorialP, generoP, aniodPP, isbnP, fechaLP, fechaMP, stockP, precioP,
-        errorT, errorAu, errorE, errorG, errorA, errorISBN, errorP, errorD;
+        errorT, errorAu, errorE, errorG, errorA, errorISBN, errorP, errorD, errorSt;
     
     @FXML
     TextField tituloTf, autorTf, editorialTf, isbnTf, stockTf, aniopubTf, precioTf;
@@ -124,6 +125,7 @@ public class VistaDetallesExtraibleController {
     }
     
     public void setDatos(Libro libro){
+        libroOriginal = libro;
         db = new DatabaseUtil();
         
         nombreP.setText(libro.getNombre());
@@ -188,35 +190,46 @@ public class VistaDetallesExtraibleController {
     @FXML
     private void commitDatos(){
         
-        tituloTf.setVisible(false);
-        autorTf.setVisible(false);
-        comboGen.setVisible(false);
-        editorialTf.setVisible(false);
-        isbnTf.setVisible(false);
-        precioTf.setVisible(false);
-        stockTf.setVisible(false);
-        aniopubTf.setVisible(false);
+        if(!comprobarErrores()){
         
-        nombreP.setText(tituloTf.getText());
-        autorP.setText(autorTf.getText());
-        generoP.setText(comboGen.getSelectionModel().getSelectedItem().toString());
-        editorialP.setText(editorialTf.getText());
-        isbnP.setText(isbnTf.getText());
-        precioP.setText(precioTf.getText());
-        stockP.setText(stockTf.getText());
-        aniodPP.setText(aniopubTf.getText());
-        
-        nombreP.setVisible(true);
-        autorP.setVisible(true);
-        editorialP.setVisible(true);
-        generoP.setVisible(true);
-        aniodPP.setVisible(true);
-        isbnP.setVisible(true);
-        precioP.setVisible(true);
-        stockP.setVisible(true);
-        
-        bEditar.setVisible(true);
-        bCommit.setVisible(false);
+            tituloTf.setVisible(false);
+            autorTf.setVisible(false);
+            comboGen.setVisible(false);
+            editorialTf.setVisible(false);
+            isbnTf.setVisible(false);
+            precioTf.setVisible(false);
+            stockTf.setVisible(false);
+            aniopubTf.setVisible(false);
+
+            nombreP.setText(tituloTf.getText());
+            autorP.setText(autorTf.getText());
+            generoP.setText(comboGen.getSelectionModel().getSelectedItem().toString());
+            editorialP.setText(editorialTf.getText());
+            isbnP.setText(isbnTf.getText());
+            precioP.setText(precioTf.getText());
+            stockP.setText(stockTf.getText());
+            aniodPP.setText(aniopubTf.getText());
+            descripcionP.setEditable(false);
+             
+            nombreP.setVisible(true);
+            autorP.setVisible(true);
+            editorialP.setVisible(true);
+            generoP.setVisible(true);
+            aniodPP.setVisible(true);
+            isbnP.setVisible(true);
+            precioP.setVisible(true);
+            stockP.setVisible(true);
+
+            bEditar.setVisible(true);
+            bCommit.setVisible(false);
+            
+            Libro libroAux = new Libro(Long.parseLong(isbnP.getText()), generoP.getText(),
+                    autorP.getText(), aniodPP.getText(), editorialP.getText(), nombreP.getText(),
+                    descripcionP.getText(), Double.parseDouble(precioP.getText()), Integer.parseInt(stockP.getText()),
+                    libroOriginal.getCodBarras(), null, null);
+            
+            db.actualizarLibro(libroAux);
+        }
     }
     
     private boolean comprobarErrores() {
@@ -242,6 +255,13 @@ public class VistaDetallesExtraibleController {
             error = true;
         } else {
             errorP.setVisible(false);
+        }
+        
+        if(stockTf.getText().equals("")){
+            errorSt.setVisible(true);
+            error = true;
+        }else{
+            errorSt.setVisible(false);
         }
         
         if(isbnTf.getText().length() != 13){
