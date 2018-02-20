@@ -80,7 +80,7 @@ public class Producto {
     }
     
      public String getDescription() {
-        return nombre.get();
+        return description.get();
     }
 
     public void setDescription(String description) {
