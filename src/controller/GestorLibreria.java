@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import view.VistaListadoController;
+import view.VistaNuevoPController;
 import view.VistaPrincipalController;
 
 /**
@@ -28,13 +29,15 @@ public class GestorLibreria extends Application {
     private Stage escenarioPrincipal;
     private BorderPane layoutPrincipal;
     private AnchorPane vistaListado, nuevoP, detalles;
+    private VistaListadoController controllerListado;
+    private VistaNuevoPController controllerNuevo;
     
     @Override
     public void start(Stage escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
         
         
-        this.escenarioPrincipal.setTitle("Gestor Librería");
+        this.escenarioPrincipal.setTitle("Gestor LibrerÃ­a");
         
         
         initLayoutPrincipal();
@@ -79,8 +82,8 @@ public class GestorLibreria extends Application {
         layoutPrincipal.setCenter(vistaListado);
         
         
-        VistaListadoController controller = loader.getController();
-        controller.setGestorLibreria(this);
+        controllerListado = loader.getController();
+        controllerListado.setGestorLibreria(this);
     }
     
     public void muestraVistaNuevo(){
@@ -94,19 +97,27 @@ public class GestorLibreria extends Application {
             Logger.getLogger(GestorLibreria.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //Creo el escenario de edición (con modal) y establezco la escena
+        //Creo el escenario de ediciÃ³n (con modal) y establezco la escena
         Stage escenarioNuevo = new Stage();
-        escenarioNuevo.setTitle("Añadir Producto");
+        escenarioNuevo.setTitle("AÃ±adir Producto");
         escenarioNuevo.initModality(Modality.WINDOW_MODAL);
         escenarioNuevo.initOwner(escenarioPrincipal);
         Scene escena = new Scene(nuevoP);
         escenarioNuevo.setScene(escena);
         
+        controllerNuevo = loader.getController();
+        controllerNuevo.setGestorLibreria(this);
+        
         escenarioNuevo.showAndWait();
     }
     
+
     public Stage getEscenario(){
         return escenarioPrincipal;
+    }
+
+    public VistaListadoController getVistaListadoController(){
+        return controllerListado;
     }
     
     
