@@ -7,6 +7,8 @@ package view;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -133,7 +135,8 @@ public class VistaDetallesExtraibleController {
         fechaLP.setText(String.valueOf(libro.getFechaAlta()));
         fechaMP.setText(String.valueOf(libro.getFechaModificacion()));
         stockP.setText(String.valueOf(libro.getStock()));
-        
+        //relleno el combobox de generos
+        comboGen.setItems(generos);
         
         Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
         imagen.setImage(image);
@@ -145,6 +148,39 @@ public class VistaDetallesExtraibleController {
         bEditar.setVisible(false);
         bCommit.setVisible(true);
         
+        tituloTf.setText(nombreP.getText());
+        autorTf.setText(autorP.getText());
+        //Genero recorre listado de generos y selecciona el que tenemos en el combobox
+        for (int i = 0; i < generos.size(); i++) {
+            if(generoP.getText().equals(generos.get(i))){
+                comboGen.getSelectionModel().select(i);
+            }
+        }
+        editorialTf.setText(editorialP.getText());
+        isbnTf.setText(isbnP.getText());
+        descripcionP.setEditable(true);
+        precioTf.setText(precioP.getText());
+        stockTf.setText(stockP.getText());
+        aniopubTf.setText(aniodPP.getText());
+        
+        nombreP.setVisible(false);
+        autorP.setVisible(false);
+        editorialP.setVisible(false);
+        generoP.setVisible(false);
+        aniodPP.setVisible(false);
+        isbnP.setVisible(false);
+        precioP.setVisible(false);
+        stockP.setVisible(false);
+        
+        tituloTf.setVisible(true);
+        autorTf.setVisible(true);
+        comboGen.setVisible(true);
+        editorialTf.setVisible(true);
+        isbnTf.setVisible(true);
+        precioTf.setVisible(true);
+        stockTf.setVisible(true);
+        aniopubTf.setVisible(true);
+        
         
         
     }
@@ -152,6 +188,35 @@ public class VistaDetallesExtraibleController {
     @FXML
     private void commitDatos(){
         
+        tituloTf.setVisible(false);
+        autorTf.setVisible(false);
+        comboGen.setVisible(false);
+        editorialTf.setVisible(false);
+        isbnTf.setVisible(false);
+        precioTf.setVisible(false);
+        stockTf.setVisible(false);
+        aniopubTf.setVisible(false);
+        
+        nombreP.setText(tituloTf.getText());
+        autorP.setText(autorTf.getText());
+        generoP.setText(comboGen.getSelectionModel().getSelectedItem().toString());
+        editorialP.setText(editorialTf.getText());
+        isbnP.setText(isbnTf.getText());
+        precioP.setText(precioTf.getText());
+        stockP.setText(stockTf.getText());
+        aniodPP.setText(aniopubTf.getText());
+        
+        nombreP.setVisible(true);
+        autorP.setVisible(true);
+        editorialP.setVisible(true);
+        generoP.setVisible(true);
+        aniodPP.setVisible(true);
+        isbnP.setVisible(true);
+        precioP.setVisible(true);
+        stockP.setVisible(true);
+        
+        bEditar.setVisible(true);
+        bCommit.setVisible(false);
     }
     
     private boolean comprobarErrores() {
@@ -302,5 +367,46 @@ public class VistaDetallesExtraibleController {
         }
         return true;
     }
+    
+    private ObservableList<String> generos
+            = FXCollections.observableArrayList(
+                    "Arte",
+                    "Autoayuda y Espiritualidad",
+                    "Ciencias Humanas",
+                    "Ciencias Políticas y Sociales",
+                    "Ciencias",
+                    "Cocina",
+                    "Cómics Adultos",
+                    "Cómics infantil y juvenil",
+                    "Deportes y juegos",
+                    "Derecho",
+                    "Economía",
+                    "Empresa",
+                    "Filología",
+                    "Fotografía",
+                    "Guías de viaje",
+                    "Historia",
+                    "Idiomas",
+                    "Infantil",
+                    "Informática",
+                    "Ingeniería",
+                    "Juegos educativos",
+                    "Juvenil",
+                    "Libro antiguo y de ocasion",
+                    "Libros de Texto y Formación",
+                    "Libros latinoamericanos",
+                    "Literatura",
+                    "Manualidades",
+                    "Medicina",
+                    "Música",
+                    "Narrativa histórica",
+                    "Novela contemporánea",
+                    "Novela negra",
+                    "Oposiciones",
+                    "Psicología y Pedagogía",
+                    "Romántica y erótica",
+                    "Salud y Dietas",
+                    "Otros"
+            );
     
 }
