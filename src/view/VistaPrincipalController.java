@@ -29,7 +29,7 @@ public class VistaPrincipalController {
     }
     @FXML
     private void abrirManualUsuario(){
-        
+          
     }
  
 }
