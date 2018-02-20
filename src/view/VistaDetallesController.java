@@ -67,64 +67,18 @@ public class VistaDetallesController {
     ComboBox comboGen;
     
     
-    @FXML
-    private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfRaro, tfStock, tfPrecio;
-    
 
     @FXML
     private ImageView imagen;
 
+    
+    
     @FXML
-
-    private Button bImprimirC, bEditar, bGuardar;
-
-    @FXML
-    private void initialize() {
-
-    }
-
-    @FXML
-    private void editar() {
-
-        lNombre.setVisible(false);
-        lAutor.setVisible(false);
-        lGenero.setVisible(false);
-        lBarras.setVisible(false);
-        lRaro.setVisible(false);
-        lLanzamiento.setVisible(false);
-        lStock.setVisible(false);
-        lPublicacion.setVisible(false);
-        lEditorial.setVisible(false);
-        bImprimirC.setVisible(false);
-        lPrecio.setVisible(false);
-        bEditar.setVisible(false);
-
-        tfNombre.setText(lNombre.getText());
-        tfAutor.setText(lAutor.getText());
-        tfGenero.setText(lGenero.getText());
-        tfBarras.setText(lBarras.getText());
-        tfRaro.setText(lRaro.getText());
-        tfLanzamiento.setText(lLanzamiento.getText());
-        tfStock.setText(lStock.getText());
-        tfPublicacion.setText(lPublicacion.getText());
-        tfEditorial.setText(lEditorial.getText());
-        tDescripcion.setEditable(true);
-        tfPrecio.setText(lPrecio.getText());
-
-        tfNombre.setVisible(true);
-        tfAutor.setVisible(true);
-        tfGenero.setVisible(true);
-        tfEditorial.setVisible(true);
-        tfPublicacion.setVisible(true);
-        tfBarras.setVisible(true);
-        tfRaro.setVisible(true);
-        tfLanzamiento.setVisible(true);
-        tfStock.setVisible(true);
-        tfPrecio.setVisible(true);
-        bGuardar.setVisible(true);
-
-=======
     private Button bImprimirC, bEditar, bGuardar, bExaminar;
+
+
+  
+        
     
     private ObservableList<String> generos
             = FXCollections.observableArrayList(
