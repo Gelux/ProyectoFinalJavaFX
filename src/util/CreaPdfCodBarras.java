@@ -47,11 +47,10 @@ public class CreaPdfCodBarras {
     static String numero, rutaGuardar;
     static byte[] bufferImagen, imgCB;
     static Stage chooserStage, alertStage;
+    BufferedImage bufferedImage ;
 
     public CreaPdfCodBarras() {
     }
-    
-    
 
     public CreaPdfCodBarras(String nProducto, byte[] imgCB, int numCopias) {
         this.imgCB = imgCB;
@@ -60,13 +59,12 @@ public class CreaPdfCodBarras {
 
     }
 
-    public  void generaPdf(String rutaGuardar, String nProducto, byte[] imgCB, int numCopias) throws BadElementException, IOException {
+    public void generaPdf(String rutaGuardar, String nProducto, byte[] imgCB, int numCopias) throws BadElementException, IOException {
 
         documento = new Document();
         FileOutputStream ficheroPdf;
-        
-        
-            try {
+
+        try {
             ficheroPdf = new FileOutputStream(rutaGuardar);
             PdfWriter.getInstance(
                     documento,
@@ -89,6 +87,7 @@ public class CreaPdfCodBarras {
             documento.add(new Paragraph(" "));
             documento.add(new Paragraph(" "));
             Image codBarras = Image.getInstance(imgCB);
+            codBarras.setScaleToFitLineWhenOverflow(true);
             codBarras.scaleToFit(20, 20);
             codBarras.setAlignment(Element.ALIGN_CENTER);
 
@@ -99,33 +98,35 @@ public class CreaPdfCodBarras {
         } catch (DocumentException ex) {
             System.out.println(ex.toString());
         }
-        
-        
-            
-            
-            
-        
-
-        
-    }
-
-    private  void creaTabla(Image codBarras, int numCopias) throws DocumentException {
-
-        int nad = numCopias % 4;
-
-        PdfPTable tabla = new PdfPTable(4);
-        for (int i = 1; i <= numCopias; i++) {
-            tabla.addCell(codBarras);
-
-        }
-        for (int i = 0; i <= nad; i++) {
-            tabla.addCell("");
-        }
-        documento.add(tabla);
 
     }
 
-    public  byte[] CrearImgCB(String numero) throws IOException {
+    private void creaTabla(Image codBarras, int numCopias) throws DocumentException {
+        if (numCopias <= 1) {
+            
+            PdfPTable t = new PdfPTable(1);
+            t.setTotalWidth(100);
+            t.setLockedWidth(true);
+            t.addCell(codBarras);
+            documento.add(t);
+            
+        } else {
+
+            int nad = numCopias % 4;
+
+            PdfPTable tabla = new PdfPTable(4);
+            for (int i = 1; i <= numCopias; i++) {
+                tabla.addCell(codBarras);
+
+            }
+            for (int i = 0; i <= nad; i++) {
+                tabla.addCell("");
+            }
+            documento.add(tabla);
+        }
+    }
+
+    public byte[] CrearImgCB(String numero) throws IOException {
 
         JBarcodeBean barcode = new JBarcodeBean();
 
@@ -137,14 +138,18 @@ public class CreaPdfCodBarras {
         barcode.setCode(numero);
         barcode.setCheckDigit(true);
 
-        BufferedImage bufferedImage = barcode.draw(new BufferedImage(175, 70, BufferedImage.TYPE_INT_RGB));
+        bufferedImage = barcode.draw(new BufferedImage(175, 70, BufferedImage.TYPE_INT_RGB));
 
         byte[] bufferImage = crearBufferDesdeImagen(bufferedImage);
 
         return bufferImage;
     }
+    
+    public BufferedImage getBufferedImage(){
+        return bufferedImage;
+    }
 
-    public  byte[] crearBufferDesdeImagen(BufferedImage imagen) throws IOException {
+    public byte[] crearBufferDesdeImagen(BufferedImage imagen) throws IOException {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(imagen, "jpg", baos);
@@ -159,12 +164,7 @@ public class CreaPdfCodBarras {
 
         imgCB = CrearImgCB("1234567894561");
 
-        
         generaPdf(rutaGuardar, "evolandia", imgCB, 10);
     }
-    
-    
-
-    
 
 }

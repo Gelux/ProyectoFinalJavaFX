@@ -49,19 +49,20 @@ public class VistaDetallesController {
     private Libro libro;
     private AnchorPane detallesE; 
     private DatabaseUtil db;
+    CreaPdfCodBarras pdfGenerator = new CreaPdfCodBarras();
 
     @FXML
-    private Label lNombre, lAutor, lGenero, lBarras, lRaro, lLanzamiento, lStock, lPublicacion, lEditorial, lPrecio, lFechaM;
+    private Label lNombre, lAutor, lGenero, lRaro, lLanzamiento, lStock, lPublicacion, lEditorial, lPrecio, lFechaM, nCopiasLabel;
     
 
     @FXML
     private TextArea tDescripcion;
 
     @FXML
-    private TextField tfNombre, tfAutor, tfGenero, tfEditorial, tfPublicacion, tfBarras, tfRaro, tfLanzamiento, tfStock, tfPrecio;
+    private TextField tfNombre, tfAutor, tfEditorial, tfPublicacion, tfRaro, tfStock, tfPrecio, nCopiasTF;
 
     @FXML
-    private Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorF, errorGeneral;
+    private Label errorP, errorA, errorISBN, errorT, errorAu, errorE, errorG, errorD, errorGeneral;
     
     @FXML
     ComboBox comboGen;
@@ -69,12 +70,12 @@ public class VistaDetallesController {
     
 
     @FXML
-    private ImageView imagen;
+    private ImageView imagen, imagenCB;
 
     
     
     @FXML
-    private Button bImprimirC, bEditar, bGuardar, bExaminar;
+    private Button bImprimirC, bEditar, bGuardar, bExaminar, bOK;
 
 
   
@@ -245,7 +246,7 @@ public class VistaDetallesController {
     }
     
     @FXML
-    public void confirmarCambios(){
+    public void confirmarCambios() throws IOException{
         
         if(!comprobarErrores()){
             
@@ -287,7 +288,7 @@ public class VistaDetallesController {
             
             Libro libroMod = new Libro(Long.parseLong(lRaro.getText()), comboGen.getValue().toString(),
                     lAutor.getText(), lPublicacion.getText(), lEditorial.getText(), lNombre.getText(),
-                    tDescripcion.getText(), Double.parseDouble(lPrecio.getText()), Integer.parseInt(lStock.getText()), Long.parseLong(lBarras.getText()), libro.getFechaAlta(), libro.getFechaModificacion());
+                    tDescripcion.getText(), Double.parseDouble(lPrecio.getText()), Integer.parseInt(lStock.getText()), libro.getCodBarras(), libro.getFechaAlta(), libro.getFechaModificacion());
             
             db.actualizarLibro(libroMod);
             
@@ -308,7 +309,7 @@ public class VistaDetallesController {
     }
     
     @FXML
-    public void muestraVistaDetallesExtraible(){
+    public void muestraVistaDetallesExtraible() throws IOException{
         FXMLLoader loader = new FXMLLoader();
         URL location = GestorLibreria.class.getResource("/view/VistaDetallesExtraible.fxml");
         loader.setLocation(location);
@@ -333,7 +334,7 @@ public class VistaDetallesController {
 
     }
 
-    public void setLibro(Libro libro) {
+    public void setLibro(Libro libro) throws IOException {
         this.libro = libro;
         setTextos();
     }
@@ -343,12 +344,11 @@ public class VistaDetallesController {
         return libro;
     }
     
-    public void setTextos(){
+    public void setTextos() throws IOException{
         db = new DatabaseUtil();
         lNombre.setText(libro.getNombre());
         lAutor.setText(libro.getAutor());
         lGenero.setText(libro.getGenero());
-        lBarras.setText(String.valueOf(libro.getCodBarras()));
         lRaro.setText(String.valueOf(libro.getISBN()));
         lLanzamiento.setText(String.valueOf(libro.getFechaAlta()));
         tDescripcion.setText(libro.getDescription());
@@ -361,6 +361,12 @@ public class VistaDetallesController {
 
         Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
         imagen.setImage(image);
+        
+        String numCB = String.valueOf(libro.getCodBarras());
+        pdfGenerator.CrearImgCB(numCB);
+        
+        Image imgCB = SwingFXUtils.toFXImage(pdfGenerator.getBufferedImage(), null);
+        imagenCB.setImage(imgCB);
 
     }
 
@@ -517,8 +523,23 @@ public class VistaDetallesController {
     public void setVistaListadoController(VistaListadoController vistaListado) {
         this.vistaListado = vistaListado;
     }
+    @FXML
+    private void imprimir() {
+        bImprimirC.setVisible(false);
+        nCopiasLabel.setVisible(true);
+        bOK.setVisible(true);
+        nCopiasTF.setVisible(true);
+        imagenCB.setVisible(false);
+    }
 
-    public void generarPDf() throws IOException, BadElementException {
+    @FXML
+    public void OK() throws IOException, BadElementException {
+        
+        nCopiasTF.setVisible(false);
+        bOK.setVisible(false);
+        nCopiasLabel.setVisible(false);
+        bImprimirC.setVisible(true);
+        imagenCB.setVisible(true);
 
         FileChooser fc = new FileChooser();
         fc.setTitle("Elige el directorio donde guardar el PDF.");
@@ -540,7 +561,9 @@ public class VistaDetallesController {
             
             byte[] imagenCB = pdfGenerator.CrearImgCB(strCB);
             
-            pdfGenerator.generaPdf(rutaGuardar, libro.getNombre(), imagenCB, 10);
+            pdfGenerator.generaPdf(rutaGuardar, libro.getNombre(), imagenCB, Integer.valueOf(nCopiasTF.getText()));
+            
+            nCopiasTF.setText("");
         }
     }
 
