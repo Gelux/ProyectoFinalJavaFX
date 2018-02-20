@@ -39,7 +39,7 @@
 
       <Button fx:id="bImprimirC2" layoutX="573.0" layoutY="109.0" mnemonicParsing="false" onAction="#imprimir" prefHeight="40.0" prefWidth="40.0" AnchorPane.topAnchor="109.0" />
       <TextField fx:id="nCDB" layoutX="576.0" layoutY="121.0" prefHeight="27.0" prefWidth="75.0" visible="false" />
-      <Label fx:id="labelNCDB" layoutX="576.0" layoutY="101.0" prefHeight="16.0" prefWidth="57.0" text="Nº Copias" visible="false" />
+      <Label fx:id="labelNCDB" layoutX="576.0" layoutY="101.0" prefHeight="18.0" prefWidth="70.0" text="Nº Copias" visible="false" />
       <Button fx:id="bOK" layoutX="669.0" layoutY="122.0" mnemonicParsing="false" onAction="#OK" prefHeight="25.0" prefWidth="40.0" text="OK" visible="false" />
       <HBox layoutX="580.0" layoutY="492.0" prefHeight="16.0" prefWidth="150.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <children>
