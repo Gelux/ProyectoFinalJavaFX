@@ -41,7 +41,7 @@ public class DatabaseUtil {
     }
 
     public ObservableList<Producto> anadirLista() {
-
+            listaProductos.clear();
         try {
 
             String query = "select * from productos";

@@ -37,7 +37,9 @@ public class VistaListadoController {
     private GestorLibreria gestorLibreria;
     private AnchorPane detalles;
     private DatabaseUtil db;
+    private VistaPrincipalController vpController;
     private ObservableList<Producto> lista = FXCollections.observableArrayList();
+    private ObservableList<Producto> listaBusquedaPrincipal;
 
     @FXML
     TableView tablaP;
@@ -112,6 +114,8 @@ public class VistaListadoController {
 
         this.gestorLibreria = gestorLibreria;
         setListaProductos();
+        vpController = gestorLibreria.getVistaPrincipalController();
+        listaBusquedaPrincipal = vpController.getListadoPrincipal();
 
     }
 
@@ -129,12 +133,12 @@ public class VistaListadoController {
 
     @FXML
     public void setListaProductos() {
-
+        
         tablaP.getItems().clear();
-        for (int i = 0; i < tablaP.getItems().size(); i++) {
-            tablaP.getItems().remove(i);
-        }
-
+//        for (int i = 0; i < tablaP.getItems().size(); i++) {
+//            tablaP.getItems().remove(i);
+//        }
+//        if(listaBusquedaPrincipal != null) listaBusquedaPrincipal.clear();
         lista = db.anadirLista();
         tablaP.setItems(lista);
 

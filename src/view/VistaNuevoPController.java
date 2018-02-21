@@ -168,7 +168,8 @@ public class VistaNuevoPController {
 
             Libro libroAux = new Libro(Long.parseLong(isbnTF.getText()), comboGen.getValue().toString(),
                     autorTF.getText(), anioTF.getText(), editorialTF.getText(), tituloTF.getText(),
-                    descTA.getText(), Double.parseDouble(precioTF.getText()), 0, 0L, null, null);
+                    descTA.getText(), Double.parseDouble(precioTF.getText()), Integer.parseInt(stockTF.getText()),
+                    0L, null, null);
 
             //Pillo el controller de vistalistadocontroller
             controllerListado = gestorLibreria.getVistaListadoController();

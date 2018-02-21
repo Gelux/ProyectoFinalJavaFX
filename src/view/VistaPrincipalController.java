@@ -15,8 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -57,13 +55,11 @@ public class VistaPrincipalController {
         tSearch.textProperty().addListener(new ChangeListener(){
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                if (isNumeric(tSearch.getText().toLowerCase())) {
-                
+                String stringAux = (String) newValue;
+                if (isNumeric(stringAux) ) {
                     listaProductos = db.buscarLibro(tSearch.getText().toLowerCase(), false);
                     listadoController.laBusqueda(listaProductos);
-                
-                }else{
-                
+                }else {
                     listaProductos = db.buscarLibro(tSearch.getText().toLowerCase(), true);
                     listadoController.laBusqueda(listaProductos);
                 
@@ -107,23 +103,28 @@ public class VistaPrincipalController {
     }
 
     private boolean isNumeric(String texto) {
-        boolean num = false;
+        boolean num = true;
+        System.out.println(texto);
+        if(texto.isEmpty()){
+            return false;
+        }
+        
         for (int i = 0; i < texto.length(); i++) {
-            if (texto.charAt(i) == '0'
-                    || texto.charAt(i) == '1'
-                    || texto.charAt(i) == '2'
-                    || texto.charAt(i) == '3'
-                    || texto.charAt(i) == '4'
-                    || texto.charAt(i) == '5'
-                    || texto.charAt(i) == '6'
-                    || texto.charAt(i) == '7'
-                    || texto.charAt(i) == '8'
-                    || texto.charAt(i) == '9') {
-                num = true;
-            } else {
+            System.out.println(texto.charAt(i));
+            if (texto.charAt(i) != '0'
+                    && texto.charAt(i) != '1'
+                    && texto.charAt(i) != '2'
+                    && texto.charAt(i) != '3'
+                    && texto.charAt(i) != '4'
+                    && texto.charAt(i) != '5'
+                    && texto.charAt(i) != '6'
+                    && texto.charAt(i) != '7'
+                    && texto.charAt(i) != '8'
+                    && texto.charAt(i) != '9') {
                 num = false;
             }
         }
+        System.out.println(num);
         return num;
     }
     
@@ -154,6 +155,10 @@ public class VistaPrincipalController {
         
         
         escenarioNuevo.showAndWait();
+    }
+    
+    public ObservableList<Producto> getListadoPrincipal(){
+        return listaProductos;
     }
 
     
