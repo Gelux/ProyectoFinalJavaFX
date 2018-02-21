@@ -234,4 +234,39 @@ public class DatabaseUtil {
         return false;
     }
     
+    public ObservableList<Producto> buscarLibro(String busqueda, boolean tipoBusqueda){
+        listaProductos.clear();
+        String query = "";
+        if(tipoBusqueda){
+            query = "select * from productos where LOWER(nombre) like '" + busqueda + "%'";
+        }else{
+            query = "select * from productos where codigo = " + Long.parseLong(busqueda);
+        }
+        
+            try{
+            
+            sentencia = null;
+            sentencia = conexion.createStatement();
+            resultSet1 = null;
+            resultSet1 = sentencia.executeQuery(query);
+
+            if (resultSet1.next()) {
+                do {
+                    productoAux = new Producto(resultSet1.getString(2),
+                            resultSet1.getString(3), Double.parseDouble(resultSet1.getString(7)),
+                            Integer.parseInt(resultSet1.getString(5)), Long.parseLong(resultSet1.getString(1)),
+                            resultSet1.getDate(4), resultSet1.getDate(6));
+                    listaProductos.add(productoAux);
+                } while (resultSet1.next());
+            } else {
+                System.out.println("La tabla no tiene datos");
+            }
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        
+        
+        return listaProductos;
+    }
+    
 }
