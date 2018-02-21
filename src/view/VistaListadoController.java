@@ -74,7 +74,11 @@ public class VistaListadoController {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 Producto productoAux = (Producto) tablaP.getSelectionModel().getSelectedItem();
                 if(productoAux != null){
-                    muestraVistaDetalles(productoAux.getCodBarras());
+                    try {
+                        muestraVistaDetalles(productoAux.getCodBarras());
+                    } catch (IOException ex) {
+                        
+                    }
                 }
 
             }
@@ -85,7 +89,7 @@ public class VistaListadoController {
 
     }
 
-    public void muestraVistaDetalles(Long cod) {
+    public void muestraVistaDetalles(Long cod) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL location = GestorLibreria.class.getResource("/view/VistaDetalles.fxml");
         loader.setLocation(location);

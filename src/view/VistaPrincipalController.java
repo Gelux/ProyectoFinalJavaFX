@@ -87,4 +87,16 @@ public class VistaPrincipalController {
         listadoController = gestorLibreria.getVistaListadoController();
     }
 
+    
+    @FXML
+    private void cerrarVista(){ 
+        System.exit(0);
+        
+    }
+    @FXML
+    private void abrirManualUsuario(){
+        
+    }
+ 
+
 }
