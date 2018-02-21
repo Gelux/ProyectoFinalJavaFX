@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -31,10 +32,12 @@ public class GestorLibreria extends Application {
     private AnchorPane vistaListado, nuevoP;
     private VistaListadoController controllerListado;
     private VistaNuevoPController controllerNuevo;
+    private VistaPrincipalController controller;
     
     @Override
     public void start(Stage escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
+        
         
         
         this.escenarioPrincipal.setTitle("Gestor Librería");
@@ -60,8 +63,8 @@ public class GestorLibreria extends Application {
         Scene escena = new Scene(layoutPrincipal);
         escenarioPrincipal.setScene(escena);
         
-        VistaPrincipalController controller = loader.getController();
-        controller.setGestorLibreria(this);
+        controller = loader.getController();
+        
         
         escena.getStylesheets().add(getClass().getResource("../css/HojaDeEstilo.css").toExternalForm());
         escenarioPrincipal.show();
@@ -83,6 +86,7 @@ public class GestorLibreria extends Application {
         
         
         controllerListado = loader.getController();
+        controller.setGestorLibreria(this);
         controllerListado.setGestorLibreria(this);
     }
     
