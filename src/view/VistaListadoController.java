@@ -18,9 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -37,7 +37,9 @@ public class VistaListadoController {
     private GestorLibreria gestorLibreria;
     private AnchorPane detalles;
     private DatabaseUtil db;
+    private VistaPrincipalController vpController;
     private ObservableList<Producto> lista = FXCollections.observableArrayList();
+    private ObservableList<Producto> listaBusquedaPrincipal;
 
     @FXML
     TableView tablaP;
@@ -53,6 +55,8 @@ public class VistaListadoController {
     TableColumn fechaModColumna;
     @FXML
     TableColumn precioColumna;
+    @FXML
+    TextField busqueda;
 
     @FXML
     private void initialize() {
@@ -72,16 +76,22 @@ public class VistaListadoController {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 Producto productoAux = (Producto) tablaP.getSelectionModel().getSelectedItem();
                 if(productoAux != null){
-                    muestraVistaDetalles(productoAux.getCodBarras());
+                    try {
+                        muestraVistaDetalles(productoAux.getCodBarras());
+                    } catch (IOException ex) {
+                        
+                    }
                 }
 
             }
 
         });
+        
+        
 
     }
 
-    public void muestraVistaDetalles(Long cod) {
+    public void muestraVistaDetalles(Long cod) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL location = GestorLibreria.class.getResource("/view/VistaDetalles.fxml");
         loader.setLocation(location);
@@ -104,6 +114,8 @@ public class VistaListadoController {
 
         this.gestorLibreria = gestorLibreria;
         setListaProductos();
+        vpController = gestorLibreria.getVistaPrincipalController();
+        listaBusquedaPrincipal = vpController.getListadoPrincipal();
 
     }
 
@@ -121,12 +133,23 @@ public class VistaListadoController {
 
     @FXML
     public void setListaProductos() {
-
+        
         tablaP.getItems().clear();
-
+//        for (int i = 0; i < tablaP.getItems().size(); i++) {
+//            tablaP.getItems().remove(i);
+//        }
+//        if(listaBusquedaPrincipal != null) listaBusquedaPrincipal.clear();
         lista = db.anadirLista();
         tablaP.setItems(lista);
 
+    }
+    
+    public void laBusqueda(ObservableList<Producto> listaP){
+        
+        //getItems.clear() borra la lista que esta asociada a la tabla
+        // dando como resultado una lista vacia
+        tablaP.setItems(listaP);
+        
     }
 
     @FXML
