@@ -30,7 +30,7 @@
             </MenuBar>
             <AnchorPane layoutY="28.0" prefHeight="45.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
                <children>
-                  <Button fx:id="bGraph" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                  <Button fx:id="bGraph" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#mostrarGrafico" prefHeight="25.0" prefWidth="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <tooltip>
                         <Tooltip text="Gráfico de Stock" />
                      </tooltip></Button>
