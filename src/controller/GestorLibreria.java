@@ -28,7 +28,7 @@ public class GestorLibreria extends Application {
     
     private Stage escenarioPrincipal;
     private BorderPane layoutPrincipal;
-    private AnchorPane vistaListado, nuevoP, detalles;
+    private AnchorPane vistaListado, nuevoP;
     private VistaListadoController controllerListado;
     private VistaNuevoPController controllerNuevo;
     
@@ -110,6 +110,8 @@ public class GestorLibreria extends Application {
         
         escenarioNuevo.showAndWait();
     }
+    
+    
     
 
     public Stage getEscenario(){

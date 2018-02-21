@@ -324,6 +324,22 @@
 
 }
 
+#bImprimirPie{
+    -fx-background-image: url("../img/printer.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 40 40;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+#bImprimirPie:pressed{
+    -fx-background-image: url("../img/printerPressed.png") ;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 40 40;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
 #bImprimirC{
     -fx-background-image: url("../img/printer.png") ;
     -fx-background-repeat: no-repeat;
@@ -331,6 +347,8 @@
     -fx-border-color: transparent;
     -fx-background-color: transparent;
 }
+
+
 
 #bImprimirC:pressed{
     -fx-background-image: url("../img/printerPressed.png") ;
