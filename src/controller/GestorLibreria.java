@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -45,6 +44,7 @@ public class GestorLibreria extends Application {
         
         initLayoutPrincipal();
         muestraVistaListado();
+        
     }
     
     public void initLayoutPrincipal(){

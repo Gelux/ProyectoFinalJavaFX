@@ -6,6 +6,8 @@
 package view;
 
 import controller.GestorLibreria;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -24,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javax.imageio.ImageIO;
 import model.Libro;
 import model.Producto;
 import util.DatabaseUtil;
@@ -116,6 +119,7 @@ public class VistaListadoController {
         setListaProductos();
         vpController = gestorLibreria.getVistaPrincipalController();
         listaBusquedaPrincipal = vpController.getListadoPrincipal();
+        getImagenes();
 
     }
 
@@ -173,5 +177,24 @@ public class VistaListadoController {
             setListaProductos();
         }
 
+    }
+    
+    private void getImagenes(){
+        try{
+            
+        
+        BufferedImage bufferedAux;
+        String filePath = new File("").getAbsolutePath();
+        
+        for (int i = 0; i < lista.size(); i++) {
+            File ruta = new File(filePath + "/src/resources/" + String.valueOf(lista.get(i).getCodBarras()) + ".jpg");
+            bufferedAux = db.imagenProducto(lista.get(i).getCodBarras());
+            System.out.println(bufferedAux);
+            ImageIO.write(bufferedAux, "jpg", ruta);
+            
+        }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
