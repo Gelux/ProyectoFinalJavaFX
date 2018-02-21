@@ -131,6 +131,9 @@ public class VistaListadoController {
     public void setListaProductos() {
 
         tablaP.getItems().clear();
+        for (int i = 0; i < tablaP.getItems().size(); i++) {
+            tablaP.getItems().remove(i);
+        }
 
         lista = db.anadirLista();
         tablaP.setItems(lista);

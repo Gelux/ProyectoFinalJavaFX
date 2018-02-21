@@ -8,6 +8,8 @@ package view;
 import controller.GestorLibreria;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -38,21 +40,51 @@ public class VistaPrincipalController {
         
         tSearch.setOnKeyPressed(event -> enterKeyPressed(event.getCode(), dialog));
         
+        tSearch.textProperty().addListener(new ChangeListener(){
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (isNumeric(tSearch.getText().toLowerCase())) {
+                
+                    listaProductos = db.buscarLibro(tSearch.getText().toLowerCase(), false);
+                    listadoController.laBusqueda(listaProductos);
+                
+                }else{
+                
+                    listaProductos = db.buscarLibro(tSearch.getText().toLowerCase(), true);
+                    listadoController.laBusqueda(listaProductos);
+                
+            }
+            }
+        });
+        
     }
-
-    private void enterKeyPressed(KeyCode keyCode, Stage dialog) {
-        if (keyCode == KeyCode.ENTER) {
+    
+    @FXML 
+    private void bPulsado(){
             if (isNumeric(tSearch.getText().toLowerCase())) {
                 
                 listaProductos = db.buscarLibro(tSearch.getText().toLowerCase(), false);
-                System.out.println(listaProductos.get(0).getNombre());
                 listadoController.laBusqueda(listaProductos);
                 
             }else{
                 
                 listaProductos = db.buscarLibro(tSearch.getText().toLowerCase(), true);
+                listadoController.laBusqueda(listaProductos);
                 
-                System.out.println(listaProductos.get(0).getNombre());
+            }
+    }
+
+    
+    private void enterKeyPressed(KeyCode keyCode, Stage dialog) {
+        if (keyCode == KeyCode.ENTER) {
+            if (isNumeric(tSearch.getText().toLowerCase())) {
+                
+                listaProductos = db.buscarLibro(tSearch.getText().toLowerCase(), false);
+                listadoController.laBusqueda(listaProductos);
+                
+            }else{
+                
+                listaProductos = db.buscarLibro(tSearch.getText().toLowerCase(), true);
                 listadoController.laBusqueda(listaProductos);
                 
             }
