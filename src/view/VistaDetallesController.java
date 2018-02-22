@@ -358,8 +358,9 @@ public class VistaDetallesController {
         lPrecio.setText(String.valueOf(libro.getPrecio()));
 
         lFechaM.setText(String.valueOf(libro.getFechaModificacion()));
-
-        Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
+        
+        //Añadir imagenes desde el hashmap
+        Image image = SwingFXUtils.toFXImage(vistaListado.referenciasImagenes(libro.getCodBarras()), null);
         imagen.setImage(image);
         
         String numCB = String.valueOf(libro.getCodBarras());

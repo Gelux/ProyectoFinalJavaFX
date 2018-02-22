@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
@@ -43,6 +45,7 @@ public class VistaListadoController {
     private VistaPrincipalController vpController;
     private ObservableList<Producto> lista = FXCollections.observableArrayList();
     private ObservableList<Producto> listaBusquedaPrincipal;
+    public HashMap<Long, BufferedImage> mapeoImagenes = new HashMap<Long, BufferedImage>();
 
     @FXML
     TableView tablaP;
@@ -78,19 +81,17 @@ public class VistaListadoController {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 Producto productoAux = (Producto) tablaP.getSelectionModel().getSelectedItem();
-                if(productoAux != null){
+                if (productoAux != null) {
                     try {
                         muestraVistaDetalles(productoAux.getCodBarras());
                     } catch (IOException ex) {
-                        
+
                     }
                 }
 
             }
 
         });
-        
-        
 
     }
 
@@ -109,8 +110,8 @@ public class VistaListadoController {
         VistaDetallesController controller = loader.getController();
         Libro libroAux = db.detallesLibro(cod);
         //System.out.println(libroAux.getNombre());
-        controller.setLibro(libroAux);
         controller.setVistaListadoController(this);
+        controller.setLibro(libroAux);
     }
 
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
@@ -123,13 +124,12 @@ public class VistaListadoController {
 
     }
 
-    
     public GestorLibreria getGestorLibreria() {
-        
+
         return gestorLibreria;
-        
+
     }
-    
+
     @FXML
     private void nuevo() {
         gestorLibreria.muestraVistaNuevo();
@@ -137,7 +137,7 @@ public class VistaListadoController {
 
     @FXML
     public void setListaProductos() {
-        
+
         tablaP.getItems().clear();
 //        for (int i = 0; i < tablaP.getItems().size(); i++) {
 //            tablaP.getItems().remove(i);
@@ -147,13 +147,13 @@ public class VistaListadoController {
         tablaP.setItems(lista);
 
     }
-    
-    public void laBusqueda(ObservableList<Producto> listaP){
-        
+
+    public void laBusqueda(ObservableList<Producto> listaP) {
+
         //getItems.clear() borra la lista que esta asociada a la tabla
         // dando como resultado una lista vacia
         tablaP.setItems(listaP);
-        
+
     }
 
     @FXML
@@ -178,23 +178,27 @@ public class VistaListadoController {
         }
 
     }
-    
-    private void getImagenes(){
-        try{
-            
-        
-        BufferedImage bufferedAux;
-        String filePath = new File("").getAbsolutePath();
-        
-        for (int i = 0; i < lista.size(); i++) {
-            File ruta = new File(filePath + "/src/resources/" + String.valueOf(lista.get(i).getCodBarras()) + ".jpg");
-            bufferedAux = db.imagenProducto(lista.get(i).getCodBarras());
-            System.out.println(bufferedAux);
-            ImageIO.write(bufferedAux, "jpg", ruta);
-            
-        }
-        }catch(Exception e){
+
+    private void getImagenes() {
+        try {
+
+            BufferedImage bufferedAux;
+            String filePath = new File("").getAbsolutePath();
+
+            for (int i = 0; i < lista.size(); i++) {
+
+                File ruta = new File(filePath + "/src/resources/" + String.valueOf(lista.get(i).getCodBarras()) + ".jpg");
+                bufferedAux = db.imagenProducto(lista.get(i).getCodBarras());
+                mapeoImagenes.put(lista.get(i).getCodBarras(), bufferedAux);
+                ImageIO.write(bufferedAux, "jpg", ruta);
+
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public BufferedImage referenciasImagenes(long codBarr){
+        return mapeoImagenes.get(codBarr);
     }
 }
