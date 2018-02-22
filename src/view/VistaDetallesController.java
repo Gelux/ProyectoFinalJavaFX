@@ -49,6 +49,10 @@ public class VistaDetallesController {
     private Libro libro;
     private AnchorPane detallesE; 
     private DatabaseUtil db;
+    private BufferedImage bImage;
+    private Image imageAUX;
+    private File archivoE = null;
+    private File resourceImage;
     CreaPdfCodBarras pdfGenerator = new CreaPdfCodBarras();
 
     @FXML
@@ -235,13 +239,18 @@ public class VistaDetallesController {
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
 
-        File archivoE = fileChooser.showOpenDialog(lNombre.getScene().getWindow());
+        archivoE = fileChooser.showOpenDialog(lNombre.getScene().getWindow());
 
         try {
-            BufferedImage bufferedImage = ImageIO.read(archivoE);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            imagen.setImage(image);
+            if(archivoE != null){
+                BufferedImage bufferedImage = ImageIO.read(archivoE);
+                ImageIO.write(bufferedImage, "jpg", vistaListado.getImagenHashmap(libro.getCodBarras()));
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                db.subirImagen(archivoE);
+                imagen.setImage(image);
+            }
         } catch (IOException ex) {
+            System.out.println("salto");
         }
     }
     
@@ -328,6 +337,7 @@ public class VistaDetallesController {
         escenarioNuevo.setScene(escena);
         
         VistaDetallesExtraibleController controller = loader.getController();
+        controller.setVistaListadoController(vistaListado);
         controller.setDatos(getLibro());
         
         escenarioNuevo.showAndWait();
@@ -360,8 +370,9 @@ public class VistaDetallesController {
         lFechaM.setText(String.valueOf(libro.getFechaModificacion()));
         
         //Añadir imagenes desde el hashmap
-        Image image = SwingFXUtils.toFXImage(vistaListado.referenciasImagenes(libro.getCodBarras()), null);
-        imagen.setImage(image);
+        bImage = ImageIO.read(vistaListado.getImagenHashmap(libro.getCodBarras()));
+        imageAUX = SwingFXUtils.toFXImage(bImage, null);
+        imagen.setImage(imageAUX);
         
         String numCB = String.valueOf(libro.getCodBarras());
         pdfGenerator.CrearImgCB(numCB);

@@ -45,7 +45,7 @@ public class VistaListadoController {
     private VistaPrincipalController vpController;
     private ObservableList<Producto> lista = FXCollections.observableArrayList();
     private ObservableList<Producto> listaBusquedaPrincipal;
-    public HashMap<Long, BufferedImage> mapeoImagenes = new HashMap<Long, BufferedImage>();
+    public HashMap<Long, File> mapeoImagenes = new HashMap<Long, File>();
 
     @FXML
     TableView tablaP;
@@ -184,13 +184,14 @@ public class VistaListadoController {
 
             BufferedImage bufferedAux;
             String filePath = new File("").getAbsolutePath();
+            File ruta;
 
             for (int i = 0; i < lista.size(); i++) {
 
-                File ruta = new File(filePath + "/src/resources/" + String.valueOf(lista.get(i).getCodBarras()) + ".jpg");
+                ruta = new File(filePath + "/src/resources/" + String.valueOf(lista.get(i).getCodBarras()) + ".jpg");
                 bufferedAux = db.imagenProducto(lista.get(i).getCodBarras());
-                mapeoImagenes.put(lista.get(i).getCodBarras(), bufferedAux);
                 ImageIO.write(bufferedAux, "jpg", ruta);
+                mapeoImagenes.put(lista.get(i).getCodBarras(), ruta);
 
             }
         } catch (Exception e) {
@@ -198,7 +199,7 @@ public class VistaListadoController {
         }
     }
     
-    public BufferedImage referenciasImagenes(long codBarr){
+    public File getImagenHashmap(long codBarr){
         return mapeoImagenes.get(codBarr);
     }
 }

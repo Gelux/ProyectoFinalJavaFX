@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 import model.Libro;
 import util.CreaPdfCodBarras;
 import util.DatabaseUtil;
@@ -34,6 +35,7 @@ public class VistaDetallesExtraibleController {
 
     private DatabaseUtil db;
     private Libro libroOriginal;
+    private VistaListadoController vistaListado;
     CreaPdfCodBarras pdfGenerator = new CreaPdfCodBarras();
 
     @FXML
@@ -159,7 +161,7 @@ public class VistaDetallesExtraibleController {
     public void setDatos(Libro libro) throws IOException {
         libroOriginal = libro;
         db = new DatabaseUtil();
-
+        
         nombreP.setText(libro.getNombre());
         autorP.setText(libro.getAutor());
         editorialP.setText(libro.getEditorial());
@@ -174,10 +176,10 @@ public class VistaDetallesExtraibleController {
         //relleno el combobox de generos
         comboGen.setItems(generos);
 
-        Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
+        Image image = SwingFXUtils.toFXImage(ImageIO.read(vistaListado.getImagenHashmap(libro.getCodBarras())), null);
         imagen.setImage(image);
         
-         String numCB = String.valueOf(libroOriginal.getCodBarras());
+        String numCB = String.valueOf(libroOriginal.getCodBarras());
         pdfGenerator.CrearImgCB(numCB);
         
         Image imgCB = SwingFXUtils.toFXImage(pdfGenerator.getBufferedImage(), null);
@@ -469,5 +471,9 @@ public class VistaDetallesExtraibleController {
                     "Salud y Dietas",
                     "Otros"
             );
+    
+    public VistaListadoController setVistaListadoController(VistaListadoController listado){
+        return this.vistaListado = listado;
+    }
 
 }

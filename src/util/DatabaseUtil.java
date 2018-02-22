@@ -165,6 +165,7 @@ public class DatabaseUtil {
             if(ps.executeUpdate() != 1){
                 System.out.println("Subida de imagen erronea");
             }else{
+                conexion.commit();
                 System.out.println("Imagen subida");
                 return true;
             }
