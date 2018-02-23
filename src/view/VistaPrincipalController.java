@@ -6,7 +6,11 @@
 package view;
 
 import controller.GestorLibreria;
+
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -170,7 +174,14 @@ public class VistaPrincipalController {
     @FXML
     private void abrirManualUsuario(){
         
+        File file = new File("C:/Users/dam/Desktop/GonzaloVizeuTriggers.docx");
+		try {
+			//Open the file using Desktop class
+			Desktop.getDesktop().open(file);
+		}catch (IOException exception){
+			exception.printStackTrace();
+		}
+        
     }
- 
 
 }
