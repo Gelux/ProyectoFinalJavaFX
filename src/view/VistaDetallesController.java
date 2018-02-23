@@ -246,7 +246,6 @@ public class VistaDetallesController {
                 BufferedImage bufferedImage = ImageIO.read(archivoE);
                 ImageIO.write(bufferedImage, "jpg", vistaListado.getImagenHashmap(libro.getCodBarras()));
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                db.subirImagen(archivoE);
                 imagen.setImage(image);
             }
         } catch (IOException ex) {
@@ -300,6 +299,7 @@ public class VistaDetallesController {
                     tDescripcion.getText(), Double.parseDouble(lPrecio.getText()), Integer.parseInt(lStock.getText()), libro.getCodBarras(), libro.getFechaAlta(), libro.getFechaModificacion());
             
             db.actualizarLibro(libroMod);
+            db.subirImagen(archivoE);
             
             libroMod = db.detallesLibro(libroMod.getCodBarras());
             

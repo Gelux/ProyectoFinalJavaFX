@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -45,7 +47,7 @@ public class VistaListadoController {
     private VistaPrincipalController vpController;
     private ObservableList<Producto> lista = FXCollections.observableArrayList();
     private ObservableList<Producto> listaBusquedaPrincipal;
-    public HashMap<Long, File> mapeoImagenes = new HashMap<Long, File>();
+    private HashMap<Long, File> mapeoImagenes = new HashMap<Long, File>();
 
     @FXML
     TableView tablaP;
@@ -157,7 +159,7 @@ public class VistaListadoController {
     }
 
     @FXML
-    private void eliminarProducto() {
+    private void eliminarProducto() throws IOException {
         if (tablaP.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(AlertType.ERROR);
 
@@ -171,8 +173,10 @@ public class VistaListadoController {
 
         } else {
             Producto aBorrar = (Producto) tablaP.getSelectionModel().getSelectedItem();
-
+            
             db.borrarLibro(aBorrar.getCodBarras());
+            
+            Files.delete(mapeoImagenes.get(aBorrar.getCodBarras()).toPath());
 
             setListaProductos();
         }
@@ -201,5 +205,9 @@ public class VistaListadoController {
     
     public File getImagenHashmap(long codBarr){
         return mapeoImagenes.get(codBarr);
+    }
+    
+    public HashMap<Long, File> getHashMap(){
+        return mapeoImagenes;
     }
 }
