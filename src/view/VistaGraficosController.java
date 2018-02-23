@@ -114,8 +114,22 @@ public class VistaGraficosController {
         
         if (selectedDirectory != null) {
 
+        byte[] bufferImagen = null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        WritableImage image = tarta.snapshot(new SnapshotParameters(), null);
         File file = new File("Grafico/imagenGrafico.png");
 
+        try {
+           ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+           baos.flush();
+            bufferImagen = baos.toByteArray();
+            baos.close();
+            
+        } catch (IOException e) {
+            
+       }
+        
         String rutaImagen =file.getPath();
         
         

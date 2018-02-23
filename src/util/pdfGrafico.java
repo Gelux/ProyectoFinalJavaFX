@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import com.itextpdf.text.Image;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import static util.CreaPdfCodBarras.documento;
 
 /**
@@ -69,11 +71,13 @@ public class pdfGrafico {
             creaTabla(grafico);
 
             documento.close();
+            File f = new File(rutaImagen);
+            f.delete();
 
         } catch (DocumentException ex) {
             System.out.println(ex.toString());
         }
-
+        
     }
 
     private void creaTabla(Image image) throws DocumentException {
