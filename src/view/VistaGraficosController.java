@@ -118,7 +118,7 @@ public class VistaGraficosController {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         WritableImage image = tarta.snapshot(new SnapshotParameters(), null);
-        File file = new File("Grafico/imagenGrafico.png");
+        File file = new File("imagenGrafico.png");
 
         try {
            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
