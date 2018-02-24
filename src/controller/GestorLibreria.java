@@ -39,7 +39,7 @@ public class GestorLibreria extends Application {
         
         
         
-        this.escenarioPrincipal.setTitle("Gestor Librer√≠a");
+        this.escenarioPrincipal.setTitle("Gestor LibrerÌa");
         
         
         initLayoutPrincipal();
@@ -103,7 +103,7 @@ public class GestorLibreria extends Application {
         
         //Creo el escenario de edici√≥n (con modal) y establezco la escena
         Stage escenarioNuevo = new Stage();
-        escenarioNuevo.setTitle("A√±adir Producto");
+        escenarioNuevo.setTitle("AÒadir Producto");
         escenarioNuevo.initModality(Modality.WINDOW_MODAL);
         escenarioNuevo.initOwner(escenarioPrincipal);
         Scene escena = new Scene(nuevoP);

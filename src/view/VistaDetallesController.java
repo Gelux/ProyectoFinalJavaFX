@@ -90,38 +90,38 @@ public class VistaDetallesController {
                     "Arte",
                     "Autoayuda y Espiritualidad",
                     "Ciencias Humanas",
-                    "Ciencias Pol√≠ticas y Sociales",
+                    "Ciencias PolÌticas y Sociales",
                     "Ciencias",
                     "Cocina",
-                    "C√≥mics Adultos",
-                    "C√≥mics infantil y juvenil",
+                    "CÛmics Adultos",
+                    "CÛmics infantil y juvenil",
                     "Deportes y juegos",
                     "Derecho",
-                    "Econom√≠a",
+                    "EconomÌa",
                     "Empresa",
-                    "Filolog√≠a",
-                    "Fotograf√≠a",
-                    "Gu√≠as de viaje",
+                    "FilologÌa",
+                    "FotografÌa",
+                    "GuÌas de viaje",
                     "Historia",
                     "Idiomas",
                     "Infantil",
-                    "Inform√°tica",
-                    "Ingenier√≠a",
+                    "Inform·tica",
+                    "IngenierÌa",
                     "Juegos educativos",
                     "Juvenil",
                     "Libro antiguo y de ocasion",
-                    "Libros de Texto y Formaci√≥n",
+                    "Libros de Texto y FormaciÌn",
                     "Libros latinoamericanos",
                     "Literatura",
                     "Manualidades",
                     "Medicina",
-                    "M√∫sica",
-                    "Narrativa hist√≥rica",
-                    "Novela contempor√°nea",
+                    "M˙sica",
+                    "Narrativa histÛrica",
+                    "Novela contempor·nea",
                     "Novela negra",
                     "Oposiciones",
-                    "Psicolog√≠a y Pedagog√≠a",
-                    "Rom√°ntica y er√≥tica",
+                    "PsicologÌa y PedagogÌa",
+                    "Rom·ntica y erÛtica",
                     "Salud y Dietas",
                     "Otros"
             );
@@ -299,7 +299,9 @@ public class VistaDetallesController {
                     tDescripcion.getText(), Double.parseDouble(lPrecio.getText()), Integer.parseInt(lStock.getText()), libro.getCodBarras(), libro.getFechaAlta(), libro.getFechaModificacion());
             
             db.actualizarLibro(libroMod);
-            db.subirImagen(archivoE);
+            if (archivoE != null){
+                db.subirImagen(archivoE);
+            }
             
             libroMod = db.detallesLibro(libroMod.getCodBarras());
             

@@ -179,6 +179,7 @@ public class VistaListadoController {
             Files.delete(mapeoImagenes.get(aBorrar.getCodBarras()).toPath());
 
             setListaProductos();
+            detallesPane.getChildren().clear();
         }
 
     }
