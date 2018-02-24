@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -40,11 +39,12 @@ public class GestorLibreria extends Application {
         
         
         
-        this.escenarioPrincipal.setTitle("Gestor Librer√≠a");
+        this.escenarioPrincipal.setTitle("Gestor LibrerÌa");
         
         
         initLayoutPrincipal();
         muestraVistaListado();
+        
     }
     
     public void initLayoutPrincipal(){
@@ -103,7 +103,7 @@ public class GestorLibreria extends Application {
         
         //Creo el escenario de edici√≥n (con modal) y establezco la escena
         Stage escenarioNuevo = new Stage();
-        escenarioNuevo.setTitle("A√±adir Producto");
+        escenarioNuevo.setTitle("AÒadir Producto");
         escenarioNuevo.initModality(Modality.WINDOW_MODAL);
         escenarioNuevo.initOwner(escenarioPrincipal);
         Scene escena = new Scene(nuevoP);

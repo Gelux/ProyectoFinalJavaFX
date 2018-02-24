@@ -34,6 +34,7 @@ public class DatabaseUtil {
     PreparedStatement ps2 = null;
     static DatabaseMetaData conexInfo;
     ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
+    Libro libroAux;
 
     public DatabaseUtil() {
         ConnectDB helper = new ConnectDB();
@@ -41,7 +42,7 @@ public class DatabaseUtil {
     }
 
     public ObservableList<Producto> anadirLista() {
-            listaProductos.clear();
+        listaProductos.clear();
         try {
 
             String query = "select * from productos";
@@ -61,7 +62,7 @@ public class DatabaseUtil {
             } else {
                 System.out.println("La tabla no tiene datos");
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -77,7 +78,7 @@ public class DatabaseUtil {
             ps.setString(3, libro.getDescription());
             ps.setInt(4, libro.getStock());
             ps.setString(5, String.valueOf(libro.getPrecio()));
-            
+
             ps2 = conexion.prepareStatement("insert into libros values(?,?,?,?,?,?)");
             ps2.setLong(1, 0L);
             ps2.setLong(2, libro.getISBN());
@@ -85,12 +86,12 @@ public class DatabaseUtil {
             ps2.setString(4, libro.getAutor());
             ps2.setString(5, libro.getEditorial());
             ps2.setInt(6, Integer.parseInt(libro.getAnoPublicacion()));
-            
+
             if (ps.executeUpdate() != 1 || ps2.executeUpdate() != 1) {
                 System.out.println("Error insercion");
             } else {
                 System.out.println("Fila insertada");
-                
+
                 conexion.commit();
             }
         } catch (SQLException ex) {
@@ -100,7 +101,7 @@ public class DatabaseUtil {
 
     public Libro detallesLibro(long codigoLibro) {
 
-        Libro libroAux = null;
+        libroAux = null;
 
         try {
             sentencia = null;
@@ -150,21 +151,22 @@ public class DatabaseUtil {
         }
         return auxImage;
     }
-    
-    public boolean subirImagen(File img){
-        
+
+    public boolean subirImagen(File img) {
+
         try {
             File blob = new File(img.getAbsolutePath());
             FileInputStream fis = new FileInputStream(blob);
-            
+
             ps = conexion.prepareStatement("update productos set foto = ? where fecha_modificacion = "
                     + "(select max(fecha_modificacion) from productos)");
-            
-            ps.setBinaryStream(1, fis, (int)blob.length());
-            
-            if(ps.executeUpdate() != 1){
+
+            ps.setBinaryStream(1, fis, (int) blob.length());
+
+            if (ps.executeUpdate() != 1) {
                 System.out.println("Subida de imagen erronea");
-            }else{
+            } else {
+                conexion.commit();
                 System.out.println("Imagen subida");
                 return true;
             }
@@ -175,33 +177,61 @@ public class DatabaseUtil {
         }
         return false;
     }
-    
-    public boolean borrarLibro(long codBarr){
-        try{
+
+    public Libro getNewLibro() {
+        libroAux = null;
+
+        try {
+            sentencia = null;
+            resultSet1 = null;
+            sentencia = conexion.createStatement();
+            String select3 = "select productos.codigo, cod_isbn, genero, autor, editorial, ano_publicacion, nombre, descripcion, "
+                    + "fecha_alta, stock, fecha_modificacion, precio from libros inner join productos on libros.codigo = "
+                    + "productos.codigo where productos.fecha_modificacion = (select max(fecha_modificacion) from productos)";
+            resultSet1 = sentencia.executeQuery(select3);
+
+            if (resultSet1.next()) {
+                do {
+                    libroAux = new Libro(Long.parseLong(resultSet1.getString(2)), resultSet1.getString(3),
+                            resultSet1.getString(4), resultSet1.getString(6), resultSet1.getString(5), resultSet1.getString(7),
+                            resultSet1.getString(8), Double.parseDouble(resultSet1.getString(12)), Integer.parseInt(resultSet1.getString(10)), Long.parseLong(resultSet1.getString(1)),
+                            resultSet1.getDate(9), resultSet1.getDate(11));
+                } while (resultSet1.next());
+            } else {
+                System.out.println("La tabla no tiene datos//Sentencia con valores erroneos");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return libroAux;
+    }
+
+    public boolean borrarLibro(long codBarr) {
+        try {
             ps = conexion.prepareStatement("delete from productos where codigo = ?");
-            
+
             ps.setLong(1, codBarr);
-            
+
             ps2 = conexion.prepareStatement("delete from libros where codigo = ?");
-            
+
             ps2.setLong(1, codBarr);
-            
-            if(ps.executeUpdate() != 1 || ps2.executeUpdate() != 1){
+
+            if (ps.executeUpdate() != 1 || ps2.executeUpdate() != 1) {
                 System.out.println("Error al eliminar");
-            }else{
+            } else {
                 System.out.println("Libros eliminados");
                 conexion.commit();
                 return true;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return false;
+        return false;
     }
-    
-    public boolean actualizarLibro(Libro libro){
-        try{
+
+    public boolean actualizarLibro(Libro libro) {
+        try {
             ps = conexion.prepareStatement("update productos set nombre = ?, descripcion = ?, "
                     + "stock = ?, precio = ? where codigo = ?");
             ps.setString(1, libro.getNombre());
@@ -209,7 +239,7 @@ public class DatabaseUtil {
             ps.setInt(3, libro.getStock());
             ps.setString(4, String.valueOf(libro.getPrecio()));
             ps.setLong(5, libro.getCodBarras());
-            
+
             ps2 = conexion.prepareStatement("update libros set cod_isbn = ?, genero = ?, autor = ?, "
                     + "editorial = ?, ano_publicacion = ? where codigo = ?");
             ps2.setString(1, String.valueOf(libro.getISBN()));
@@ -218,33 +248,33 @@ public class DatabaseUtil {
             ps2.setString(4, libro.getEditorial());
             ps2.setInt(5, Integer.parseInt(libro.getAnoPublicacion()));
             ps2.setLong(6, libro.getCodBarras());
-            
+
             if (ps.executeUpdate() != 1 || ps2.executeUpdate() != 1) {
                 System.out.println(libro.getCodBarras());
                 System.out.println("Error insercion");
             } else {
                 System.out.println("Filas modificadas");
-                
+
                 conexion.commit();
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
-    
-    public ObservableList<Producto> buscarLibro(String busqueda, boolean tipoBusqueda){
+
+    public ObservableList<Producto> buscarLibro(String busqueda, boolean tipoBusqueda) {
         listaProductos.clear();
         String query = "";
-        if(tipoBusqueda){
+        if (tipoBusqueda) {
             query = "select * from productos where LOWER(nombre) like '" + busqueda + "%'";
-        }else{
+        } else {
             query = "select * from productos where codigo = " + Long.parseLong(busqueda);
         }
-        
-            try{
-            
+
+        try {
+
             sentencia = null;
             sentencia = conexion.createStatement();
             resultSet1 = null;
@@ -261,12 +291,11 @@ public class DatabaseUtil {
             } else {
                 System.out.println("La tabla no tiene datos");
             }
-            }catch(SQLException ex){
-                ex.printStackTrace();
-            }
-        
-        
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         return listaProductos;
     }
-    
+
 }

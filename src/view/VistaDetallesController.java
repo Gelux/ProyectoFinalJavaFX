@@ -49,6 +49,10 @@ public class VistaDetallesController {
     private Libro libro;
     private AnchorPane detallesE; 
     private DatabaseUtil db;
+    private BufferedImage bImage;
+    private Image imageAUX;
+    private File archivoE = null;
+    private File resourceImage;
     CreaPdfCodBarras pdfGenerator = new CreaPdfCodBarras();
 
     @FXML
@@ -86,38 +90,38 @@ public class VistaDetallesController {
                     "Arte",
                     "Autoayuda y Espiritualidad",
                     "Ciencias Humanas",
-                    "Ciencias Pol√≠ticas y Sociales",
+                    "Ciencias PolÌticas y Sociales",
                     "Ciencias",
                     "Cocina",
-                    "C√≥mics Adultos",
-                    "C√≥mics infantil y juvenil",
+                    "CÛmics Adultos",
+                    "CÛmics infantil y juvenil",
                     "Deportes y juegos",
                     "Derecho",
-                    "Econom√≠a",
+                    "EconomÌa",
                     "Empresa",
-                    "Filolog√≠a",
-                    "Fotograf√≠a",
-                    "Gu√≠as de viaje",
+                    "FilologÌa",
+                    "FotografÌa",
+                    "GuÌas de viaje",
                     "Historia",
                     "Idiomas",
                     "Infantil",
-                    "Inform√°tica",
-                    "Ingenier√≠a",
+                    "Inform·tica",
+                    "IngenierÌa",
                     "Juegos educativos",
                     "Juvenil",
                     "Libro antiguo y de ocasion",
-                    "Libros de Texto y Formaci√≥n",
+                    "Libros de Texto y FormaciÌn",
                     "Libros latinoamericanos",
                     "Literatura",
                     "Manualidades",
                     "Medicina",
-                    "M√∫sica",
-                    "Narrativa hist√≥rica",
-                    "Novela contempor√°nea",
+                    "M˙sica",
+                    "Narrativa histÛrica",
+                    "Novela contempor·nea",
                     "Novela negra",
                     "Oposiciones",
-                    "Psicolog√≠a y Pedagog√≠a",
-                    "Rom√°ntica y er√≥tica",
+                    "PsicologÌa y PedagogÌa",
+                    "Rom·ntica y erÛtica",
                     "Salud y Dietas",
                     "Otros"
             );
@@ -235,13 +239,17 @@ public class VistaDetallesController {
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
 
-        File archivoE = fileChooser.showOpenDialog(lNombre.getScene().getWindow());
+        archivoE = fileChooser.showOpenDialog(lNombre.getScene().getWindow());
 
         try {
-            BufferedImage bufferedImage = ImageIO.read(archivoE);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            imagen.setImage(image);
+            if(archivoE != null){
+                BufferedImage bufferedImage = ImageIO.read(archivoE);
+                ImageIO.write(bufferedImage, "jpg", vistaListado.getImagenHashmap(libro.getCodBarras()));
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                imagen.setImage(image);
+            }
         } catch (IOException ex) {
+            System.out.println("salto");
         }
     }
     
@@ -291,6 +299,9 @@ public class VistaDetallesController {
                     tDescripcion.getText(), Double.parseDouble(lPrecio.getText()), Integer.parseInt(lStock.getText()), libro.getCodBarras(), libro.getFechaAlta(), libro.getFechaModificacion());
             
             db.actualizarLibro(libroMod);
+            if (archivoE != null){
+                db.subirImagen(archivoE);
+            }
             
             libroMod = db.detallesLibro(libroMod.getCodBarras());
             
@@ -328,6 +339,7 @@ public class VistaDetallesController {
         escenarioNuevo.setScene(escena);
         
         VistaDetallesExtraibleController controller = loader.getController();
+        controller.setVistaListadoController(vistaListado);
         controller.setDatos(getLibro());
         
         escenarioNuevo.showAndWait();
@@ -358,9 +370,11 @@ public class VistaDetallesController {
         lPrecio.setText(String.valueOf(libro.getPrecio()));
 
         lFechaM.setText(String.valueOf(libro.getFechaModificacion()));
-
-        Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
-        imagen.setImage(image);
+        
+        //AÒadir imagenes desde el hashmap
+        bImage = ImageIO.read(vistaListado.getImagenHashmap(libro.getCodBarras()));
+        imageAUX = SwingFXUtils.toFXImage(bImage, null);
+        imagen.setImage(imageAUX);
         
         String numCB = String.valueOf(libro.getCodBarras());
         pdfGenerator.CrearImgCB(numCB);

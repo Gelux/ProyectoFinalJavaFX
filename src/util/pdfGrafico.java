@@ -52,7 +52,7 @@ public class pdfGrafico {
             documento.open();
 
             Font font = new Font(Font.FontFamily.TIMES_ROMAN, 25.0f, Font.UNDERLINE, BaseColor.GRAY);
-            Paragraph p = new Paragraph("GRAFICO ´STOCK", font);
+            Paragraph p = new Paragraph("GRAFICO STOCK", font);
 
             p.setAlignment(Paragraph.ALIGN_CENTER);
 

@@ -6,8 +6,14 @@
 package view;
 
 import controller.GestorLibreria;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
@@ -24,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javax.imageio.ImageIO;
 import model.Libro;
 import model.Producto;
 import util.DatabaseUtil;
@@ -40,6 +47,7 @@ public class VistaListadoController {
     private VistaPrincipalController vpController;
     private ObservableList<Producto> lista = FXCollections.observableArrayList();
     private ObservableList<Producto> listaBusquedaPrincipal;
+    private HashMap<Long, File> mapeoImagenes = new HashMap<Long, File>();
 
     @FXML
     TableView tablaP;
@@ -75,19 +83,17 @@ public class VistaListadoController {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 Producto productoAux = (Producto) tablaP.getSelectionModel().getSelectedItem();
-                if(productoAux != null){
+                if (productoAux != null) {
                     try {
                         muestraVistaDetalles(productoAux.getCodBarras());
                     } catch (IOException ex) {
-                        
+
                     }
                 }
 
             }
 
         });
-        
-        
 
     }
 
@@ -106,8 +112,8 @@ public class VistaListadoController {
         VistaDetallesController controller = loader.getController();
         Libro libroAux = db.detallesLibro(cod);
         //System.out.println(libroAux.getNombre());
-        controller.setLibro(libroAux);
         controller.setVistaListadoController(this);
+        controller.setLibro(libroAux);
     }
 
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
@@ -116,16 +122,16 @@ public class VistaListadoController {
         setListaProductos();
         vpController = gestorLibreria.getVistaPrincipalController();
         listaBusquedaPrincipal = vpController.getListadoPrincipal();
+        getImagenes();
 
     }
 
-    
     public GestorLibreria getGestorLibreria() {
-        
+
         return gestorLibreria;
-        
+
     }
-    
+
     @FXML
     private void nuevo() {
         gestorLibreria.muestraVistaNuevo();
@@ -133,7 +139,7 @@ public class VistaListadoController {
 
     @FXML
     public void setListaProductos() {
-        
+
         tablaP.getItems().clear();
 //        for (int i = 0; i < tablaP.getItems().size(); i++) {
 //            tablaP.getItems().remove(i);
@@ -143,17 +149,17 @@ public class VistaListadoController {
         tablaP.setItems(lista);
 
     }
-    
-    public void laBusqueda(ObservableList<Producto> listaP){
-        
+
+    public void laBusqueda(ObservableList<Producto> listaP) {
+
         //getItems.clear() borra la lista que esta asociada a la tabla
         // dando como resultado una lista vacia
         tablaP.setItems(listaP);
-        
+
     }
 
     @FXML
-    private void eliminarProducto() {
+    private void eliminarProducto() throws IOException {
         if (tablaP.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(AlertType.ERROR);
 
@@ -167,11 +173,42 @@ public class VistaListadoController {
 
         } else {
             Producto aBorrar = (Producto) tablaP.getSelectionModel().getSelectedItem();
-
+            
             db.borrarLibro(aBorrar.getCodBarras());
+            
+            Files.delete(mapeoImagenes.get(aBorrar.getCodBarras()).toPath());
 
             setListaProductos();
+            detallesPane.getChildren().clear();
         }
 
+    }
+
+    private void getImagenes() {
+        try {
+
+            BufferedImage bufferedAux;
+            String filePath = new File("").getAbsolutePath();
+            File ruta;
+
+            for (int i = 0; i < lista.size(); i++) {
+
+                ruta = new File(filePath + "/src/resources/" + String.valueOf(lista.get(i).getCodBarras()) + ".jpg");
+                bufferedAux = db.imagenProducto(lista.get(i).getCodBarras());
+                ImageIO.write(bufferedAux, "jpg", ruta);
+                mapeoImagenes.put(lista.get(i).getCodBarras(), ruta);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public File getImagenHashmap(long codBarr){
+        return mapeoImagenes.get(codBarr);
+    }
+    
+    public HashMap<Long, File> getHashMap(){
+        return mapeoImagenes;
     }
 }

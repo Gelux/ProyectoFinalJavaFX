@@ -38,6 +38,10 @@ public class VistaNuevoPController {
     private VistaListadoController controllerListado;
     private DatabaseUtil db;
     private File archivoE;
+    private Libro cutrezLibro;
+    private BufferedImage bufferedImage;
+    private String resourceImage = new File("").getAbsolutePath();
+    private File rutaImagen;
 
     @FXML
     ComboBox comboGen;
@@ -62,46 +66,45 @@ public class VistaNuevoPController {
                     "Arte",
                     "Autoayuda y Espiritualidad",
                     "Ciencias Humanas",
-                    "Ciencias Pol√≠ticas y Sociales",
+                    "Ciencias PolÌticas y Sociales",
                     "Ciencias",
                     "Cocina",
-                    "C√≥mics Adultos",
-                    "C√≥mics infantil y juvenil",
+                    "CÛmics Adultos",
+                    "CÛmics infantil y juvenil",
                     "Deportes y juegos",
                     "Derecho",
-                    "Econom√≠a",
+                    "EconomÌa",
                     "Empresa",
-                    "Filolog√≠a",
-                    "Fotograf√≠a",
-                    "Gu√≠as de viaje",
+                    "FilologÌa",
+                    "FotografÌa",
+                    "GuÌas de viaje",
                     "Historia",
                     "Idiomas",
                     "Infantil",
-                    "Inform√°tica",
-                    "Ingenier√≠a",
+                    "Inform·tica",
+                    "IngenierÌa",
                     "Juegos educativos",
                     "Juvenil",
                     "Libro antiguo y de ocasion",
-                    "Libros de Texto y Formaci√≥n",
+                    "Libros de Texto y FormaciÌn",
                     "Libros latinoamericanos",
                     "Literatura",
                     "Manualidades",
                     "Medicina",
-                    "M√∫sica",
-                    "Narrativa hist√≥rica",
-                    "Novela contempor√°nea",
+                    "M˙sica",
+                    "Narrativa histÛrica",
+                    "Novela contempor·nea",
                     "Novela negra",
                     "Oposiciones",
-                    "Psicolog√≠a y Pedagog√≠a",
-                    "Rom√°ntica y er√≥tica",
+                    "PsicologÌa y PedagogÌa",
+                    "Rom·ntica y erÛtica",
                     "Salud y Dietas",
                     "Otros"
             );
 
     @FXML
     private void initialize() {
-        
-        
+
         comboGen.setItems(generos);
 
         //Controlador del TextField del ISBN
@@ -142,7 +145,7 @@ public class VistaNuevoPController {
                 }
             }
         });
-        
+
         //Controlador del TextField del stock
         stockTF.textProperty().addListener(new ChangeListener() {
             @Override
@@ -154,7 +157,6 @@ public class VistaNuevoPController {
                 }
             }
         });
-        
 
         //Inicializo el auxiliar de la database
         db = new DatabaseUtil();
@@ -162,7 +164,7 @@ public class VistaNuevoPController {
     }
 
     @FXML
-    private void crearP() {
+    private void crearP() throws IOException {
 
         if (!comprobarErrores()) {
 
@@ -173,11 +175,16 @@ public class VistaNuevoPController {
 
             //Pillo el controller de vistalistadocontroller
             controllerListado = gestorLibreria.getVistaListadoController();
-
+            
             Stage stage = (Stage) bCrearP.getScene().getWindow();
             db.insertarNuevoLibro(libroAux);
+            cutrezLibro = db.getNewLibro();
             db.subirImagen(archivoE);
             controllerListado.setListaProductos();
+            System.out.println(resourceImage + "/" + cutrezLibro.getCodBarras());
+            rutaImagen = new File(resourceImage + "\\src\\resources\\" + cutrezLibro.getCodBarras() + ".jpg");
+            ImageIO.write(bufferedImage, "jpg", rutaImagen);
+            controllerListado.getHashMap().put(cutrezLibro.getCodBarras(), rutaImagen);
             stage.close();
         }
 
@@ -197,9 +204,13 @@ public class VistaNuevoPController {
         archivoE = fileChooser.showOpenDialog(bCrearP.getScene().getWindow());
 
         try {
-            BufferedImage bufferedImage = ImageIO.read(archivoE);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            fotoP.setImage(image);
+            if (archivoE != null) {
+//                BufferedImage bufferedImage = ImageIO.read(archivoE);
+//                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                bufferedImage = ImageIO.read(archivoE);
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                fotoP.setImage(image);
+            }
         } catch (IOException ex) {
         }
     }
@@ -353,7 +364,6 @@ public class VistaNuevoPController {
     }
 
     public void setGestorLibreria(GestorLibreria gestorLibreria) {
-        
         this.gestorLibreria = gestorLibreria;
     }
 }
