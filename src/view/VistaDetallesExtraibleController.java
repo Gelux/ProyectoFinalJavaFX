@@ -6,6 +6,7 @@
 package view;
 
 import com.itextpdf.text.BadElementException;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javafx.beans.value.ChangeListener;
@@ -36,10 +37,11 @@ public class VistaDetallesExtraibleController {
     private DatabaseUtil db;
     private Libro libroOriginal;
     private VistaListadoController vistaListado;
+    private File archivoE = null;
     CreaPdfCodBarras pdfGenerator = new CreaPdfCodBarras();
 
     @FXML
-    Button bImprimirC2, bOK, bEditar, bCommit;
+    Button bImprimirC2, bOK, bEditar, bCommit, bExaminar;
 
     @FXML
     TextField nCDB;
@@ -219,12 +221,38 @@ public class VistaDetallesExtraibleController {
         tituloTf.setVisible(true);
         autorTf.setVisible(true);
         comboGen.setVisible(true);
+        bExaminar.setVisible(true);
         editorialTf.setVisible(true);
         isbnTf.setVisible(true);
         precioTf.setVisible(true);
         stockTf.setVisible(true);
         aniopubTf.setVisible(true);
 
+    }
+    
+    @FXML
+    private void elegirFoto() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Abre la foto");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+                new FileChooser.ExtensionFilter("BMP", "*.bmp"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+
+        archivoE = fileChooser.showOpenDialog(nombreP.getScene().getWindow());
+
+        try {
+            if(archivoE != null){
+                BufferedImage bufferedImage = ImageIO.read(archivoE);
+                ImageIO.write(bufferedImage, "jpg", vistaListado.getImagenHashmap(libroOriginal.getCodBarras()));
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                imagen.setImage(image);
+            }
+        } catch (IOException ex) {
+            System.out.println("salto");
+        }
     }
 
     @FXML
@@ -239,6 +267,7 @@ public class VistaDetallesExtraibleController {
             isbnTf.setVisible(false);
             precioTf.setVisible(false);
             stockTf.setVisible(false);
+            bExaminar.setVisible(false);
             aniopubTf.setVisible(false);
 
             nombreP.setText(tituloTf.getText());
@@ -269,6 +298,10 @@ public class VistaDetallesExtraibleController {
                     libroOriginal.getCodBarras(), null, null);
 
             db.actualizarLibro(libroAux);
+            
+            if (archivoE != null){
+                db.subirImagen(archivoE);
+            }
 
             libroAux = db.detallesLibro(libroAux.getCodBarras());
 

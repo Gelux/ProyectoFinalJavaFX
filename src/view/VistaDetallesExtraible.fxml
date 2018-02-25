@@ -66,6 +66,7 @@
       <Label fx:id="errorD" layoutX="640.0" layoutY="171.0" styleClass="error" text="Descricpion vacía" visible="false" />
       <TextField fx:id="precioTf" layoutX="371.0" layoutY="288.0" prefHeight="25.0" prefWidth="358.0" visible="false" />
       <Label fx:id="errorSt" layoutX="650.0" layoutY="321.0" styleClass="error" text="Stock incorrecto" visible="false" />
+      <Button fx:id="bExaminar" layoutX="130.0" layoutY="16.0" mnemonicParsing="false" onAction="#elegirFoto" text="Seleccionar Foto..." visible="false" AnchorPane.topAnchor="5.0" />
 
    </children>
 </AnchorPane>

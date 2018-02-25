@@ -108,13 +108,11 @@ public class VistaPrincipalController {
 
     private boolean isNumeric(String texto) {
         boolean num = true;
-        System.out.println(texto);
         if(texto.isEmpty()){
             return false;
         }
         
         for (int i = 0; i < texto.length(); i++) {
-            System.out.println(texto.charAt(i));
             if (texto.charAt(i) != '0'
                     && texto.charAt(i) != '1'
                     && texto.charAt(i) != '2'
@@ -128,7 +126,6 @@ public class VistaPrincipalController {
                 num = false;
             }
         }
-        System.out.println(num);
         return num;
     }
     
@@ -174,13 +171,18 @@ public class VistaPrincipalController {
     @FXML
     private void abrirManualUsuario(){
         
-        File file = new File("C:/Users/dam/Desktop/GonzaloVizeuTriggers.docx");
+        String filePath = new File("").getAbsolutePath();
+        
+        File file = new File(filePath + "/src/manual/ManualUsuario.pdf");
+        
+        
 		try {
 			//Open the file using Desktop class
 			Desktop.getDesktop().open(file);
 		}catch (IOException exception){
 			exception.printStackTrace();
 		}
+        
         
     }
 
