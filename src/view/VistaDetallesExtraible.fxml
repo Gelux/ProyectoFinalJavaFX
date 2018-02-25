@@ -21,7 +21,7 @@
       <Label layoutX="20.0" layoutY="356.0" prefHeight="16.0" prefWidth="330.0" styleClass="titulos2" text="Género" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="420.0" />
       <Label fx:id="generoP" layoutX="15.0" layoutY="210.0" styleClass="detalles" text="" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="440.0" />
       <Label layoutX="463.0" layoutY="138.0" prefHeight="16.0" prefWidth="358.0" styleClass="titulos2" text="Descripción" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="170.0" />
-      <TextArea fx:id="descripcionP" editable="false" layoutX="370.0" layoutY="44.0" prefHeight="75.0" prefWidth="342.0" styleClass="detalles" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="190.0" />
+      <TextArea fx:id="descripcionP" editable="false" layoutX="370.0" layoutY="44.0" prefHeight="75.0" prefWidth="342.0" styleClass="detalles" wrapText="true" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="190.0" />
 
       <Label layoutX="471.0" layoutY="459.0" prefHeight="16.0" prefWidth="358.0" styleClass="titulos2" text="Año de publicación" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="370.0" />
       <Label fx:id="aniodPP" layoutX="15.0" layoutY="373.0" styleClass="detalles" text="" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="390.0" />
@@ -66,6 +66,7 @@
       <Label fx:id="errorD" layoutX="640.0" layoutY="171.0" styleClass="error" text="Descricpion vacía" visible="false" />
       <TextField fx:id="precioTf" layoutX="371.0" layoutY="288.0" prefHeight="25.0" prefWidth="358.0" visible="false" />
       <Label fx:id="errorSt" layoutX="650.0" layoutY="321.0" styleClass="error" text="Stock incorrecto" visible="false" />
+      <Button fx:id="bExaminar" layoutX="130.0" layoutY="16.0" mnemonicParsing="false" onAction="#elegirFoto" text="Seleccionar Foto..." visible="false" AnchorPane.topAnchor="5.0" />
 
    </children>
 </AnchorPane>

@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -32,7 +31,7 @@ public class GestorLibreria extends Application {
     private AnchorPane vistaListado, nuevoP;
     private VistaListadoController controllerListado;
     private VistaNuevoPController controllerNuevo;
-    private VistaPrincipalController controller;
+    private VistaPrincipalController controllerPrincipal;
     
     @Override
     public void start(Stage escenarioPrincipal) {
@@ -40,11 +39,12 @@ public class GestorLibreria extends Application {
         
         
         
-        this.escenarioPrincipal.setTitle("Gestor Librer√≠a");
+        this.escenarioPrincipal.setTitle("Gestor LibrerÌa");
         
         
         initLayoutPrincipal();
         muestraVistaListado();
+        
     }
     
     public void initLayoutPrincipal(){
@@ -63,8 +63,8 @@ public class GestorLibreria extends Application {
         Scene escena = new Scene(layoutPrincipal);
         escenarioPrincipal.setScene(escena);
         
-        controller = loader.getController();
-        
+        controllerPrincipal = loader.getController();
+        controllerPrincipal.setGestorLibreria(this);
         
         escena.getStylesheets().add(getClass().getResource("../css/HojaDeEstilo.css").toExternalForm());
         escenarioPrincipal.show();
@@ -86,7 +86,7 @@ public class GestorLibreria extends Application {
         
         
         controllerListado = loader.getController();
-        controller.setGestorLibreria(this);
+        controllerPrincipal.setGestorLibreria(this);
         controllerListado.setGestorLibreria(this);
     }
     
@@ -103,7 +103,7 @@ public class GestorLibreria extends Application {
         
         //Creo el escenario de edici√≥n (con modal) y establezco la escena
         Stage escenarioNuevo = new Stage();
-        escenarioNuevo.setTitle("A√±adir Producto");
+        escenarioNuevo.setTitle("AÒadir Producto");
         escenarioNuevo.initModality(Modality.WINDOW_MODAL);
         escenarioNuevo.initOwner(escenarioPrincipal);
         Scene escena = new Scene(nuevoP);
@@ -126,6 +126,9 @@ public class GestorLibreria extends Application {
         return controllerListado;
     }
     
+    public VistaPrincipalController getVistaPrincipalController(){
+        return controllerPrincipal;
+    }
     
     public static void main(String[] args) {
         launch(args);

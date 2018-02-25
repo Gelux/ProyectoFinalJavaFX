@@ -5,18 +5,30 @@
  */
 package view;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Image;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.image.WritableImage;
+import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 import model.Producto;
 import util.DatabaseUtil;
+import util.pdfGrafico;
 
 /**
  *
@@ -88,7 +100,41 @@ public class VistaGraficosController {
 
     }
 
-    public void imprimirPie() {
+    public void imprimirPie() throws FileNotFoundException, IOException, BadElementException {
+        
+         FileChooser fc = new FileChooser();
+        fc.setTitle("Elige el directorio donde guardar el PDF.");
+        File defaultDirectory = new File("C:/");
+        fc.setInitialDirectory(defaultDirectory);
+        fc.setInitialFileName("GraficoStock");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"));
 
+        File selectedDirectory = fc.showSaveDialog(bImprimirPie.getScene().getWindow());
+        
+        if (selectedDirectory != null) {
+
+        byte[] bufferImagen = null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        WritableImage image = tarta.snapshot(new SnapshotParameters(), null);
+        File file = new File("imagenGrafico.png");
+
+        try {
+           ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+           baos.flush();
+            bufferImagen = baos.toByteArray();
+            baos.close();
+            
+        } catch (IOException e) {
+            
+       }
+        
+        String rutaImagen =file.getPath();
+        
+        
+       pdfGrafico grafico = new pdfGrafico(selectedDirectory.getAbsolutePath(),rutaImagen);
+ 
+        }
     }
 }

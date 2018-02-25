@@ -6,6 +6,7 @@
 package view;
 
 import com.itextpdf.text.BadElementException;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javafx.beans.value.ChangeListener;
@@ -22,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 import model.Libro;
 import util.CreaPdfCodBarras;
 import util.DatabaseUtil;
@@ -34,10 +36,12 @@ public class VistaDetallesExtraibleController {
 
     private DatabaseUtil db;
     private Libro libroOriginal;
+    private VistaListadoController vistaListado;
+    private File archivoE = null;
     CreaPdfCodBarras pdfGenerator = new CreaPdfCodBarras();
 
     @FXML
-    Button bImprimirC2, bOK, bEditar, bCommit;
+    Button bImprimirC2, bOK, bEditar, bCommit, bExaminar;
 
     @FXML
     TextField nCDB;
@@ -159,7 +163,7 @@ public class VistaDetallesExtraibleController {
     public void setDatos(Libro libro) throws IOException {
         libroOriginal = libro;
         db = new DatabaseUtil();
-
+        
         nombreP.setText(libro.getNombre());
         autorP.setText(libro.getAutor());
         editorialP.setText(libro.getEditorial());
@@ -174,10 +178,10 @@ public class VistaDetallesExtraibleController {
         //relleno el combobox de generos
         comboGen.setItems(generos);
 
-        Image image = SwingFXUtils.toFXImage(db.imagenProducto(libro.getCodBarras()), null);
+        Image image = SwingFXUtils.toFXImage(ImageIO.read(vistaListado.getImagenHashmap(libro.getCodBarras())), null);
         imagen.setImage(image);
         
-         String numCB = String.valueOf(libroOriginal.getCodBarras());
+        String numCB = String.valueOf(libroOriginal.getCodBarras());
         pdfGenerator.CrearImgCB(numCB);
         
         Image imgCB = SwingFXUtils.toFXImage(pdfGenerator.getBufferedImage(), null);
@@ -217,12 +221,38 @@ public class VistaDetallesExtraibleController {
         tituloTf.setVisible(true);
         autorTf.setVisible(true);
         comboGen.setVisible(true);
+        bExaminar.setVisible(true);
         editorialTf.setVisible(true);
         isbnTf.setVisible(true);
         precioTf.setVisible(true);
         stockTf.setVisible(true);
         aniopubTf.setVisible(true);
 
+    }
+    
+    @FXML
+    private void elegirFoto() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Abre la foto");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+                new FileChooser.ExtensionFilter("BMP", "*.bmp"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+
+        archivoE = fileChooser.showOpenDialog(nombreP.getScene().getWindow());
+
+        try {
+            if(archivoE != null){
+                BufferedImage bufferedImage = ImageIO.read(archivoE);
+                ImageIO.write(bufferedImage, "jpg", vistaListado.getImagenHashmap(libroOriginal.getCodBarras()));
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                imagen.setImage(image);
+            }
+        } catch (IOException ex) {
+            System.out.println("salto");
+        }
     }
 
     @FXML
@@ -237,6 +267,7 @@ public class VistaDetallesExtraibleController {
             isbnTf.setVisible(false);
             precioTf.setVisible(false);
             stockTf.setVisible(false);
+            bExaminar.setVisible(false);
             aniopubTf.setVisible(false);
 
             nombreP.setText(tituloTf.getText());
@@ -267,6 +298,10 @@ public class VistaDetallesExtraibleController {
                     libroOriginal.getCodBarras(), null, null);
 
             db.actualizarLibro(libroAux);
+            
+            if (archivoE != null){
+                db.subirImagen(archivoE);
+            }
 
             libroAux = db.detallesLibro(libroAux.getCodBarras());
 
@@ -434,40 +469,44 @@ public class VistaDetallesExtraibleController {
                     "Arte",
                     "Autoayuda y Espiritualidad",
                     "Ciencias Humanas",
-                    "Ciencias Pol√≠ticas y Sociales",
+                    "Ciencias PolÌticas y Sociales",
                     "Ciencias",
                     "Cocina",
-                    "C√≥mics Adultos",
-                    "C√≥mics infantil y juvenil",
+                    "CÛmics Adultos",
+                    "CÛmics infantil y juvenil",
                     "Deportes y juegos",
                     "Derecho",
-                    "Econom√≠a",
+                    "EconomÌa",
                     "Empresa",
-                    "Filolog√≠a",
-                    "Fotograf√≠a",
-                    "Gu√≠as de viaje",
+                    "FilologÌa",
+                    "FotografÌa",
+                    "GuÌas de viaje",
                     "Historia",
                     "Idiomas",
                     "Infantil",
-                    "Inform√°tica",
-                    "Ingenier√≠a",
+                    "Inform·tica",
+                    "IngenierÌa",
                     "Juegos educativos",
                     "Juvenil",
                     "Libro antiguo y de ocasion",
-                    "Libros de Texto y Formaci√≥n",
+                    "Libros de Texto y FormaciÌn",
                     "Libros latinoamericanos",
                     "Literatura",
                     "Manualidades",
                     "Medicina",
-                    "M√∫sica",
-                    "Narrativa hist√≥rica",
-                    "Novela contempor√°nea",
+                    "M˙sica",
+                    "Narrativa histÛrica",
+                    "Novela contempor·nea",
                     "Novela negra",
                     "Oposiciones",
-                    "Psicolog√≠a y Pedagog√≠a",
-                    "Rom√°ntica y er√≥tica",
+                    "PsicologÌa y PedagogÌa",
+                    "Rom·ntica y erÛtica",
                     "Salud y Dietas",
                     "Otros"
             );
+    
+    public VistaListadoController setVistaListadoController(VistaListadoController listado){
+        return this.vistaListado = listado;
+    }
 
 }
