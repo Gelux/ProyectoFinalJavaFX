@@ -6,7 +6,7 @@
 package view;
 
 import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Image;
+import com.sun.javafx.charts.Legend;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,10 +19,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
@@ -34,7 +37,7 @@ import util.pdfGrafico;
  *
  * @author franp
  */
-public class VistaGraficosController {
+public class VistaGraficosController extends PieChart{
 
     ObservableList<PieChart.Data> pieChartData;
     ObservableList<Producto> listaProductos;
@@ -69,36 +72,30 @@ public class VistaGraficosController {
                         )
                 )
         );
+        
+        tarta.setLegendSide(Side.RIGHT);
+        createScrollableLegend();
+        tarta.setClockwise(true);
+        
         tarta.setData(pieChartData);
         tarta.setTitle("Stock Libreria");
-        Leyenda.setSelected(true);
-        Etiquetas.setSelected(true);
-
-        Leyenda.selectedProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                if (Leyenda.isSelected()) {
-                    tarta.setLegendVisible(true);
-                } else {
-                    tarta.setLegendVisible(false);
-                }
-            }
-        }
-        );
-
-        Etiquetas.selectedProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                if (Etiquetas.isSelected()) {
-                    tarta.setLabelsVisible(true);
-                } else {
-                    tarta.setLabelsVisible(false);
-                }
-            }
-        }
-        );
+        
+        
 
     }
+    
+     private void createScrollableLegend(){
+        Legend legend = (Legend) getLegend();
+        if(legend != null){
+            legend.setPrefWidth(200);
+            ScrollPane scrollPane = new ScrollPane(legend);
+            scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+            scrollPane.maxHeightProperty().bind(heightProperty());
+            setLegend(scrollPane);
+        }
+    }
+    
 
     public void imprimirPie() throws FileNotFoundException, IOException, BadElementException {
         
