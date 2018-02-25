@@ -176,7 +176,12 @@ public class VistaListadoController {
             
             db.borrarLibro(aBorrar.getCodBarras());
             
-            Files.delete(mapeoImagenes.get(aBorrar.getCodBarras()).toPath());
+            try{
+                Files.delete(mapeoImagenes.get(aBorrar.getCodBarras()).toPath());
+            }finally{
+                
+            }
+            
 
             setListaProductos();
             detallesPane.getChildren().clear();
