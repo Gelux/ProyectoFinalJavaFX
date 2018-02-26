@@ -20,6 +20,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -28,8 +29,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import model.Libro;
 import model.Producto;
@@ -44,6 +47,7 @@ public class VistaListadoController {
     private GestorLibreria gestorLibreria;
     private AnchorPane detalles;
     private DatabaseUtil db;
+    private File archivoE;
     private VistaPrincipalController vpController;
     private ObservableList<Producto> lista = FXCollections.observableArrayList();
     private ObservableList<Producto> listaBusquedaPrincipal;
@@ -193,12 +197,13 @@ public class VistaListadoController {
         try {
 
             BufferedImage bufferedAux;
-            String filePath = new File("").getAbsolutePath();
-            File ruta;
+            String filePath = new File("").getAbsolutePath() + "\\preload\\";
+            File ruta = new File(filePath);
+            ruta.mkdir();
 
             for (int i = 0; i < lista.size(); i++) {
 
-                ruta = new File(filePath + "/src/resources/" + String.valueOf(lista.get(i).getCodBarras()) + ".jpg");
+                ruta = new File(filePath + "/"+ String.valueOf(lista.get(i).getCodBarras()) + ".jpg");
                 bufferedAux = db.imagenProducto(lista.get(i).getCodBarras());
                 ImageIO.write(bufferedAux, "jpg", ruta);
                 mapeoImagenes.put(lista.get(i).getCodBarras(), ruta);

@@ -40,7 +40,7 @@ public class VistaNuevoPController {
     private File archivoE;
     private Libro cutrezLibro;
     private BufferedImage bufferedImage;
-    private String resourceImage = new File("").getAbsolutePath();
+    private String resourceImage = new File("").getAbsolutePath()+ "\\preload\\";
     private File rutaImagen;
 
     @FXML
@@ -182,7 +182,7 @@ public class VistaNuevoPController {
             db.subirImagen(archivoE);
             controllerListado.setListaProductos();
             System.out.println(resourceImage + "/" + cutrezLibro.getCodBarras());
-            rutaImagen = new File(resourceImage + "\\src\\resources\\" + cutrezLibro.getCodBarras() + ".jpg");
+            rutaImagen = new File(resourceImage + cutrezLibro.getCodBarras() + ".jpg");
             ImageIO.write(bufferedImage, "jpg", rutaImagen);
             controllerListado.getHashMap().put(cutrezLibro.getCodBarras(), rutaImagen);
             stage.close();

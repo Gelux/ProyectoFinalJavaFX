@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -49,9 +50,8 @@ public class GestorLibreria extends Application {
     
     public void initLayoutPrincipal(){
         
-       
         FXMLLoader loader = new FXMLLoader();
-        URL location = GestorLibreria.class.getResource("../view/VistaPrincipal.fxml");
+        URL location = GestorLibreria.class.getResource("/view/VistaPrincipal.fxml");
         loader.setLocation(location);
         try {
             layoutPrincipal = loader.load();
@@ -66,7 +66,7 @@ public class GestorLibreria extends Application {
         controllerPrincipal = loader.getController();
         controllerPrincipal.setGestorLibreria(this);
         
-        escena.getStylesheets().add(getClass().getResource("../css/HojaDeEstilo.css").toExternalForm());
+        escena.getStylesheets().add(getClass().getResource("/css/HojaDeEstilo.css").toExternalForm());
         escenarioPrincipal.show();
     }
     
@@ -74,7 +74,7 @@ public class GestorLibreria extends Application {
         
         
         FXMLLoader loader = new FXMLLoader();
-        URL location = GestorLibreria.class.getResource("../view/VistaListado.fxml");
+        URL location = GestorLibreria.class.getResource("/view/VistaListado.fxml");
         loader.setLocation(location);
         try {
             vistaListado = loader.load();
